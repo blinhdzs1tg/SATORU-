@@ -2,17 +2,16 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Rổ Satoru nhà Ethera</title>
-    <!-- Fonts Google chuẩn Tiếng Việt 100% -->
+    <!-- Google Fonts chuẩn Tiếng Việt 100% -->
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
     
-    <!-- THƯ VIỆN GOOGLE FIREBASE COMPAT SDK -->
+    <!-- FIREBASE COMPAT SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
     <script>
-        // CẤU HÌNH FIREBASE DATABASE CỦA BẠN (ĐÃ TÍCH HỢP ĐẦY ĐỦ LINK RTDB)
         const firebaseConfig = {
             apiKey: "AIzaSyCFXAWXdZuQO6c5VWqNRNqXoCbNoLt9bKg",
             authDomain: "web-chinh-es.firebaseapp.com",
@@ -22,8 +21,6 @@
             messagingSenderId: "64006503844",
             appId: "1:64006503844:web:eee29c771d9fb5cb945531"
         };
-
-        // Khởi tạo Database toàn cầu
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
     </script>
@@ -42,13 +39,23 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
-        html, body {
+        html {
+            scroll-behavior: smooth;
+            background-color: #08090d;
+        }
+
+        body {
             background-color: #08090d;
             color: #f1f5f9;
             font-family: var(--font-sans);
             overflow-x: hidden;
             width: 100%;
             line-height: 1.6;
+        }
+
+        /* CUỘN ĐẾN ĐẦU MỤC KHÔNG BỊ HEADER CHE */
+        section, .hero, .showroom-section, .roster-section, .forum-section {
+            scroll-margin-top: 75px;
         }
 
         /* VECTOR SVG LUXURY: TRÁI TIM & NGÔI SAO 4 CÁNH */
@@ -76,18 +83,19 @@
             background: rgba(229, 9, 20, 0.08); border-radius: 4px; cursor: text; padding: 2px 4px;
         }
 
+        /* SAO NHẤP NHÁY MÀU HỒNG PASTEL / ĐỎ KHI CHẠM MÀN HÌNH */
         .sparkle-particle {
             position: fixed; pointer-events: none; z-index: 999999;
-            color: #ffffff; font-size: 14px; user-select: none;
+            color: #ff6b8b; font-size: 15px; user-select: none;
             animation: starBurstAnim 0.65s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
-            text-shadow: 0 0 8px rgba(255,255,255,0.8);
+            text-shadow: 0 0 8px rgba(255, 107, 139, 0.9), 0 0 16px rgba(229, 9, 20, 0.5);
         }
         @keyframes starBurstAnim {
             0% { transform: translate(-50%, -50%) scale(0.2) rotate(0deg); opacity: 1; }
             100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.2) rotate(var(--rot)); opacity: 0; }
         }
 
-        /* 1. MÀN CHỜ TỈ LỆ VÀNG & HIỆU ỨNG ÁNH SÁNG KÍNH (3.5S) */
+        /* 1. MÀN CHỜ 3.5S */
         #intro-loader {
             position: fixed; inset: 0; background: #040507; z-index: 99999;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -104,13 +112,6 @@
             box-shadow: 0 35px 80px rgba(0, 0, 0, 0.9), inset 0 1px 1px rgba(255, 255, 255, 0.25);
             width: 90%; max-width: 550px; position: relative; overflow: hidden;
         }
-        .intro-glass-card::before {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(45deg, transparent 45%, rgba(255,255,255,0.06) 50%, transparent 55%);
-            animation: cardShine 4s infinite linear; pointer-events: none;
-        }
-        @keyframes cardShine { 0% { transform: translate(-30%, -30%); } 100% { transform: translate(30%, 30%); } }
-
         .intro-title-line1 {
             font-family: var(--font-serif); font-size: clamp(1.1rem, 3.2vw, 1.6rem);
             font-weight: 600; letter-spacing: 2px; color: #cbd5e1;
@@ -132,23 +133,20 @@
             font-size: clamp(0.85rem, 2.5vw, 0.95rem); color: #94a3b8;
             opacity: 0; animation: fadeInTitle 1.0s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
         }
-        
-        /* THANH ĐO TIẾN TRÌNH LOADING TINH TẾ */
         .intro-bar-wrap {
             width: 140px; height: 3px; background: rgba(255,255,255,0.1);
-            border-radius: 10px; margin: 20px auto 0; overflow: hidden; position: relative;
+            border-radius: 10px; margin: 20px auto 0; overflow: hidden;
         }
         .intro-bar-progress {
             height: 100%; width: 0%; background: linear-gradient(90deg, #ff4d6d, var(--crimson));
             box-shadow: 0 0 10px var(--crimson); transition: width 0.05s linear;
         }
-        .intro-counter {
-            margin-top: 10px; font-size: 0.8rem; color: #cbd5e1; letter-spacing: 2px; font-weight: 600;
-        }
+        .intro-counter { margin-top: 10px; font-size: 0.8rem; color: #cbd5e1; letter-spacing: 2px; font-weight: 600; }
 
         /* 2. HEADER */
         header {
             position: fixed; top: 0; left: 0; width: 100%; padding: 16px 6%;
+            padding-top: calc(14px + env(safe-area-inset-top));
             display: flex; justify-content: space-between; align-items: center;
             background: rgba(8, 9, 13, 0.9); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255,255,255,0.08); z-index: 1000;
@@ -202,7 +200,7 @@
         .hero {
             position: relative; width: 100%; height: 100dvh; min-height: 520px;
             display: flex; flex-direction: column; justify-content: flex-end;
-            padding: 0 6% 90px; overflow: hidden; background: #000;
+            padding: 0 6% 90px; overflow: hidden; background: #08090d;
         }
         .hero-video {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -222,20 +220,21 @@
             max-width: 900px; margin-bottom: 16px;
         }
 
-        /* 4. KHUNG GẦM / SHOWROOM (ĐÃ CĂN LẠI KÍCH CỠ GỌN GÀNG NHƯ CŨ) */
+        /* 4. KHUNG GẦM / SHOWROOM */
         .showroom-section { background-color: #08090d; padding: 80px 6% 50px; }
         .showroom-scroll {
-            display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory;
+            display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory;
             padding-top: 16px; margin-top: -16px; padding-bottom: 25px; scrollbar-width: none;
             -webkit-overflow-scrolling: touch;
         }
         .showroom-scroll::-webkit-scrollbar { display: none; }
         .showroom-card {
-            min-width: 310px; height: 340px; background: rgba(18, 20, 28, 0.7);
+            min-width: 290px; max-width: 310px; height: 340px; background: rgba(18, 20, 28, 0.7);
             border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-radius: 14px; padding: 28px; display: flex; flex-direction: column;
+            border-radius: 14px; padding: 26px; display: flex; flex-direction: column;
             justify-content: space-between; scroll-snap-align: start; cursor: pointer;
             transition: var(--transition); color: #fff; position: relative; overflow: hidden;
+            box-shadow: 0 0 1px rgba(255,255,255,0.3);
         }
         .showroom-card::before {
             content: ''; position: absolute; top: 0; left: -150%; width: 100%; height: 100%;
@@ -244,23 +243,29 @@
         }
         .showroom-card:hover::before { left: 150%; }
         .showroom-card:hover {
-            transform: translateY(-8px); border-color: rgba(255,255,255,0.35); box-shadow: 0 18px 45px rgba(0,0,0,0.7);
+            transform: translateY(-8px); border-color: rgba(255,255,255,0.4);
+            box-shadow: 0 18px 45px rgba(0,0,0,0.7), 0 0 15px rgba(255,255,255,0.1);
         }
-        .showroom-card h3 { font-family: var(--font-serif); font-size: 1.55rem; font-weight: 700; margin: 6px 0; }
+        .showroom-card h3 { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 700; margin: 6px 0; }
         .showroom-btn { font-size: 0.85rem; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 6px; letter-spacing: 1px; }
 
-        /* DẢI HÒA MÀU (200PX) */
+        /* DẢI HÒA MÀU */
         .divider-to-cream {
             height: 200px;
             background: linear-gradient(180deg, #08090d 0%, #1c1e28 25%, #8a867c 60%, #ddd8cc 85%, var(--cream-bg) 100%);
+            margin: 0; border: none;
         }
-        .roster-section { background-color: var(--cream-bg); color: var(--cream-text); padding: 20px 6% 90px; position: relative; }
+        .roster-section {
+            background-color: var(--cream-bg); color: var(--cream-text);
+            padding: 10px 6% 90px; position: relative; margin: 0;
+        }
         .cream-title { font-family: var(--font-serif); font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 700; color: #0c0d12; margin-bottom: 18px; }
 
         /* TÌM KIẾM DẠNG CHIP */
         .search-container {
             background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 14px;
-            padding: 20px; box-shadow: 0 8px 25px rgba(0,0,0,0.04); margin-bottom: 35px;
+            padding: 18px; box-shadow: 0 8px 25px rgba(0,0,0,0.04), 0 0 0 1px rgba(255,255,255,0.8);
+            margin-bottom: 35px;
         }
         .search-composite {
             display: flex; align-items: center; flex-wrap: wrap; gap: 6px;
@@ -275,7 +280,7 @@
         }
         .search-chip button { background: none; border: none; color: var(--crimson); cursor: pointer; }
         .search-input {
-            flex: 1; min-width: 180px; background: transparent; border: none;
+            flex: 1; min-width: 170px; background: transparent; border: none;
             color: #111216; font-family: var(--font-sans); font-size: 16px; outline: none; padding: 4px 0;
         }
         .tag-tray { display: none; flex-wrap: wrap; gap: 6px; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(0,0,0,0.06); }
@@ -287,9 +292,10 @@
         }
         .tag-btn.active { background: var(--crimson); border-color: var(--crimson); color: #fff; }
 
-        /* GRID NHÂN VẬT */
+        /* GRID NHÂN VẬT (NHỎ GỌN, KHÔNG BỊ SÁT VIỀN ĐIỆN THOẠI) */
         .char-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 25px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px;
+            width: 100%;
         }
         .empty-roster-box {
             grid-column: 1 / -1; text-align: center; padding: 55px 20px;
@@ -297,45 +303,86 @@
             background: rgba(255, 255, 255, 0.6); color: var(--cream-muted); font-size: 1rem;
         }
         .empty-roster-box span { display: block; font-size: 1.8rem; color: var(--crimson); margin-bottom: 8px; }
+
+        /* THẺ NHÂN VẬT CÓ VIỀN PHÁT SÁNG & NỀN TÙY CHỌN */
         .char-card {
-            background: #ffffff; border-radius: 14px; overflow: hidden; border: 1px solid rgba(0,0,0,0.06);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.03); display: flex; flex-direction: column; position: relative;
+            background: #ffffff; border-radius: 14px; overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.08);
+            box-shadow: 0 4px 18px rgba(0,0,0,0.05), 0 0 1px rgba(255,255,255,0.8);
+            display: flex; flex-direction: column; transition: var(--transition); position: relative;
         }
-        .char-card:hover { transform: translateY(-7px); box-shadow: 0 18px 35px rgba(0,0,0,0.08); }
+        .char-card:hover { transform: translateY(-6px); box-shadow: 0 15px 30px rgba(0,0,0,0.1), 0 0 15px rgba(229,9,20,0.2); }
         .char-card.is-pinned { border: 2px solid var(--crimson); }
         .pin-badge {
             position: absolute; top: 10px; right: 10px; z-index: 10;
             background: var(--crimson); color: #fff; font-size: 0.65rem; font-weight: 700;
             padding: 3px 8px; border-radius: 4px; box-shadow: 0 0 10px var(--crimson-glow);
         }
-        .char-img-box { width: 100%; height: 260px; position: relative; overflow: hidden; cursor: pointer; }
+        
+        /* BANNER NỀN VÀ KHUNG AVATAR VIỀN SÁNG NỔI BẬT */
+        .char-header-banner {
+            width: 100%; height: 210px; position: relative; overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+            background: #11131a;
+        }
+        .char-bg-cover {
+            position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+            filter: blur(2px) brightness(0.65); transform: scale(1.05);
+        }
+        .char-bg-gradient {
+            position: absolute; inset: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(255,255,255,0.7) 80%, #ffffff 100%);
+        }
+        .char-avatar-glow-box {
+            position: relative; z-index: 2; width: 140px; height: 140px; border-radius: 12px; overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.85);
+            box-shadow: 0 0 20px rgba(229, 9, 20, 0.45), 0 6px 18px rgba(0,0,0,0.4);
+            cursor: pointer;
+        }
         .char-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
         .char-card:hover .char-img { transform: scale(1.06); }
-        .char-badge {
-            position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.8);
-            color: #fff; font-size: 0.65rem; font-weight: 600; padding: 3px 8px; border-radius: 4px;
-            letter-spacing: 1px;
+        
+        .char-badge-list {
+            position: absolute; top: 10px; left: 10px; z-index: 5;
+            display: flex; gap: 4px; flex-wrap: wrap;
         }
-        .char-body { padding: 20px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .char-name { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 700; color: #0c0d12; margin-bottom: 6px; }
-        .char-desc { font-size: 0.88rem; color: var(--cream-muted); margin-bottom: 14px; }
+        .char-badge {
+            background: rgba(0,0,0,0.85); color: #fff; font-size: 0.65rem; font-weight: 600;
+            padding: 2px 7px; border-radius: 4px; letter-spacing: 0.5px;
+        }
 
-        /* DẢI HÒA MÀU VÀ DIỄN ĐÀN */
+        .char-body { padding: 14px 16px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .char-name {
+            font-family: var(--font-serif); font-size: 1.15rem; font-weight: 700; color: #0c0d12;
+            margin-bottom: 4px; text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+        }
+        .char-desc { font-size: 0.82rem; color: var(--cream-muted); line-height: 1.5; margin-bottom: 10px; }
+
+        .like-btn {
+            background: none; border: none; cursor: pointer; font-weight: 700; font-size: 0.85rem;
+            color: #525666; transition: var(--transition); display: flex; align-items: center; gap: 4px;
+        }
+        .like-btn.liked { color: var(--crimson); transform: scale(1.08); }
+
+        /* DẢI HÒA MÀU VÀ DIỄN ĐÀN (DIỄN ĐÀN RA KHỎI KHUNG CỐ ĐỊNH, KÉO DÀI TỰ NHIÊN) */
         .divider-to-dark {
             height: 200px;
             background: linear-gradient(180deg, var(--cream-bg) 0%, #ddd8cc 15%, #8a867c 40%, #1c1e28 75%, #08090d 100%);
+            margin: 0; border: none;
         }
-        .forum-section { background-color: #08090d; color: #fff; padding: 10px 6% 90px; }
+        .forum-section { background-color: #08090d; color: #fff; padding: 10px 6% 90px; margin: 0; }
         .forum-console {
-            background: #0f1118; border: 1px solid rgba(255,255,255,0.1); border-radius: 16px;
-            overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 25px 60px rgba(0,0,0,0.8);
+            background: #0f1118; border: 1px solid rgba(255,255,255,0.14); border-radius: 16px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 20px rgba(255,255,255,0.03);
+            width: 100%;
         }
-        .console-feed { height: 500px; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+        /* Bỏ khung cố định: Feed dài tự nhiên */
+        .console-feed { padding: 24px; display: flex; flex-direction: column; gap: 16px; }
 
-        /* CÂY BÌNH LUẬN FACEBOOK CHUẨN ĐỒNG BỘ */
+        /* CÂY BÌNH LUẬN FACEBOOK CHUẨN (ĐƯỜNG MÓC CHỮ L LIỀN MẠCH, KHÓA TỐI ĐA 2 NHÁNH) */
         .comment-node { position: relative; padding: 6px 0; }
         .comment-node.is-pinned { border-left: 3px solid var(--crimson); padding-left: 10px; }
-        .branch-level-0 { margin-left: 0; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 12px; }
+        .branch-level-0 { margin-left: 0; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 14px; }
         
         .replies-branch-container { position: relative; margin-top: 8px; display: flex; flex-direction: column; gap: 4px; }
         .replies-branch-container.level-1 { margin-left: 24px; }
@@ -344,13 +391,13 @@
 
         .reply-node { position: relative; padding-left: 14px; }
         .reply-node::before {
-            content: ''; position: absolute; left: -14px; top: -4px; width: 14px; height: 22px;
-            border-left: 2px solid rgba(255,255,255,0.2); border-bottom: 2px solid rgba(255,255,255,0.2);
+            content: ''; position: absolute; left: -14px; top: -6px; width: 14px; height: 22px;
+            border-left: 2px solid rgba(255,255,255,0.22); border-bottom: 2px solid rgba(255,255,255,0.22);
             border-bottom-left-radius: 8px;
         }
         .reply-node:not(:last-child)::after {
-            content: ''; position: absolute; left: -14px; top: 18px; bottom: -8px; width: 2px;
-            background: rgba(255,255,255,0.2);
+            content: ''; position: absolute; left: -14px; top: 16px; bottom: -8px; width: 2px;
+            background: rgba(255,255,255,0.22);
         }
 
         .comment-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px; }
@@ -359,6 +406,7 @@
         .comment-msg { font-size: 0.88rem; color: #cbd5e1; word-break: break-word; }
         .comment-actions { display: flex; gap: 14px; align-items: center; margin-top: 6px; font-size: 0.78rem; }
         .action-btn { background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 4px; color: #94a3b8; }
+        .action-btn:hover { color: #fff; }
         .action-btn.liked { color: var(--crimson); font-weight: 600; }
         .action-btn.del-btn:hover { color: var(--crimson); }
         .action-btn.pin-btn { color: #f59e0b; }
@@ -366,40 +414,53 @@
         .reply-box { display: none; margin-top: 8px; gap: 6px; }
         .reply-box.open { display: flex; }
 
-        .comment-sort-bar { display: flex; justify-content: flex-end; align-items: center; gap: 6px; font-size: 0.78rem; color: #94a3b8; }
+        .comment-sort-bar {
+            display: flex; justify-content: space-between; align-items: center; gap: 8px;
+            font-size: 0.8rem; color: #94a3b8; width: 100%;
+        }
         .comment-sort-select {
             background: #08090d; border: 1px solid rgba(255,255,255,0.15); color: #cbd5e1;
             padding: 4px 8px; border-radius: 6px; font-size: 0.78rem;
         }
 
-        /* 7. THANH CREDIT CHÂN TRANG ĐƯỢC CHUẨN HÓA TOÀN BỘ BẰNG VECTOR SVG */
+        /* 7. THANH CREDIT CHÂN TRANG */
         .credit-ticker-bar {
             background: #050608; color: #f1f5f9; padding: 25px 6%;
             display: flex; justify-content: center; align-items: center;
             border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.95rem; text-align: center;
+            margin: 0;
         }
 
-        /* MODALS */
+        /* MODALS PHÓNG TO MƯỢT MÀ (ZOOM-IN EFFECT) */
         .modal-wrap {
             position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(15px);
             z-index: 6000; display: none; justify-content: center; align-items: center; padding: 15px;
         }
         .modal-wrap.open { display: flex; }
-        .modal-content {
-            background: #11131a; border: 1px solid rgba(255,255,255,0.12); border-radius: 16px;
-            width: 100%; max-width: 750px; max-height: 90dvh; overflow-y: auto; padding: 30px 22px;
-            position: relative; color: #fff;
+        .modal-wrap.open .modal-content {
+            animation: modalZoomIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-        .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: none; color: #94a3b8; font-size: 1.4rem; cursor: pointer; }
+        @keyframes modalZoomIn {
+            0% { opacity: 0; transform: scale(0.9) translateY(20px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .modal-content {
+            background: #11131a; border: 1px solid rgba(255,255,255,0.16); border-radius: 16px;
+            width: 100%; max-width: 720px; max-height: 90dvh; overflow-y: auto; padding: 25px 20px;
+            position: relative; color: #fff; box-shadow: 0 0 30px rgba(0,0,0,0.9), 0 0 15px rgba(255,255,255,0.05);
+        }
+        .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: none; color: #94a3b8; font-size: 1.4rem; cursor: pointer; z-index: 10; }
+        
         .char-prologue-box {
             background: rgba(255,255,255,0.03); border-left: 3px solid var(--crimson);
-            padding: 16px; margin-bottom: 18px; font-style: italic; font-family: var(--font-serif);
+            padding: 14px; margin-bottom: 16px; font-style: italic; font-family: var(--font-serif);
             font-size: 0.92rem; color: #f1f5f9; border-radius: 0 6px 6px 0;
         }
 
         input, textarea, select {
-            background: #090a0f; border: 1px solid rgba(255,255,255,0.12); color: #fff;
-            padding: 10px 14px; border-radius: 8px; font-family: var(--font-sans); font-size: 16px; width: 100%;
+            background: #090a0f; border: 1px solid rgba(255,255,255,0.14); color: #fff;
+            padding: 10px 12px; border-radius: 8px; font-family: var(--font-sans); font-size: 16px; width: 100%;
         }
         input:focus, textarea:focus { outline: none; border-color: var(--crimson); }
         .btn-brand {
@@ -412,22 +473,21 @@
         .reveal { opacity: 0; transform: translateY(25px); transition: all 0.6s ease; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* TỐI ƯU GIAO DIỆN MÀN HÌNH NHỎ VÀ DI ĐỘNG */
         @media(max-width: 768px) {
-            header { padding: 14px 5%; }
+            header { padding: 14px 5%; padding-top: calc(12px + env(safe-area-inset-top)); }
             .hero { padding: 0 5% 75px; }
             .showroom-section, .roster-section, .forum-section { padding-left: 5%; padding-right: 5%; }
-            .showroom-card { min-width: 280px; height: 330px; }
-            .replies-branch-container.level-1 { margin-left: 18px; }
-            .replies-branch-container.level-clamped { margin-left: 14px; }
-            .credit-ticker-bar { flex-direction: row; gap: 4px; font-size: 0.85rem; padding: 20px 5%; }
-            .console-feed { height: 420px; padding: 15px; }
+            .showroom-card { min-width: 270px; height: 320px; }
+            .char-grid { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 15px; }
+            .replies-branch-container.level-1 { margin-left: 16px; }
+            .replies-branch-container.level-clamped { margin-left: 12px; }
+            .credit-ticker-bar { font-size: 0.85rem; padding: 20px 5%; }
+            .console-feed { padding: 16px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- VECTOR GRADIENT DEFINITIONS -->
     <svg width="0" height="0" style="position:absolute">
         <defs>
             <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -441,7 +501,7 @@
         </defs>
     </svg>
 
-    <!-- 1. MÀN CHỜ TỈ LỆ VÀNG & HIỆU ỨNG ÁNH SÁNG KÍNH -->
+    <!-- 1. MÀN CHỜ -->
     <div id="intro-loader">
         <div class="intro-glass-card">
             <div class="intro-title-line1" data-cms="intro_line1">Chào mừng đến với</div>
@@ -505,7 +565,7 @@
         </div>
     </div>
 
-    <!-- 3. HERO SECTION (VIDEO NỀN LẶP MƯỢT MÀ) -->
+    <!-- 3. HERO SECTION -->
     <div class="hero" id="hero">
         <video id="mainHeroVideo" class="hero-video" src="https://videotourl.com/videos/1791993553264-7736ed0d-bbc4-4d12-8d32-0a6c0c573d3b.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto">
             <source id="mainVideoSource" src="https://videotourl.com/videos/1791993553264-7736ed0d-bbc4-4d12-8d32-0a6c0c573d3b.mp4" type="video/mp4">
@@ -521,7 +581,7 @@
         </div>
     </div>
 
-    <!-- 4. KHUNG GẦM / SHOWROOM -->
+    <!-- 4. KHUNG GẦM / SHOWROOM CÓ THÊM MỤC "LƯU Ý NHỎ" -->
     <section class="showroom-section" id="showroom">
         <div class="reveal" style="margin-bottom:20px;">
             <div style="color:var(--crimson); font-size:0.75rem; font-weight:700; letter-spacing:2px;" data-cms="showroom_tag">SHOWROOM MATRIX</div>
@@ -553,6 +613,16 @@
                     <p style="color:#94a3b8; font-size:0.85rem;" data-cms="op_desc">Mô phỏng đa nhân vật. Tự do viết nên cốt truyện phiêu lưu trong không gian RPG sống động.</p>
                 </div>
                 <div class="showroom-btn" data-cms="btn_op">Khám Phá →</div>
+            </div>
+
+            <!-- THẺ LƯU Ý NHỎ (MỞ CỬA SỔ QUY TẮC) -->
+            <div class="showroom-card" style="border-color: rgba(245, 158, 11, 0.4);" onclick="openRulesModal()">
+                <div>
+                    <span style="color:#f59e0b; font-weight:700; font-size:0.75rem;" data-cms="rules_code">HOUSE RULES</span>
+                    <h3 style="color:#fbbf24;" data-cms="rules_heading_card">LƯU Ý NHỎ</h3>
+                    <p style="color:#94a3b8; font-size:0.85rem;" data-cms="rules_desc_card">Những nguyên tắc tương tác, điều khoản sử dụng và lời nhắn quan trọng từ tác giả Ethera.</p>
+                </div>
+                <div class="showroom-btn" style="color:#f59e0b;">Xem Chi Tiết ↗</div>
             </div>
         </div>
     </section>
@@ -589,7 +659,7 @@
 
     <div class="divider-to-dark"></div>
 
-    <!-- 6. PHẦN TỐI: DIỄN ĐÀN CONSOLE -->
+    <!-- 6. PHẦN TỐI: DIỄN ĐÀN (KÉO DÀI TỰ NHIÊN) -->
     <section class="forum-section" id="forum">
         <div class="reveal" style="margin-bottom:20px;">
             <div style="color:var(--crimson); font-size:0.75rem; font-weight:700; letter-spacing:2px;" data-cms="forum_tag">ATELIER LOUNGE</div>
@@ -597,21 +667,22 @@
         </div>
 
         <div class="forum-console reveal">
-            <div style="padding:12px 16px; background:#141722; border-bottom:1px solid rgba(255,255,255,0.08); display:flex; justify-content:space-between; align-items:center;">
+            <div style="padding:14px 20px; background:#141722; border-bottom:1px solid rgba(255,255,255,0.08); display:flex; justify-content:space-between; align-items:center;">
                 <span style="font-size:0.75rem; letter-spacing:1px; color:#cbd5e1; font-weight:600;" data-cms="console_log_text">CONSOLE LOG // MATRIX</span>
                 
-                <div class="comment-sort-bar">
+                <div class="comment-sort-bar" style="width:auto;">
                     <select id="forumSortSelect" class="comment-sort-select" onchange="renderGlobalForum()">
-                        <option value="newest">Mới nhất (Sôi nổi)</option>
+                        <option value="newest">Mới nhất (Hoạt động)</option>
                         <option value="oldest">Cũ nhất</option>
                         <option value="likes">Nhiều like</option>
                     </select>
                 </div>
             </div>
 
+            <!-- FEED KÉO DÀI TỰ NHIÊN KHÔNG BỊ GIỚI HẠN CHIỀU CAO -->
             <div class="console-feed" id="forumFeed"></div>
 
-            <form onsubmit="postGlobalForum(event)" style="padding:14px; background:#141722; border-top:1px solid rgba(255,255,255,0.08); display:flex; flex-direction:column; gap:8px;">
+            <form onsubmit="postGlobalForum(event)" style="padding:18px 24px; background:#141722; border-top:1px solid rgba(255,255,255,0.08); display:flex; flex-direction:column; gap:8px;">
                 <div style="display:flex; gap:8px; flex-wrap:wrap;">
                     <input type="text" id="forumAuthor" placeholder="Tên của bạn..." style="flex:1; min-width:140px;" required>
                     <button type="submit" class="btn-brand" style="width: auto;">GỬI TIN</button>
@@ -621,7 +692,7 @@
         </div>
     </section>
 
-    <!-- 7. THANH CREDIT CHÂN TRANG ĐƯỢC CHUẨN HÓA BẰNG TOÀN BỘ VECTOR SVG -->
+    <!-- 7. THANH CREDIT CHÂN TRANG -->
     <div class="credit-ticker-bar">
         <svg class="luxury-sparkle-svg" viewBox="0 0 24 24"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
         <svg class="luxury-heart-svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
@@ -645,18 +716,21 @@
         </div>
     </div>
 
-    <!-- MODAL 2: CHI TIẾT NHÂN VẬT & COMMENT -->
+    <!-- MODAL 2: CHI TIẾT NHÂN VẬT & COMMENT (ĐÃ CĂN LẠI TIÊU ĐỀ KHÔNG BỊ DÍU CHỮ) -->
     <div id="charDetailModal" class="modal-wrap">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('charDetailModal')">✕</button>
+            
             <div style="display:flex; gap:20px; flex-wrap:wrap; margin-bottom:16px;">
-                <img id="detailImg" src="" style="width:100%; max-width:240px; height:260px; object-fit:cover; border-radius:10px; margin:0 auto;">
+                <div style="position:relative; width:100%; max-width:220px; height:240px; border-radius:12px; overflow:hidden; margin:0 auto; border:2px solid rgba(255,255,255,0.8); box-shadow:0 0 15px rgba(229,9,20,0.4);">
+                    <img id="detailImg" src="" style="width:100%; height:100%; object-fit:cover;">
+                </div>
                 <div style="flex:1; min-width:240px; display:flex; flex-direction:column; justify-content:space-between;">
                     <div>
                         <div id="detailCat" style="color:var(--crimson); font-size:0.75rem; font-weight:700;">SERIES</div>
-                        <h2 id="detailTitle" style="font-family:var(--font-serif); font-size:1.6rem; margin:4px 0;">Tên Bot</h2>
+                        <h2 id="detailTitle" style="font-family:var(--font-serif); font-size:1.5rem; margin:4px 0;">Tên Bot</h2>
                         <div id="detailTags" style="color:#94a3b8; font-size:0.8rem; margin-bottom:10px;">#tags</div>
-                        <p id="detailDesc" style="color:#cbd5e1; font-size:0.9rem;"></p>
+                        <p id="detailDesc" style="color:#cbd5e1; font-size:0.88rem;"></p>
                     </div>
                     <a id="detailChatLink" href="#" target="_blank" class="btn-brand" style="text-align:center; text-decoration:none; margin-top:12px; display:block;">KẾT NỐI VỚI AI ↗</a>
                 </div>
@@ -665,10 +739,10 @@
             <div class="char-prologue-box" id="detailPrologue"></div>
 
             <div style="border-top:1px solid rgba(255,255,255,0.1); padding-top:16px;">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                    <h3 style="font-family:var(--font-serif); font-size:1.1rem;">CẢM NHẬN VỀ NHÂN VẬT</h3>
+                <div class="comment-sort-bar" style="margin-bottom:12px;">
+                    <h3 style="font-family:var(--font-serif); font-size:1.05rem; color:#fff; white-space:nowrap;">CẢM NHẬN VỀ NHÂN VẬT</h3>
                     <select id="charCommentSortSelect" class="comment-sort-select" onchange="renderCharComments(currentCharId)">
-                        <option value="newest">Mới nhất</option>
+                        <option value="newest">Mới nhất (Hoạt động)</option>
                         <option value="oldest">Cũ nhất</option>
                         <option value="likes">Nhiều like</option>
                     </select>
@@ -681,41 +755,55 @@
                     </div>
                     <input type="text" id="charCommentText" placeholder="Để lại cảm nhận..." required>
                 </form>
-                <div id="charCommentFeed" style="display:flex; flex-direction:column; gap:8px; max-height:260px; overflow-y:auto;"></div>
+                <div id="charCommentFeed" style="display:flex; flex-direction:column; gap:8px; max-height:280px; overflow-y:auto;"></div>
             </div>
         </div>
     </div>
 
-    <!-- MODAL 3: ADMIN THÊM / SỬA BOT -->
+    <!-- MODAL 3: ADMIN THÊM / SỬA BOT (KHÔNG BẮT BUỘC NHẬP HẾT, CHỌN NHIỀU CATEGORY, CÓ ẢNH NỀN) -->
     <div id="adminFormModal" class="modal-wrap">
-        <div class="modal-content" style="max-width:500px;">
+        <div class="modal-content" style="max-width:520px;">
             <button class="modal-close" onclick="closeModal('adminFormModal')">✕</button>
             <h2 id="adminModalTitle" style="font-family:var(--font-serif); font-size:1.3rem; color:var(--crimson); margin-bottom:14px;">THÊM NGUYÊN MẪU</h2>
             <form onsubmit="saveCharacter(event)" style="display:flex; flex-direction:column; gap:10px;">
                 <input type="hidden" id="adminCharId">
-                <input type="text" id="formName" placeholder="Tên nhân vật" required>
-                <select id="formCat">
-                    <option value="SFW">SFW</option>
-                    <option value="NSFW">NSFW</option>
-                    <option value="Open World">Open World</option>
-                </select>
-                <input type="text" id="formTags" placeholder="Tags (cách nhau bằng dấu phẩy)" required>
-                <input type="text" id="formImg" placeholder="Link ảnh URL trực tuyến">
+                <input type="text" id="formName" placeholder="Tên nhân vật (Bắt buộc)">
                 
-                <div style="background:rgba(255,255,255,0.04); padding:10px; border-radius:8px; border:1px dashed rgba(255,255,255,0.2);">
-                    <div style="font-size:0.75rem; color:#94a3b8; margin-bottom:4px;">HOẶC tải ảnh trực tiếp từ máy/điện thoại:</div>
-                    <input type="file" id="formImgFile" accept="image/*" style="border:none; padding:2px 0; font-size:0.8rem;">
+                <!-- CHỌN CÙNG LÚC NHIỀU PHÂN LOẠI (CẢ SFW LẪN NSFW) -->
+                <div>
+                    <div style="font-size:0.75rem; color:#cbd5e1; margin-bottom:4px;">Phân loại (có thể tick chọn nhiều loại):</div>
+                    <div style="display:flex; gap:15px; background:rgba(255,255,255,0.04); padding:8px 12px; border-radius:8px;">
+                        <label style="font-size:0.8rem; cursor:pointer;"><input type="checkbox" id="cat_sfw" value="SFW" style="width:auto; margin-right:4px;"> SFW</label>
+                        <label style="font-size:0.8rem; cursor:pointer;"><input type="checkbox" id="cat_nsfw" value="NSFW" style="width:auto; margin-right:4px;"> NSFW</label>
+                        <label style="font-size:0.8rem; cursor:pointer;"><input type="checkbox" id="cat_openworld" value="Open World" style="width:auto; margin-right:4px;"> Open World</label>
+                    </div>
                 </div>
 
-                <textarea id="formDesc" rows="2" placeholder="Lời giới thiệu ngắn tính cách" required></textarea>
-                <textarea id="formPrologue" rows="2" placeholder="Đoạn văn mở đầu / Lời tựa nhân vật" required></textarea>
-                <input type="text" id="formLink" placeholder="Link trò chuyện (Dokichat, c.ai...)" required>
+                <input type="text" id="formTags" placeholder="Tags (VD: Học đường, Lạnh lùng)">
+                
+                <!-- ẢNH AVATAR CHÂN DUNG -->
+                <input type="text" id="formImg" placeholder="Link ảnh chân dung (URL)">
+                <div style="background:rgba(255,255,255,0.04); padding:8px; border-radius:8px; border:1px dashed rgba(255,255,255,0.2);">
+                    <div style="font-size:0.72rem; color:#94a3b8;">Hoặc tải ảnh chân dung từ máy/điện thoại:</div>
+                    <input type="file" id="formImgFile" accept="image/*" style="border:none; padding:2px 0; font-size:0.75rem;">
+                </div>
+
+                <!-- ẢNH NỀN TÙY CHỌN DƯỚI ẢNH NHÂN VẬT -->
+                <input type="text" id="formBgImg" placeholder="Link ảnh nền thẻ (URL tùy chọn)">
+                <div style="background:rgba(255,255,255,0.04); padding:8px; border-radius:8px; border:1px dashed rgba(255,255,255,0.2);">
+                    <div style="font-size:0.72rem; color:#94a3b8;">Hoặc tải ảnh nền từ máy/điện thoại:</div>
+                    <input type="file" id="formBgImgFile" accept="image/*" style="border:none; padding:2px 0; font-size:0.75rem;">
+                </div>
+
+                <textarea id="formDesc" rows="2" placeholder="Lời giới thiệu ngắn tính cách (Tùy chọn)"></textarea>
+                <textarea id="formPrologue" rows="2" placeholder="Lời tựa / Monologue (Tùy chọn)"></textarea>
+                <input type="text" id="formLink" placeholder="Link bot (Dokichat, c.ai...)">
                 <button type="submit" class="btn-brand" style="background:var(--crimson); color:#fff; width:100%;">LƯU VÀO DATABASE TOÀN CẦU</button>
             </form>
         </div>
     </div>
 
-    <!-- MODAL 4: QUẢN LÝ VIDEO NỀN -->
+    <!-- MODAL 4: QUẢN LÝ VIDEO NỀN (LƯU TRỰC TIẾP LÊN DATABASE FIREBASE) -->
     <div id="adminVideoModal" class="modal-wrap">
         <div class="modal-content" style="max-width:500px;">
             <button class="modal-close" onclick="closeModal('adminVideoModal')">✕</button>
@@ -723,28 +811,39 @@
             
             <div style="display:flex; flex-direction:column; gap:12px;">
                 <div>
-                    <label style="font-size:0.75rem; color:#cbd5e1; display:block; margin-bottom:3px;">1. Dán link video mạng (.mp4 trực tiếp):</label>
-                    <input type="text" id="inputVideoUrl" placeholder="https://videotourl.com/videos/...mp4">
+                    <label style="font-size:0.75rem; color:#cbd5e1; display:block; margin-bottom:3px;">Dán link video trực tiếp (đầu https, đuôi .mp4):</label>
+                    <input type="text" id="inputVideoUrl" placeholder="https://...mp4">
                 </div>
 
-                <div style="background:rgba(255,255,255,0.04); padding:10px; border-radius:8px; border:1px dashed rgba(255,255,255,0.2);">
-                    <label style="font-size:0.75rem; color:#cbd5e1; display:block; margin-bottom:3px;">2. HOẶC chọn file từ máy/điện thoại:</label>
-                    <input type="file" id="inputVideoFile" accept="video/mp4,video/webm" style="border:none; padding:2px 0; font-size:0.8rem;">
-                </div>
-
-                <button class="btn-brand" style="background:#8b5cf6; color:#fff;" onclick="applyCustomVideo()">ÁP DỤNG VIDEO</button>
-
-                <div style="border-top:1px solid rgba(255,255,255,0.1); padding-top:10px; margin-top:4px;">
-                    <div style="font-size:0.7rem; color:#fca5a5; margin-bottom:6px;">
-                        💡 <strong>Đưa lên GitHub:</strong> Bấm nút dưới để tải file <code>index.html</code> mới đã gắn video này.
-                    </div>
-                    <button class="btn-brand" style="background:#10b981; color:#fff; width:100%;" onclick="exportUpdatedHtmlFile()">📥 TẢI FILE INDEX.HTML MỚI</button>
+                <button class="btn-brand" style="background:#8b5cf6; color:#fff;" onclick="applyCustomVideo()">ÁP DỤNG VIDEO TOÀN CẦU</button>
+                <div style="font-size:0.75rem; color:#94a3b8;">
+                    * Lưu ý: Khi bấm áp dụng, link video sẽ được lưu thẳng lên Database Firebase. Toàn bộ người xem mở web ở mọi nơi đều sẽ thấy video mới này mà bạn không cần phải sửa code!
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- SCRIPT ĐIỀU HÀNH ĐỒNG BỘ REAL-TIME QUA FIREBASE -->
+    <!-- MODAL 5: CỬA SỔ LƯU Ý NHỎ / HOUSE RULES (ADMIN CÓ THỂ CLICK VÀO SỬA TRỰC TIẾP) -->
+    <div id="rulesModal" class="modal-wrap">
+        <div class="modal-content" style="max-width:600px;">
+            <button class="modal-close" onclick="closeModal('rulesModal')">✕</button>
+            <div style="color:#f59e0b; font-size:0.75rem; font-weight:700; letter-spacing:2px; margin-bottom:6px;">ETHERA PROTOCOL</div>
+            <h2 style="font-family:var(--font-serif); font-size:1.6rem; color:#fbbf24; margin-bottom:15px;" data-cms="rules_modal_heading">LƯU Ý NHỎ & QUY TẮC</h2>
+            
+            <div class="char-prologue-box" style="border-left-color: #f59e0b;" data-cms="rules_highlight">
+                “Chào mừng bạn đến với không gian sáng tạo của Ethera. Vui lòng đọc kỹ các lưu ý trước khi bắt đầu trò chuyện cùng các nguyên mẫu Satoru.”
+            </div>
+
+            <div style="font-size:0.9rem; color:#cbd5e1; line-height:1.7; display:flex; flex-direction:column; gap:10px;" data-cms="rules_content_body">
+                <p>1. <strong>Tôn trọng nhân vật:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <p>2. <strong>Bảo mật thông tin:</strong> Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <p>3. <strong>Về các nội dung NSFW:</strong> Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Cần tuân thủ độ tuổi quy định.</p>
+                <p>4. <strong>Báo cáo sự cố:</strong> Mọi thắc mắc hoặc góp ý kịch bản bạn có thể gửi trực tiếp tại Diễn đàn bên dưới.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT CHÍNH -->
     <script>
         let isAdmin = false;
         let adminCustomName = localStorage.getItem('ethera_admin_custom_name') || "Ethera";
@@ -767,7 +866,7 @@
         let bots = [];
         let globalThreads = [];
 
-        // 1. KẾT NỐI REALTIME VỚI FIREBASE DATABASE CỦA BẠN
+        // 1. KẾT NỐI REALTIME FIREBASE
         function syncDatabase() {
             // Lắng nghe Roster Realtime
             db.ref('roster').on('value', (snapshot) => {
@@ -783,7 +882,22 @@
                 renderGlobalForum();
             });
 
-            // Lắng nghe Chữ sửa CMS Realtime
+            // Lắng nghe Video nền Realtime
+            db.ref('custom_video').on('value', (snapshot) => {
+                const vidUrl = snapshot.val();
+                if (vidUrl) {
+                    const videoEl = document.getElementById('mainHeroVideo');
+                    const sourceEl = document.getElementById('mainVideoSource');
+                    if (videoEl && sourceEl && videoEl.src !== vidUrl) {
+                        sourceEl.src = vidUrl;
+                        videoEl.src = vidUrl;
+                        videoEl.load();
+                        videoEl.play().catch(()=>{});
+                    }
+                }
+            });
+
+            // Lắng nghe Văn bản CMS Realtime
             db.ref('cms_texts').on('value', (snapshot) => {
                 const savedTexts = snapshot.val() || {};
                 document.querySelectorAll('[data-cms]').forEach(el => {
@@ -814,7 +928,7 @@
             });
         }
 
-        // BẮN SAO CLICK
+        // SAO NHẤP NHÁY HỒNG PASTEL KHI CHẠM
         window.addEventListener('click', (e) => {
             const stars = ['✦', '✧', '★', '·'];
             for (let i = 0; i < 6; i++) {
@@ -835,16 +949,8 @@
 
         // NẠP VIDEO NỀN
         function initBackgroundVideo() {
-            const activeVideoSrc = localStorage.getItem('ethera_custom_video_src') || 'https://videotourl.com/videos/1791993553264-7736ed0d-bbc4-4d12-8d32-0a6c0c573d3b.mp4';
             const videoEl = document.getElementById('mainHeroVideo');
-            const sourceEl = document.getElementById('mainVideoSource');
-
-            if (videoEl && sourceEl) {
-                if (videoEl.src !== activeVideoSrc) {
-                    videoEl.src = activeVideoSrc;
-                    sourceEl.src = activeVideoSrc;
-                    videoEl.load();
-                }
+            if (videoEl) {
                 videoEl.muted = true;
                 videoEl.defaultMuted = true;
                 const p = videoEl.play();
@@ -857,7 +963,7 @@
             }
         }
 
-        // MÀN CHỜ 3.5S VỚI THANH TIẾN TRÌNH TỈ LỆ VÀNG
+        // KHỞI ĐỘNG
         window.addEventListener('load', () => {
             syncDatabase();
             initBackgroundVideo();
@@ -876,6 +982,8 @@
             }, 30);
 
             document.getElementById('adminNameInput').value = adminCustomName;
+            
+            // Ghi nhớ tên người dùng
             const rememberedName = localStorage.getItem('ethera_username');
             if (rememberedName) {
                 document.getElementById('forumAuthor').value = rememberedName;
@@ -903,6 +1011,13 @@
             document.getElementById('adminIndicator').classList.add('active');
             document.getElementById('admin-strip').classList.add('open');
             setCmsEditable(true);
+
+            // Tự động điền tên Admin và khóa không bắt buộc nhập lại
+            document.getElementById('forumAuthor').value = adminCustomName;
+            document.getElementById('forumAuthor').readOnly = true;
+            document.getElementById('charCommentAuthor').value = adminCustomName;
+            document.getElementById('charCommentAuthor').readOnly = true;
+
             alert(`✓ Đã kích hoạt quyền quản trị viên cho: ${adminCustomName}!`);
             renderBots();
             renderGlobalForum();
@@ -915,72 +1030,87 @@
             document.getElementById('adminIndicator').classList.remove('active');
             document.getElementById('admin-strip').classList.remove('open');
             setCmsEditable(false);
+
+            document.getElementById('forumAuthor').readOnly = false;
+            document.getElementById('charCommentAuthor').readOnly = false;
+            const rememberedName = localStorage.getItem('ethera_username') || '';
+            document.getElementById('forumAuthor').value = rememberedName;
+            document.getElementById('charCommentAuthor').value = rememberedName;
+
             alert("✓ Đã đăng xuất khỏi chế độ Quản trị viên.");
             renderBots();
             renderGlobalForum();
             if (currentCharId) renderCharComments(currentCharId);
         }
 
+        // LƯU TÊN ADMIN VÀ CẬP NHẬT HÀNG LOẠT TIN NHẮN CŨ LÊN FIREBASE
         function updateAdminNameAndSync() {
             const newName = document.getElementById('adminNameInput').value.trim();
             if (!newName) return;
+            const oldName = adminCustomName;
             adminCustomName = newName;
             localStorage.setItem('ethera_admin_custom_name', newName);
             document.getElementById('adminIndicator').innerText = `ADMIN: ${adminCustomName}`;
-            alert(`✓ Đã đổi tên Admin thành: ${newName}`);
+
+            document.getElementById('forumAuthor').value = newName;
+            document.getElementById('charCommentAuthor').value = newName;
+
+            // Cập nhật tất cả bình luận Admin trên Diễn đàn
+            db.ref('forum').once('value', (snap) => {
+                const data = snap.val();
+                if (data) {
+                    const list = Object.values(data);
+                    updateAuthorRecursively(list, newName);
+                    const obj = {};
+                    list.forEach(i => obj[i.id] = i);
+                    db.ref('forum').set(obj);
+                }
+            });
+
+            // Cập nhật tất cả bình luận Admin trong từng Bot
+            db.ref('char_comments').once('value', (snap) => {
+                const allCharComments = snap.val();
+                if (allCharComments) {
+                    Object.keys(allCharComments).forEach(botId => {
+                        const commentsObj = allCharComments[botId];
+                        const list = Object.values(commentsObj);
+                        updateAuthorRecursively(list, newName);
+                        const updatedObj = {};
+                        list.forEach(i => updatedObj[i.id] = i);
+                        db.ref('char_comments/' + botId).set(updatedObj);
+                    });
+                }
+            });
+
+            alert(`✓ Đã đổi tên Admin thành "${newName}" và cập nhật hàng loạt toàn bộ tin nhắn cũ!`);
         }
 
-        // BỘ ĐIỀU KHIỂN VIDEO
+        function updateAuthorRecursively(list, newName) {
+            list.forEach(item => {
+                if (item.isAdmin) item.author = newName;
+                if (item.replies) {
+                    const repArr = Array.isArray(item.replies) ? item.replies : Object.values(item.replies);
+                    updateAuthorRecursively(repArr, newName);
+                }
+            });
+        }
+
+        // BỘ ĐIỀU KHIỂN VIDEO (LƯU TRỰC TIẾP LÊN DATABASE CLOUD)
         function openVideoManagerModal() {
             const videoEl = document.getElementById('mainHeroVideo');
             document.getElementById('inputVideoUrl').value = videoEl ? videoEl.src : '';
-            document.getElementById('inputVideoFile').value = '';
             document.getElementById('adminVideoModal').classList.add('open');
         }
 
         function applyCustomVideo() {
             const urlInput = document.getElementById('inputVideoUrl').value.trim();
-            const fileInput = document.getElementById('inputVideoFile');
-            const videoEl = document.getElementById('mainHeroVideo');
-            const sourceEl = document.getElementById('mainVideoSource');
-
-            if (fileInput.files && fileInput.files[0]) {
-                const file = fileInput.files[0];
-                const fileUrl = URL.createObjectURL(file);
-                videoEl.src = fileUrl;
-                sourceEl.src = fileUrl;
-                videoEl.load();
-                videoEl.play();
-                localStorage.setItem('ethera_custom_video_src', fileUrl);
+            if (urlInput) {
+                db.ref('custom_video').set(urlInput);
                 closeModal('adminVideoModal');
-                alert("✓ Đã đổi video nền trực tiếp từ điện thoại thành công!");
-            } else if (urlInput) {
-                videoEl.src = urlInput;
-                sourceEl.src = urlInput;
-                videoEl.load();
-                videoEl.play();
-                localStorage.setItem('ethera_custom_video_src', urlInput);
-                closeModal('adminVideoModal');
-                alert("✓ Đã đổi video nền theo link thành công!");
+                alert("✓ Đã lưu video lên Cloud Database! Toàn bộ người xem sẽ được phát video mới này ngay lập tức.");
+            } else {
+                alert("Vui lòng dán link video .mp4 trực tiếp.");
             }
-        }
-
-        function exportUpdatedHtmlFile() {
-            const videoEl = document.getElementById('mainHeroVideo');
-            const currentVideoSrc = videoEl ? videoEl.src : 'https://videotourl.com/videos/1791993553264-7736ed0d-bbc4-4d12-8d32-0a6c0c573d3b.mp4';
-            let htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
-            htmlContent = htmlContent.replace(/src="https:\/\/videotourl\.com\/videos\/[^"]*"/g, `src="${currentVideoSrc}"`);
-
-            const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
-            const downloadUrl = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = downloadUrl;
-            a.download = 'index.html';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(downloadUrl);
-            alert("✓ Đã tải file index.html mới. Hãy ném file này lên GitHub nhé!");
         }
 
         // TAGS
@@ -989,11 +1119,7 @@
             tray.innerHTML = '';
             presetTags.forEach(tag => {
                 const isActive = selectedTags.includes(tag);
-                tray.innerHTML += `
-                    <span class="tag-btn ${isActive ? 'active' : ''}" onclick="toggleTag('${tag}')">
-                        #${tag}
-                    </span>
-                `;
+                tray.innerHTML += `<span class="tag-btn ${isActive ? 'active' : ''}" onclick="toggleTag('${tag}')">#${tag}</span>`;
             });
         }
 
@@ -1077,16 +1203,21 @@
             document.getElementById('roster').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // RENDER BOT
+        // CỬA SỔ QUY TẮC "LƯU Ý NHỎ"
+        function openRulesModal() { document.getElementById('rulesModal').classList.add('open'); }
+
+        // RENDER DANH SÁCH BOTS
         function renderBots() {
             const container = document.getElementById('charContainer');
             const searchVal = botSearchInput.value.toLowerCase().trim();
             const sortVal = document.getElementById('sortSelector').value;
 
             let filtered = bots.filter(b => {
-                if (isNSFWBlocked && (b.category === 'NSFW' || (b.tags && b.tags.includes('18+')))) return false;
+                const bCats = b.categories || (b.category ? [b.category] : []);
+                if (isNSFWBlocked && (bCats.includes('NSFW') || (b.tags && b.tags.includes('18+')))) return false;
+                
                 const matchText = (b.name || '').toLowerCase().includes(searchVal) || (b.desc || '').toLowerCase().includes(searchVal);
-                const matchTags = selectedTags.length === 0 || selectedTags.every(t => (b.tags && b.tags.includes(t)) || b.category === t);
+                const matchTags = selectedTags.length === 0 || selectedTags.every(t => (b.tags && b.tags.includes(t)) || bCats.includes(t));
                 return matchText && matchTags;
             });
 
@@ -1100,6 +1231,8 @@
             });
 
             container.innerHTML = '';
+            
+            // KHO TRỐNG KHÔNG CÒN GỢI Ý MẬT MÃ ADMIN
             if (filtered.length === 0) {
                 container.innerHTML = `
                     <div class="empty-roster-box">
@@ -1112,31 +1245,42 @@
 
             filtered.forEach(bot => {
                 const tagsList = bot.tags && bot.tags.length > 0 ? `#${bot.tags.join(' #')}` : '';
+                const bCats = bot.categories || (bot.category ? [bot.category] : ['SFW']);
+                const badgesHtml = bCats.map(c => `<span class="char-badge">${c}</span>`).join('');
+                const hasLiked = localStorage.getItem('liked_bot_' + bot.id) === 'true';
+
                 container.innerHTML += `
                     <div class="char-card reveal active ${bot.pinned ? 'is-pinned' : ''}">
                         ${bot.pinned ? `<div class="pin-badge">📌 ĐÃ GHIM</div>` : ''}
-                        <div class="char-img-box" onclick="handleCardClick('${bot.id}')">
-                            <span class="char-badge">${bot.category}</span>
-                            <img src="${bot.image}" class="char-img" alt="${bot.name}">
+                        
+                        <!-- BANNER NỀN VÀ KHUNG AVATAR VIỀN PHÁT SÁNG NỔI BẬT -->
+                        <div class="char-header-banner" onclick="handleCardClick('${bot.id}')">
+                            ${bot.bgImage ? `<img src="${bot.bgImage}" class="char-bg-cover">` : ''}
+                            <div class="char-bg-gradient"></div>
+                            <div class="char-badge-list">${badgesHtml}</div>
+                            <div class="char-avatar-glow-box">
+                                <img src="${bot.image || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80'}" class="char-img" alt="${bot.name}">
+                            </div>
                         </div>
+
                         <div class="char-body">
                             <div onclick="handleCardClick('${bot.id}')" style="cursor:pointer;">
                                 <h3 class="char-name">${bot.name}</h3>
-                                <p class="char-desc">${bot.desc}</p>
+                                <p class="char-desc">${bot.desc || 'Chưa có lời giới thiệu ngắn.'}</p>
                             </div>
-                            <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(0,0,0,0.06); padding-top:10px;">
+                            <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(0,0,0,0.06); padding-top:8px;">
                                 <span style="font-size:0.75rem; color:var(--crimson); font-weight:700;">${tagsList}</span>
-                                <button onclick="likeBot(event, '${bot.id}')" style="background:none; border:none; color:#525666; cursor:pointer; font-weight:700;">
-                                    ♥ ${bot.likes || 0}
+                                <button class="like-btn ${hasLiked ? 'liked' : ''}" onclick="toggleLikeBot(event, '${bot.id}')">
+                                    ♥ <span>${bot.likes || 0}</span>
                                 </button>
                             </div>
                             ${isAdmin ? `
                                 <div style="display:flex; gap:6px; margin-top:8px; padding-top:8px; border-top:1px dashed #ccc;">
-                                    <button class="btn-brand" style="flex:1; padding:4px; font-size:0.75rem; background:#f0ede4;" onclick="editChar('${bot.id}')">Sửa</button>
-                                    <button class="btn-brand" style="flex:1; padding:4px; font-size:0.75rem; background:${bot.pinned ? '#f59e0b' : '#3b82f6'}; color:#fff;" onclick="togglePinChar('${bot.id}')">
+                                    <button class="btn-brand" style="flex:1; padding:4px; font-size:0.72rem; background:#f0ede4;" onclick="editChar('${bot.id}')">Sửa</button>
+                                    <button class="btn-brand" style="flex:1; padding:4px; font-size:0.72rem; background:${bot.pinned ? '#f59e0b' : '#3b82f6'}; color:#fff;" onclick="togglePinChar('${bot.id}')">
                                         ${bot.pinned ? 'Bỏ Ghim' : '📌 Ghim'}
                                     </button>
-                                    <button class="btn-brand" style="flex:1; padding:4px; font-size:0.75rem; background:var(--crimson); color:#fff;" onclick="deleteChar('${bot.id}')">Xóa</button>
+                                    <button class="btn-brand" style="flex:1; padding:4px; font-size:0.72rem; background:var(--crimson); color:#fff;" onclick="deleteChar('${bot.id}')">Xóa</button>
                                 </div>
                             ` : ''}
                         </div>
@@ -1152,18 +1296,31 @@
             db.ref('roster/' + bot.id).set(bot);
         }
 
-        function likeBot(e, id) {
+        // LIKE BOT GIỚI HẠN 1 LẦN / THIẾT BỊ (CHỐNG SPAM)
+        function toggleLikeBot(e, id) {
             e.stopPropagation();
             const bot = bots.find(b => String(b.id) === String(id));
             if (!bot) return;
-            bot.likes = (bot.likes || 0) + 1;
+            
+            const key = 'liked_bot_' + bot.id;
+            const hasLiked = localStorage.getItem(key) === 'true';
+
+            if (!hasLiked) {
+                bot.likes = (bot.likes || 0) + 1;
+                localStorage.setItem(key, 'true');
+            } else {
+                bot.likes = Math.max(0, (bot.likes || 1) - 1);
+                localStorage.removeItem(key);
+            }
             db.ref('roster/' + bot.id).set(bot);
         }
 
         function handleCardClick(id) {
             const bot = bots.find(b => String(b.id) === String(id));
             if (!bot) return;
-            const isNSFWChar = (bot.category === 'NSFW' || (bot.tags && bot.tags.includes('18+')));
+            const bCats = bot.categories || (bot.category ? [bot.category] : []);
+            const isNSFWChar = (bCats.includes('NSFW') || (bot.tags && bot.tags.includes('18+')));
+            
             if (isNSFWChar && !isSessionNSFWVerified) {
                 if (isNSFWBlocked) {
                     alert("Nhân vật này thuộc phân khu 18+ (NSFW). Bạn đã từ chối xác nhận độ tuổi.");
@@ -1180,13 +1337,14 @@
             currentCharId = id;
             const bot = bots.find(b => String(b.id) === String(id));
             if (!bot) return;
-            document.getElementById('detailImg').src = bot.image;
-            document.getElementById('detailCat').innerText = `SERIES // ${bot.category}`;
+            document.getElementById('detailImg').src = bot.image || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80';
+            const bCats = bot.categories || (bot.category ? [bot.category] : ['SFW']);
+            document.getElementById('detailCat').innerText = `SERIES // ${bCats.join(', ')}`;
             document.getElementById('detailTitle').innerText = bot.name;
             document.getElementById('detailTags').innerText = bot.tags && bot.tags.length > 0 ? '#' + bot.tags.join(' #') : '';
-            document.getElementById('detailDesc').innerText = bot.desc;
+            document.getElementById('detailDesc').innerText = bot.desc || 'Chưa có mô tả chi tiết.';
             document.getElementById('detailPrologue').innerText = bot.prologue || "“Chưa có lời tựa cho nhân vật này.”";
-            document.getElementById('detailChatLink').href = bot.link;
+            document.getElementById('detailChatLink').href = bot.link || '#';
 
             renderCharComments(id);
             document.getElementById('charDetailModal').classList.add('open');
@@ -1196,9 +1354,14 @@
             document.getElementById('adminModalTitle').innerText = "THÊM NGUYÊN MẪU MỚI";
             document.getElementById('adminCharId').value = "";
             document.getElementById('formName').value = "";
+            document.getElementById('cat_sfw').checked = true;
+            document.getElementById('cat_nsfw').checked = false;
+            document.getElementById('cat_openworld').checked = false;
             document.getElementById('formTags').value = "";
             document.getElementById('formImg').value = "";
             document.getElementById('formImgFile').value = "";
+            document.getElementById('formBgImg').value = "";
+            document.getElementById('formBgImgFile').value = "";
             document.getElementById('formDesc').value = "";
             document.getElementById('formPrologue').value = "";
             document.getElementById('formLink').value = "";
@@ -1211,13 +1374,20 @@
             document.getElementById('adminModalTitle').innerText = "CHỈNH SỬA NGUYÊN MẪU";
             document.getElementById('adminCharId').value = b.id;
             document.getElementById('formName').value = b.name;
-            document.getElementById('formCat').value = b.category;
+            
+            const bCats = b.categories || (b.category ? [b.category] : []);
+            document.getElementById('cat_sfw').checked = bCats.includes('SFW');
+            document.getElementById('cat_nsfw').checked = bCats.includes('NSFW');
+            document.getElementById('cat_openworld').checked = bCats.includes('Open World');
+
             document.getElementById('formTags').value = b.tags ? b.tags.join(', ') : '';
-            document.getElementById('formImg').value = b.image && b.image.startsWith('data:') ? '' : b.image;
+            document.getElementById('formImg').value = b.image && b.image.startsWith('data:') ? '' : (b.image || '');
             document.getElementById('formImgFile').value = "";
-            document.getElementById('formDesc').value = b.desc;
+            document.getElementById('formBgImg').value = b.bgImage && b.bgImage.startsWith('data:') ? '' : (b.bgImage || '');
+            document.getElementById('formBgImgFile').value = "";
+            document.getElementById('formDesc').value = b.desc || '';
             document.getElementById('formPrologue').value = b.prologue || "";
-            document.getElementById('formLink').value = b.link;
+            document.getElementById('formLink').value = b.link || '';
             document.getElementById('adminFormModal').classList.add('open');
         }
 
@@ -1227,42 +1397,59 @@
             }
         }
 
-        function saveCharacter(e) {
+        // TẠO NHÂN VẬT KHÔNG BẮT BUỘC ĐIỀN HẾT, CHỌN ĐƯỢC CẢ SFW LẪN NSFW
+        async function saveCharacter(e) {
             e.preventDefault();
             const editId = document.getElementById('adminCharId').value;
-            const name = document.getElementById('formName').value.trim();
-            const category = document.getElementById('formCat').value;
+            const name = document.getElementById('formName').value.trim() || 'Satoru Nguyên Mẫu';
+            
+            // Lấy nhiều categories
+            const selectedCats = [];
+            if (document.getElementById('cat_sfw').checked) selectedCats.push('SFW');
+            if (document.getElementById('cat_nsfw').checked) selectedCats.push('NSFW');
+            if (document.getElementById('cat_openworld').checked) selectedCats.push('Open World');
+            if (selectedCats.length === 0) selectedCats.push('SFW');
+
             const tags = document.getElementById('formTags').value.split(',').map(t => t.trim()).filter(Boolean);
             const desc = document.getElementById('formDesc').value.trim();
             const prologue = document.getElementById('formPrologue').value.trim();
             const link = document.getElementById('formLink').value.trim();
+
             const urlImg = document.getElementById('formImg').value.trim();
             const fileInput = document.getElementById('formImgFile');
+            const urlBgImg = document.getElementById('formBgImg').value.trim();
+            const fileBgInput = document.getElementById('formBgImgFile');
 
+            let finalImg = urlImg;
             if (fileInput.files && fileInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    applyCharSave(editId, name, category, tags, event.target.result, desc, prologue, link);
-                };
-                reader.readAsDataURL(fileInput.files[0]);
-            } else {
-                let finalImg = urlImg;
-                if (!finalImg && editId) {
-                    const oldBot = bots.find(b => String(b.id) === String(editId));
-                    finalImg = oldBot ? oldBot.image : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=700&q=80';
-                }
-                if (!finalImg) finalImg = 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=700&q=80';
-                applyCharSave(editId, name, category, tags, finalImg, desc, prologue, link);
+                finalImg = await readFileAsBase64(fileInput.files[0]);
+            } else if (!finalImg && editId) {
+                const oldBot = bots.find(b => String(b.id) === String(editId));
+                finalImg = oldBot ? oldBot.image : '';
             }
-        }
 
-        function applyCharSave(editId, name, category, tags, image, desc, prologue, link) {
+            let finalBgImg = urlBgImg;
+            if (fileBgInput.files && fileBgInput.files[0]) {
+                finalBgImg = await readFileAsBase64(fileBgInput.files[0]);
+            } else if (!finalBgImg && editId) {
+                const oldBot = bots.find(b => String(b.id) === String(editId));
+                finalBgImg = oldBot ? oldBot.bgImage : '';
+            }
+
             const botId = editId ? String(editId) : 'bot_' + Date.now();
             const existingBot = bots.find(b => String(b.id) === String(botId));
 
             const botData = {
                 id: botId,
-                name, category, tags, image, desc, prologue, link,
+                name,
+                categories: selectedCats,
+                category: selectedCats[0],
+                tags,
+                image: finalImg || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80',
+                bgImage: finalBgImg || '',
+                desc,
+                prologue,
+                link,
                 likes: existingBot ? (existingBot.likes || 0) : 0,
                 pinned: existingBot ? (existingBot.pinned || false) : false,
                 timestamp: existingBot ? existingBot.timestamp : Date.now()
@@ -1272,7 +1459,15 @@
             closeModal('adminFormModal');
         }
 
-        // BÌNH LUẬN & SẮP XẾP ĐỒNG BỘ
+        function readFileAsBase64(file) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = (e) => resolve(e.target.result);
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // BÌNH LUẬN & SẮP XẾP BUMPING THỜI GIAN THỰC
         function getRealTime() {
             const now = new Date();
             const time = now.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
@@ -1316,6 +1511,7 @@
             return total;
         }
 
+        // SẮP XẾP BUMPING
         function sortCommentThreads(list, sortOrder) {
             let sorted = [...list];
             sorted.sort((a, b) => {
@@ -1338,12 +1534,14 @@
             return sorted;
         }
 
-        // BÌNH LUẬN TRONG BOT
+        // BÌNH LUẬN TRONG BOT (ĐÃ SỬA LỖI REP BÌNH LUẬN)
+        let activeCharCommentsListener = null;
+
         function postCharComment(e) {
             e.preventDefault();
             const author = isAdmin ? adminCustomName : document.getElementById('charCommentAuthor').value.trim();
             const text = document.getElementById('charCommentText').value.trim();
-            localStorage.setItem('ethera_username', author);
+            if (!isAdmin) localStorage.setItem('ethera_username', author);
 
             const newC = {
                 id: 'c_' + Date.now(),
@@ -1359,7 +1557,10 @@
             const feed = document.getElementById('charCommentFeed');
             const sortVal = document.getElementById('charCommentSortSelect').value;
 
-            db.ref(`char_comments/${botId}`).on('value', (snapshot) => {
+            if (activeCharCommentsListener) activeCharCommentsListener.off();
+
+            activeCharCommentsListener = db.ref(`char_comments/${botId}`);
+            activeCharCommentsListener.on('value', (snapshot) => {
                 const data = snapshot.val();
                 const comments = data ? Object.values(data) : [];
                 const sorted = sortCommentThreads(comments, sortVal);
@@ -1372,7 +1573,7 @@
             e.preventDefault();
             const author = isAdmin ? adminCustomName : document.getElementById('forumAuthor').value.trim();
             const text = document.getElementById('forumMsg').value.trim();
-            localStorage.setItem('ethera_username', author);
+            if (!isAdmin) localStorage.setItem('ethera_username', author);
 
             const newPost = {
                 id: 'f_' + Date.now(),
@@ -1391,6 +1592,7 @@
             feed.innerHTML = buildThreadTreeHTML(sorted, 'forum', 0);
         }
 
+        // CÂY TRỤC LIÊN TỤC VÀ ĐƯỜNG MÓC CHỮ L CHUẨN FACEBOOK
         function buildThreadTreeHTML(list, contextKey, depth) {
             if (!list || list.length === 0) {
                 if (depth === 0) return `<div style="text-align:center; color:#888; font-size:0.8rem; padding:15px;">Chưa có bình luận nào. Hãy gửi lời chào đầu tiên!</div>`;
@@ -1426,7 +1628,7 @@
                         <div class="comment-header">
                             <span class="comment-user" style="color:${item.isAdmin ? 'var(--crimson)' : '#fff'};">
                                 ${item.author} ${item.isAdmin ? '<span style="font-size:0.6rem; background:var(--crimson); color:#fff; padding:1px 5px; border-radius:3px;">ADMIN</span>' : ''}
-                                ${item.pinned ? '<span style="font-size:0.6rem; background:#f59e0b; color:#000; font-weight:700; padding:1px 5px; border-radius:3px;">📌 GHIM</span>' : ''}
+                                ${item.pinned ? '<span style="font-size:0.6rem; background:#f59e0b; color:#000; font-weight:700; padding:1px 5px; border-radius:3px;">📌 ĐÃ GHIM</span>' : ''}
                             </span>
                             <span class="comment-time">${item.time}</span>
                         </div>
@@ -1454,6 +1656,7 @@
             if (box) box.classList.toggle('open'); 
         }
 
+        // GỬI PHẢN HỒI (HỖ TRỢ CẢ DIỄN ĐÀN VÀ NHÂN VẬT ĐỒNG BỘ LÊN FIREBASE)
         function submitNestedReply(contextKey, parentId) {
             const input = document.getElementById(`replyInput_${parentId}`);
             const text = input.value.trim();
@@ -1466,9 +1669,20 @@
                 likes: 0, liked: false, pinned: false, isAdmin, userToken, replies: []
             };
 
-            let list = getCommentList(contextKey);
-            addReplyRecursively(list, String(parentId), newRep);
-            saveCommentList(contextKey, list);
+            const dbPath = contextKey === 'forum' ? 'forum' : `char_comments/${contextKey.replace('char_', '')}`;
+
+            db.ref(dbPath).once('value', (snap) => {
+                const data = snap.val();
+                if (data) {
+                    const list = Object.values(data);
+                    addReplyRecursively(list, String(parentId), newRep);
+                    const obj = {};
+                    list.forEach(item => { obj[item.id] = item; });
+                    db.ref(dbPath).set(obj);
+                }
+            });
+            input.value = '';
+            toggleReplyBox(parentId);
         }
 
         function addReplyRecursively(items, targetId, newReply) {
@@ -1488,9 +1702,17 @@
         }
 
         function toggleLike(contextKey, id) {
-            let list = getCommentList(contextKey);
-            toggleLikeRecursively(list, String(id));
-            saveCommentList(contextKey, list);
+            const dbPath = contextKey === 'forum' ? 'forum' : `char_comments/${contextKey.replace('char_', '')}`;
+            db.ref(dbPath).once('value', (snap) => {
+                const data = snap.val();
+                if (data) {
+                    const list = Object.values(data);
+                    toggleLikeRecursively(list, String(id));
+                    const obj = {};
+                    list.forEach(item => { obj[item.id] = item; });
+                    db.ref(dbPath).set(obj);
+                }
+            });
         }
 
         function toggleLikeRecursively(items, targetId) {
@@ -1509,9 +1731,17 @@
         }
 
         function togglePinComment(contextKey, id) {
-            let list = getCommentList(contextKey);
-            togglePinRecursively(list, String(id));
-            saveCommentList(contextKey, list);
+            const dbPath = contextKey === 'forum' ? 'forum' : `char_comments/${contextKey.replace('char_', '')}`;
+            db.ref(dbPath).once('value', (snap) => {
+                const data = snap.val();
+                if (data) {
+                    const list = Object.values(data);
+                    togglePinRecursively(list, String(id));
+                    const obj = {};
+                    list.forEach(item => { obj[item.id] = item; });
+                    db.ref(dbPath).set(obj);
+                }
+            });
         }
 
         function togglePinRecursively(items, targetId) {
@@ -1530,9 +1760,17 @@
 
         function deleteCommentNode(contextKey, id) {
             if (!confirm("Bạn có chắc chắn muốn xóa phản hồi này?")) return;
-            let list = getCommentList(contextKey);
-            list = deleteRecursively(list, String(id));
-            saveCommentList(contextKey, list);
+            const dbPath = contextKey === 'forum' ? 'forum' : `char_comments/${contextKey.replace('char_', '')}`;
+            db.ref(dbPath).once('value', (snap) => {
+                const data = snap.val();
+                if (data) {
+                    let list = Object.values(data);
+                    list = deleteRecursively(list, String(id));
+                    const obj = {};
+                    list.forEach(item => { obj[item.id] = item; });
+                    db.ref(dbPath).set(obj);
+                }
+            });
         }
 
         function deleteRecursively(items, targetId) {
@@ -1544,28 +1782,6 @@
                 }
                 return true;
             });
-        }
-
-        function getCommentList(contextKey) {
-            if (contextKey === 'forum') {
-                return globalThreads;
-            } else {
-                const charId = contextKey.replace('char_', '');
-                return JSON.parse(localStorage.getItem(`char_comments_${charId}`) || '[]');
-            }
-        }
-
-        function saveCommentList(contextKey, list) {
-            if (contextKey === 'forum') {
-                const obj = {};
-                list.forEach(item => { obj[item.id] = item; });
-                db.ref('forum').set(obj);
-            } else {
-                const charId = contextKey.replace('char_', '');
-                const obj = {};
-                list.forEach(item => { obj[item.id] = item; });
-                db.ref(`char_comments/${charId}`).set(obj);
-            }
         }
 
         function closeModal(id) { document.getElementById(id).classList.remove('open'); }
