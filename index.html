@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Rổ Satoru nhà Ethera</title>
-    <!-- Google Fonts chuẩn Tiếng Việt 100% -->
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
     
     <!-- FIREBASE COMPAT SDK -->
@@ -67,7 +66,6 @@
             width: 100%;
         }
 
-        /* VECTOR SVG LUXURY */
         .luxury-heart-svg {
             width: 17px; height: 17px; display: inline-block; vertical-align: middle;
             fill: url(#heartGradient); filter: drop-shadow(0 0 5px rgba(244, 63, 94, 0.6));
@@ -92,7 +90,6 @@
             background: rgba(229, 9, 20, 0.12); border-radius: 4px; cursor: text; padding: 2px 4px;
         }
 
-        /* SAO NHẤP NHÁY HỒNG PASTEL / ĐỎ KHI CHẠM MÀN HÌNH */
         .sparkle-particle {
             position: fixed; pointer-events: none; z-index: 999999;
             color: #ff6b8b; font-size: 15px; user-select: none;
@@ -104,9 +101,7 @@
             100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.2) rotate(var(--rot)); opacity: 0; }
         }
 
-        /* ======================================================== */
-        /* 1. MÀN CHỜ CINEMATIC: KHÔNG KHUNG, VŨ TRỤ ĐỘNG & RADAR  */
-        /* ======================================================== */
+        /* 1. MÀN CHỜ VŨ TRỤ */
         #intro-loader {
             position: fixed; inset: 0; background: #040507; z-index: 99999;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -132,9 +127,7 @@
             100% { transform: scale(1.25) rotate(45deg); opacity: 1; filter: blur(45px); }
         }
 
-        .intro-content-wrap {
-            position: relative; z-index: 3; max-width: 900px;
-        }
+        .intro-content-wrap { position: relative; z-index: 3; max-width: 900px; }
 
         .intro-title-line1 {
             font-family: var(--font-serif); font-size: clamp(1.2rem, 3.8vw, 2.2rem);
@@ -160,33 +153,26 @@
             text-shadow: 0 2px 10px rgba(0,0,0,0.8);
         }
 
-        /* RADAR HUD GAUGE */
         .intro-radar-wrap {
             position: relative; width: 64px; height: 64px; margin: 30px auto 10px;
         }
-        .intro-radar-svg {
-            transform: rotate(-90deg); width: 64px; height: 64px;
-        }
+        .intro-radar-svg { transform: rotate(-90deg); width: 64px; height: 64px; }
         .intro-radar-bg { stroke: rgba(255,255,255,0.1); stroke-width: 3; fill: none; }
         .intro-radar-val {
             stroke: url(#heartGradient); stroke-width: 3; fill: none;
-            stroke-dasharray: 188; stroke-dashoffset: 188;
-            stroke-linecap: round; transition: stroke-dashoffset 0.05s linear;
+            stroke-dasharray: 188; stroke-dashoffset: 188; stroke-linecap: round;
+            transition: stroke-dashoffset 0.05s linear;
         }
         .intro-counter {
             position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
             font-size: 0.8rem; color: #fff; font-weight: 700; letter-spacing: 1px;
         }
 
-        /* ======================================================== */
-        /* 2. HEADER: CĂN GIỮA TUYỆT ĐỐI BẰNG CSS GRID 3 CỘT       */
-        /* ======================================================== */
+        /* 2. HEADER */
         header {
             position: fixed; top: 0; left: 0; width: 100%;
             padding: 14px 5%; padding-top: calc(12px + env(safe-area-inset-top));
-            display: grid;
-            grid-template-columns: 44px 1fr 44px; /* 3 cột đối xứng: Logo luôn nằm chính giữa */
-            align-items: center;
+            display: grid; grid-template-columns: 44px 1fr 44px; align-items: center;
             background: rgba(8, 9, 13, 0.45);
             backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid rgba(255,255,255,0.06); z-index: 1000;
@@ -223,10 +209,7 @@
         .admin-tab-btn.active {
             background: var(--crimson); border-color: var(--crimson); color: #fff;
         }
-
-        .admin-pane {
-            display: flex; align-items: center; gap: 8px; flex-wrap: wrap; width: 100%;
-        }
+        .admin-pane { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; width: 100%; }
 
         /* SIDEBAR */
         #sidebar {
@@ -376,22 +359,24 @@
             padding: 3px 8px; border-radius: 4px; box-shadow: 0 0 10px var(--crimson-glow);
         }
         
+        /* BANNER NỀN RÕ NÉT & CHỮ TƯƠNG PHẢN KHÔNG BỊ TRÙNG MÀU */
         .char-header-banner {
-            width: 100%; height: 195px; position: relative; overflow: hidden;
+            width: 100%; height: 185px; position: relative; overflow: hidden;
             display: flex; align-items: center; justify-content: center;
             background: #11131a;
         }
         .char-bg-cover {
             position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-            filter: blur(2px) brightness(0.65); transform: scale(1.05);
+            filter: brightness(0.9) contrast(1.05); /* Rõ nét, không bị mờ đục */
+            transform: scale(1.02);
         }
         .char-bg-gradient {
             position: absolute; inset: 0;
-            background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(255,255,255,0.7) 80%, #ffffff 100%);
+            background: linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.9) 85%, #ffffff 100%);
         }
         .char-avatar-glow-box {
-            position: relative; z-index: 2; width: 130px; height: 130px; border-radius: 12px; overflow: hidden;
-            border: 2px solid rgba(255, 255, 255, 0.9);
+            position: relative; z-index: 2; width: 125px; height: 125px; border-radius: 12px; overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.95);
             box-shadow: 0 0 20px rgba(229, 9, 20, 0.45), 0 6px 18px rgba(0,0,0,0.4);
             cursor: pointer;
         }
@@ -410,7 +395,7 @@
         .char-body { padding: 14px 16px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
         .char-name {
             font-family: var(--font-serif); font-size: 1.15rem; font-weight: 700; color: #0c0d12;
-            margin-bottom: 4px; text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+            margin-bottom: 4px; text-shadow: 0 1px 3px rgba(255,255,255,0.9);
         }
         .char-desc { font-size: 0.82rem; color: var(--cream-muted); line-height: 1.5; margin-bottom: 10px; }
 
@@ -420,7 +405,7 @@
         }
         .like-btn.liked { color: var(--crimson); transform: scale(1.08); }
 
-        /* DẢI HÒA MÀU VÀO DIỄN ĐÀN */
+        /* DẢI HÒA MÀU VÀ DIỄN ĐÀN */
         .divider-to-dark {
             height: 180px; width: 100%;
             background: linear-gradient(180deg, var(--cream-bg) 0%, #ddd8cc 15%, #8a867c 40%, #1c1e28 75%, #08090d 100%);
@@ -486,7 +471,7 @@
             margin: 0; width: 100%;
         }
 
-        /* MODALS PHÓNG TO MƯỢT MÀ */
+        /* MODALS */
         .modal-wrap {
             position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(15px);
             z-index: 6000; display: none; justify-content: center; align-items: center; padding: 15px;
@@ -508,13 +493,13 @@
         .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: none; color: #94a3b8; font-size: 1.4rem; cursor: pointer; z-index: 10; }
         
         .modal-banner-bg {
-            position: absolute; top: 0; left: 0; right: 0; height: 190px;
+            position: absolute; top: 0; left: 0; right: 0; height: 210px;
             background-size: cover; background-position: center; border-radius: 16px 16px 0 0;
             z-index: 0; display: none;
         }
         .modal-banner-overlay {
             position: absolute; inset: 0;
-            background: linear-gradient(180deg, rgba(17,19,26,0.2) 0%, rgba(17,19,26,0.85) 70%, #11131a 100%);
+            background: linear-gradient(180deg, rgba(17,19,26,0.15) 0%, rgba(17,19,26,0.7) 65%, #11131a 100%);
         }
 
         .char-prologue-box {
@@ -523,7 +508,6 @@
             font-size: 0.92rem; color: #f1f5f9; border-radius: 0 6px 6px 0; position: relative; z-index: 1;
         }
 
-        /* GỢI Ý CHỌN TAG NHANH TRONG FORM BOT */
         .tag-picker-wrap {
             display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px;
         }
@@ -532,9 +516,17 @@
             background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15);
             color: #cbd5e1; cursor: pointer; transition: var(--transition);
         }
-        .tag-pick-pill.picked {
-            background: var(--crimson); border-color: var(--crimson); color: #fff;
+
+        /* KHUNG DANH SÁCH NHIỀU NÚT CHAT LINK */
+        .modal-chat-links-wrap {
+            display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px;
         }
+        .modal-chat-btn {
+            background: #fff; color: #000; padding: 9px 16px; border-radius: 8px;
+            font-size: 0.82rem; font-weight: 700; text-decoration: none; display: inline-flex;
+            align-items: center; gap: 5px; transition: var(--transition);
+        }
+        .modal-chat-btn:hover { background: #e2e8f0; transform: translateY(-2px); }
 
         input, textarea, select {
             background: #090a0f; border: 1px solid rgba(255,255,255,0.14); color: #fff;
@@ -579,7 +571,7 @@
         </defs>
     </svg>
 
-    <!-- 1. MÀN CHỜ VŨ TRỤ ĐỘNG HOÀNH TRÁNG (BỎ KHUNG, RADAR & TINH VÂN) -->
+    <!-- 1. MÀN CHỜ VŨ TRỤ ĐỘNG HOÀNH TRÁNG -->
     <div id="intro-loader">
         <canvas id="introCanvas"></canvas>
         <div class="intro-aurora"></div>
@@ -598,7 +590,7 @@
         </div>
     </div>
 
-    <!-- 2. HEADER CĂN CHÍNH GIỮA TUYỆT ĐỐI BẰNG CSS GRID 3 CỘT -->
+    <!-- 2. HEADER CĂN CHÍNH GIỮA TUYỆT ĐỐI -->
     <header>
         <button class="menu-btn" onclick="toggleSidebar()" aria-label="Menu">
             <div class="menu-bars"><span></span><span></span></div>
@@ -615,7 +607,7 @@
         <div class="header-spacer-right"></div>
     </header>
 
-    <!-- THANH QUẢN TRỊ ADMIN -->
+    <!-- THANH QUẢN TRỊ ADMIN CHIA 2 CHẾ ĐỘ RÕ RÀNG -->
     <div id="admin-strip">
         <div class="admin-mode-tabs">
             <button class="admin-tab-btn active" id="tabInteractBtn" onclick="switchAdminTab('interact')">🎮 Tương Tác & Quản Lý</button>
@@ -638,7 +630,7 @@
         </div>
     </div>
 
-    <!-- SIDEBAR DRAWER (TOÀN BỘ CHỮ ĐỀU SỬA ĐƯỢC QUA CMS VÀ LINK TÙY BIẾN) -->
+    <!-- SIDEBAR DRAWER -->
     <div id="sidebar">
         <div>
             <div style="display:flex; justify-content:space-between; align-items:center;">
@@ -660,7 +652,7 @@
         </div>
     </div>
 
-    <!-- 3. HERO SECTION (CHỮ HẠ SÁT SHOWROOM) -->
+    <!-- 3. HERO SECTION -->
     <div class="hero" id="hero">
         <video id="mainHeroVideo" class="hero-video" src="https://videotourl.com/videos/1791993553264-7736ed0d-bbc4-4d12-8d32-0a6c0c573d3b.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto">
             <source id="mainVideoSource" src="https://videotourl.com/videos/1791993553264-7736ed0d-bbc4-4d12-8d32-0a6c0c573d3b.mp4" type="video/mp4">
@@ -676,7 +668,7 @@
         </div>
     </div>
 
-    <!-- 4. KHUNG GẦM / SHOWROOM (CMS MODE KHÔNG BỊ TRÔI TRANG KHI CLICK) -->
+    <!-- 4. KHUNG GẦM / SHOWROOM -->
     <section class="showroom-section" id="showroom">
         <div class="reveal" style="margin-bottom:18px;">
             <div style="color:var(--crimson); font-size:0.75rem; font-weight:700; letter-spacing:2px;" data-cms="showroom_tag">SHOWROOM MATRIX</div>
@@ -711,7 +703,7 @@
                 <div class="showroom-btn" data-cms="btn_op">Khám Phá →</div>
             </div>
 
-            <!-- THẺ LƯU Ý NHỎ -->
+            <!-- THẺ LƯU Ý NHỎ: LUÔN MỞ ĐƯỢC KỂ CẢ KHI BẬT SỬA CHỮ CMS -->
             <div class="showroom-card" style="border-color: rgba(245, 158, 11, 0.4);" onclick="handleShowroomCardClick('Lưu ý', event)">
                 <div>
                     <span style="color:#f59e0b; font-weight:700; font-size:0.75rem;" data-cms="rules_code">HOUSE RULES</span>
@@ -738,7 +730,6 @@
                 <input type="text" id="botSearch" class="search-input" placeholder="Tìm tên bot, bối cảnh, thẻ...">
             </div>
 
-            <!-- KHAY TAG SHORTCUT CÓ NÚT THÊM/BỚT CHO ADMIN -->
             <div id="tagDropdown" class="tag-tray"></div>
 
             <div style="display:flex; justify-content:space-between; align-items:center; margin-top:12px; flex-wrap:wrap; gap:8px;">
@@ -812,7 +803,7 @@
         </div>
     </div>
 
-    <!-- MODAL 2: CHI TIẾT NHÂN VẬT & COMMENT -->
+    <!-- MODAL 2: CHI TIẾT NHÂN VẬT & COMMENT (HỖ TRỢ NHIỀU NÚT BẤM CHAT LINK TÙY CHỈNH) -->
     <div id="charDetailModal" class="modal-wrap">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('charDetailModal')">✕</button>
@@ -822,17 +813,19 @@
             </div>
 
             <div style="position:relative; z-index:1; display:flex; gap:20px; flex-wrap:wrap; margin-bottom:16px;">
-                <div style="position:relative; width:100%; max-width:210px; height:230px; border-radius:12px; overflow:hidden; margin:0 auto; border:2px solid rgba(255,255,255,0.9); box-shadow:0 0 15px rgba(229,9,20,0.45);">
+                <div style="position:relative; width:100%; max-width:210px; height:230px; border-radius:12px; overflow:hidden; margin:0 auto; border:2px solid rgba(255,255,255,0.95); box-shadow:0 0 20px rgba(229,9,20,0.5);">
                     <img id="detailImg" src="" style="width:100%; height:100%; object-fit:cover;">
                 </div>
                 <div style="flex:1; min-width:230px; display:flex; flex-direction:column; justify-content:space-between;">
                     <div>
                         <div id="detailCat" style="color:var(--crimson); font-size:0.75rem; font-weight:700;">SERIES</div>
-                        <h2 id="detailTitle" style="font-family:var(--font-serif); font-size:1.5rem; margin:4px 0; text-shadow:0 2px 4px rgba(0,0,0,0.9);">Tên Bot</h2>
+                        <h2 id="detailTitle" style="font-family:var(--font-serif); font-size:1.5rem; margin:4px 0; text-shadow:0 2px 5px rgba(0,0,0,0.95);">Tên Bot</h2>
                         <div id="detailTags" style="color:#cbd5e1; font-size:0.8rem; margin-bottom:10px;">#tags</div>
                         <p id="detailDesc" style="color:#e2e8f0; font-size:0.88rem;"></p>
                     </div>
-                    <a id="detailChatLink" href="#" target="_blank" class="btn-brand" style="text-align:center; text-decoration:none; margin-top:12px; display:block;">KẾT NỐI VỚI AI ↗</a>
+
+                    <!-- DANH SÁCH CÁC NÚT BẤM CHAT (TỰ ĐỘNG SINH THEO SỐ LINK CÀI ĐẶT) -->
+                    <div class="modal-chat-links-wrap" id="detailChatLinksContainer"></div>
                 </div>
             </div>
 
@@ -860,9 +853,9 @@
         </div>
     </div>
 
-    <!-- MODAL 3: ADMIN THÊM / SỬA BOT (CÓ DANH SÁCH TAGS CHỌN NHANH VÀ TỰ THÊM TAG) -->
+    <!-- MODAL 3: ADMIN THÊM / SỬA BOT (HỖ TRỢ NHIỀU LINK VÀ TÊN NÚT TÙY CHỌN) -->
     <div id="adminFormModal" class="modal-wrap">
-        <div class="modal-content" style="max-width:520px;">
+        <div class="modal-content" style="max-width:540px;">
             <button class="modal-close" onclick="closeModal('adminFormModal')">✕</button>
             <h2 id="adminModalTitle" style="font-family:var(--font-serif); font-size:1.3rem; color:var(--crimson); margin-bottom:14px;">THÊM NGUYÊN MẪU</h2>
             <form onsubmit="saveCharacter(event)" style="display:flex; flex-direction:column; gap:10px;">
@@ -870,7 +863,7 @@
                 <input type="text" id="formName" placeholder="Tên nhân vật (Bắt buộc)">
                 
                 <div>
-                    <div style="font-size:0.75rem; color:#cbd5e1; margin-bottom:4px;">Phân loại:</div>
+                    <div style="font-size:0.75rem; color:#cbd5e1; margin-bottom:4px;">Phân loại (có thể chọn nhiều loại):</div>
                     <div style="display:flex; gap:15px; background:rgba(255,255,255,0.04); padding:8px 12px; border-radius:8px;">
                         <label style="font-size:0.8rem; cursor:pointer;"><input type="checkbox" id="cat_sfw" value="SFW" style="width:auto; margin-right:4px;"> SFW</label>
                         <label style="font-size:0.8rem; cursor:pointer;"><input type="checkbox" id="cat_nsfw" value="NSFW" style="width:auto; margin-right:4px;"> NSFW</label>
@@ -878,9 +871,8 @@
                     </div>
                 </div>
 
-                <!-- BỘ CHỌN TAG THÔNG MINH CHO BOT -->
                 <div>
-                    <input type="text" id="formTags" placeholder="Tags (cách nhau bởi dấu phẩy, VD: Lạnh lùng, Tsundere)">
+                    <input type="text" id="formTags" placeholder="Tags (cách nhau bởi dấu phẩy, VD: Học đường, Lạnh lùng)">
                     <div style="font-size:0.72rem; color:#94a3b8; margin: 4px 0 2px;">Chạm vào Tag có sẵn để thêm nhanh:</div>
                     <div class="tag-picker-wrap" id="botFormTagPicker"></div>
                 </div>
@@ -899,8 +891,17 @@
 
                 <textarea id="formDesc" rows="2" placeholder="Lời giới thiệu ngắn tính cách (Tùy chọn)"></textarea>
                 <textarea id="formPrologue" rows="2" placeholder="Lời tựa / Monologue (Tùy chọn)"></textarea>
-                <input type="text" id="formLink" placeholder="Link bot (Dokichat, c.ai...)">
-                <button type="submit" class="btn-brand" style="background:var(--crimson); color:#fff; width:100%;">LƯU VÀO DATABASE TOÀN CẦU</button>
+
+                <!-- KHU VỰC THÊM NHIỀU LINK ĐOẠN CHAT & TÊN NÚT RIÊNG -->
+                <div style="background:rgba(255,255,255,0.03); padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.1);">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                        <span style="font-size:0.75rem; color:#cbd5e1; font-weight:700;">Danh sách link & nút bấm:</span>
+                        <button type="button" class="btn-brand" style="padding:3px 8px; font-size:0.72rem; background:#3b82f6; color:#fff;" onclick="addLinkRow('Vào đoạn chat', '')">+ Thêm link/nút mới</button>
+                    </div>
+                    <div id="formLinksListContainer"></div>
+                </div>
+
+                <button type="submit" class="btn-brand" style="background:var(--crimson); color:#fff; width:100%; margin-top:5px;">LƯU VÀO DATABASE TOÀN CẦU</button>
             </form>
         </div>
     </div>
@@ -941,7 +942,7 @@
         </div>
     </div>
 
-    <!-- MODAL 6: SỬA LINK MENU (FACEBOOK, INSTAGRAM, DOKICHAT) -->
+    <!-- MODAL 6: SỬA LINK MENU -->
     <div id="adminContactModal" class="modal-wrap">
         <div class="modal-content" style="max-width:500px;">
             <button class="modal-close" onclick="closeModal('adminContactModal')">✕</button>
@@ -1079,15 +1080,17 @@
             }
         }
 
-        // KHI Ở CHẾ ĐỘ CMS, CLICK SHOWROOM CARD KHÔNG NHẢY TRANG
+        // XỬ LÝ CLICK SHOWROOM: THẺ LƯU Ý LUÔN MỞ ĐƯỢC KỂ CẢ KHI CMS BẬT
         function handleShowroomCardClick(cat, e) {
+            if (cat === 'Lưu ý') {
+                openRulesModal();
+                return;
+            }
             if (isCmsActive) {
-                // Đang sửa chữ CMS: Không cuộn trang hay lọc tag!
                 e.stopPropagation();
                 return;
             }
             if (cat === 'NSFW') handleNSFWClick();
-            else if (cat === 'Lưu ý') openRulesModal();
             else filterByCat(cat);
         }
 
@@ -1099,7 +1102,6 @@
             toggleSidebar();
         }
 
-        // SỬA LINK LIÊN HỆ MENU
         function openContactLinksModal() {
             document.getElementById('inputLinkFb').value = document.getElementById('linkFb').href;
             document.getElementById('inputLinkIg').value = document.getElementById('linkIg').href;
@@ -1117,7 +1119,6 @@
             alert("✓ Đã cập nhật link liên hệ trong Menu thành công!");
         }
 
-        // NẠP VIDEO NỀN
         function initBackgroundVideo() {
             const videoEl = document.getElementById('mainHeroVideo');
             if (videoEl) {
@@ -1133,7 +1134,7 @@
             }
         }
 
-        // CANVAS HIỆU ỨNG VŨ TRỤ ĐỘNG CHO MÀN CHÀO MỪNG
+        // CANVAS HIỆU ỨNG VŨ TRỤ ĐỘNG
         function initIntroCanvas() {
             const canvas = document.getElementById('introCanvas');
             if (!canvas) return;
@@ -1180,7 +1181,6 @@
             });
         }
 
-        // KHỞI ĐỘNG
         window.addEventListener('load', () => {
             initIntroCanvas();
             syncDatabase();
@@ -1189,7 +1189,7 @@
             let percent = 0;
             const counterEl = document.getElementById('introPercent');
             const radarCircle = document.getElementById('introRadarCircle');
-            const totalCircum = 188; // 2 * PI * 30
+            const totalCircum = 188;
 
             const interval = setInterval(() => {
                 percent += 1;
@@ -1220,7 +1220,6 @@
 
         function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
 
-        // MẬT MÃ ADMIN: 050407
         const botSearchInput = document.getElementById('botSearch');
         botSearchInput.addEventListener('input', (e) => {
             if (e.target.value.trim() === '050407') {
@@ -1331,9 +1330,7 @@
             }
         }
 
-        // ========================================================
-        // QUẢN TRỊ TAG THANH TÌM KIẾM (CHO PHÉP THÊM / BỚT TAG)
-        // ========================================================
+        // QUẢN TRỊ TAGS
         function renderTagTray() {
             const tray = document.getElementById('tagDropdown');
             tray.innerHTML = '';
@@ -1370,11 +1367,9 @@
             }
         }
 
-        // GỢI Ý TAGS CHO FORM BOT (CHẠM ĐỂ CHỌN NHANH)
         function renderBotFormTagPicker() {
             const container = document.getElementById('botFormTagPicker');
             if (!container) return;
-            // Gom toàn bộ tags hiện có từ preset + bot
             const allTags = new Set([...presetTags]);
             bots.forEach(b => {
                 if (b.tags && Array.isArray(b.tags)) b.tags.forEach(t => allTags.add(t));
@@ -1479,7 +1474,7 @@
 
         function openRulesModal() { document.getElementById('rulesModal').classList.add('open'); }
 
-        // RENDER BOT
+        // RENDER BOT (KHÔNG TỰ Ý CHÈN CHỮ "CHƯA CÓ...")
         function renderBots() {
             const container = document.getElementById('charContainer');
             const searchVal = botSearchInput.value.toLowerCase().trim();
@@ -1537,7 +1532,7 @@
                         <div class="char-body">
                             <div onclick="handleCardClick('${bot.id}')" style="cursor:pointer;">
                                 <h3 class="char-name">${bot.name}</h3>
-                                <p class="char-desc">${bot.desc || 'Chưa có lời giới thiệu ngắn.'}</p>
+                                ${bot.desc ? `<p class="char-desc">${bot.desc}</p>` : ''}
                             </div>
                             <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(0,0,0,0.06); padding-top:8px;">
                                 <span style="font-size:0.75rem; color:var(--crimson); font-weight:700;">${tagsList}</span>
@@ -1603,6 +1598,7 @@
             showDetailModalDirectly(id);
         }
 
+        // MỞ CHI TIẾT BOT (HỖ TRỢ NHIỀU NÚT BẤM CHAT VÀ ĐỂ TRỐNG NẾU KHÔNG CÓ THÔNG TIN)
         function showDetailModalDirectly(id) {
             currentCharId = id;
             const bot = bots.find(b => String(b.id) === String(id));
@@ -1621,12 +1617,56 @@
             document.getElementById('detailCat').innerText = `SERIES // ${bCats.join(', ')}`;
             document.getElementById('detailTitle').innerText = bot.name;
             document.getElementById('detailTags').innerText = bot.tags && bot.tags.length > 0 ? '#' + bot.tags.join(' #') : '';
-            document.getElementById('detailDesc').innerText = bot.desc || 'Chưa có mô tả chi tiết.';
-            document.getElementById('detailPrologue').innerText = bot.prologue || "“Chưa có lời tựa cho nhân vật này.”";
-            document.getElementById('detailChatLink').href = bot.link || '#';
+            
+            // Xử lý mô tả: Không tự điền "Chưa có...", chỉ hiện nếu có thật
+            const descEl = document.getElementById('detailDesc');
+            if (bot.desc && bot.desc.trim()) {
+                descEl.innerText = bot.desc;
+                descEl.style.display = 'block';
+            } else {
+                descEl.style.display = 'none';
+            }
+
+            // Xử lý lời tựa
+            const proEl = document.getElementById('detailPrologue');
+            if (bot.prologue && bot.prologue.trim()) {
+                proEl.innerText = bot.prologue;
+                proEl.style.display = 'block';
+            } else {
+                proEl.style.display = 'none';
+            }
+
+            // Xử lý các nút bấm vào đoạn chat (cho phép nhiều nút kèm tên nút tùy chọn)
+            const linksContainer = document.getElementById('detailChatLinksContainer');
+            linksContainer.innerHTML = '';
+            
+            const chatLinks = bot.links && bot.links.length > 0 ? bot.links : (bot.link ? [{ label: 'Vào đoạn chat', url: bot.link }] : []);
+            chatLinks.forEach(item => {
+                if (item.url) {
+                    linksContainer.innerHTML += `
+                        <a href="${item.url}" target="_blank" class="modal-chat-btn">
+                            ${item.label || 'Vào đoạn chat'} ↗
+                        </a>
+                    `;
+                }
+            });
 
             renderCharComments(id);
             document.getElementById('charDetailModal').classList.add('open');
+        }
+
+        // QUẢN LÝ DÒNG LINK TRONG FORM TẠO/SỬA BOT
+        function addLinkRow(label = 'Vào đoạn chat', url = '') {
+            const container = document.getElementById('formLinksListContainer');
+            const row = document.createElement('div');
+            row.className = 'form-link-row';
+            row.style.cssText = 'display:flex; gap:6px; margin-bottom:6px;';
+            row.innerHTML = `
+                <input type="text" class="link-label-input" placeholder="Tên nút (VD: Vào đoạn chat)" value="${label}" style="flex:1; font-size:13px; padding:6px 8px;">
+                <input type="text" class="link-url-input" placeholder="URL link bot" value="${url}" style="flex:1.6; font-size:13px; padding:6px 8px;">
+                <button type="button" class="btn-brand" style="background:#ef4444; color:#fff; padding:4px 8px;" onclick="this.parentElement.remove()">✕</button>
+            `;
+            container.appendChild(row);
         }
 
         function openCharFormModal() {
@@ -1643,7 +1683,11 @@
             document.getElementById('formBgImgFile').value = "";
             document.getElementById('formDesc').value = "";
             document.getElementById('formPrologue').value = "";
-            document.getElementById('formLink').value = "";
+            
+            // Xóa và thêm 1 dòng link mặc định
+            document.getElementById('formLinksListContainer').innerHTML = '';
+            addLinkRow('Vào đoạn chat', '');
+
             renderBotFormTagPicker();
             document.getElementById('adminFormModal').classList.add('open');
         }
@@ -1667,7 +1711,18 @@
             document.getElementById('formBgImgFile').value = "";
             document.getElementById('formDesc').value = b.desc || '';
             document.getElementById('formPrologue').value = b.prologue || "";
-            document.getElementById('formLink').value = b.link || '';
+            
+            // Nạp danh sách các link đã lưu
+            const linksContainer = document.getElementById('formLinksListContainer');
+            linksContainer.innerHTML = '';
+            if (b.links && b.links.length > 0) {
+                b.links.forEach(l => addLinkRow(l.label, l.url));
+            } else if (b.link) {
+                addLinkRow('Vào đoạn chat', b.link);
+            } else {
+                addLinkRow('Vào đoạn chat', '');
+            }
+
             renderBotFormTagPicker();
             document.getElementById('adminFormModal').classList.add('open');
         }
@@ -1678,6 +1733,7 @@
             }
         }
 
+        // LƯU BOT: HỖ TRỢ NHIỀU LINK ĐOẠN CHAT & TÊN NÚT BẤM
         async function saveCharacter(e) {
             e.preventDefault();
             const editId = document.getElementById('adminCharId').value;
@@ -1692,7 +1748,15 @@
             const tags = document.getElementById('formTags').value.split(',').map(t => t.trim()).filter(Boolean);
             const desc = document.getElementById('formDesc').value.trim();
             const prologue = document.getElementById('formPrologue').value.trim();
-            const link = document.getElementById('formLink').value.trim();
+
+            // Gom toàn bộ danh sách các link chat
+            const linkRows = document.querySelectorAll('.form-link-row');
+            const links = [];
+            linkRows.forEach(row => {
+                const label = row.querySelector('.link-label-input').value.trim() || 'Vào đoạn chat';
+                const url = row.querySelector('.link-url-input').value.trim();
+                if (url) links.push({ label, url });
+            });
 
             const urlImg = document.getElementById('formImg').value.trim();
             const fileInput = document.getElementById('formImgFile');
@@ -1728,7 +1792,8 @@
                 bgImage: finalBgImg || '',
                 desc,
                 prologue,
-                link,
+                links,
+                link: links.length > 0 ? links[0].url : '',
                 likes: existingBot ? (existingBot.likes || 0) : 0,
                 pinned: existingBot ? (existingBot.pinned || false) : false,
                 timestamp: existingBot ? existingBot.timestamp : Date.now()
@@ -1812,7 +1877,7 @@
             return sorted;
         }
 
-        // BÌNH LUẬN TRONG BOT
+        // BÌNH LUẬN TRONG BOT (ĐÃ SỬA DỨT ĐIỂM LỖI PHẢN HỒI)
         let activeCharCommentsListener = null;
 
         function postCharComment(e) {
@@ -1906,7 +1971,7 @@
                         <div class="comment-header">
                             <span class="comment-user" style="color:${item.isAdmin ? 'var(--crimson)' : '#fff'};">
                                 ${item.author} ${item.isAdmin ? '<span style="font-size:0.6rem; background:var(--crimson); color:#fff; padding:1px 5px; border-radius:3px;">ADMIN</span>' : ''}
-                                ${item.pinned ? '<span style="font-size:0.6rem; background:#f59e0b; color:#000; font-weight:700; padding:1px 5px; border-radius:3px;">📌 ĐÃ GHIM</span>' : ''}
+                                ${item.pinned ? '<span style="font-size:0.6rem; background:#f59e0b; color:#000; font-weight:700; padding:1px 5px; border-radius:3px;">📌 GHIM</span>' : ''}
                             </span>
                             <span class="comment-time">${item.time}</span>
                         </div>
@@ -1934,6 +1999,7 @@
             if (box) box.classList.toggle('open'); 
         }
 
+        // PHẢN HỒI BÌNH LUẬN ĐỒNG BỘ CHUẨN XÁC LÊN FIREBASE
         function submitNestedReply(contextKey, parentId) {
             const input = document.getElementById(`replyInput_${parentId}`);
             const text = input.value.trim();
