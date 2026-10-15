@@ -7,9 +7,10 @@
     <!-- Google Fonts chuẩn Tiếng Việt 100% -->
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
     
-    <!-- FIREBASE COMPAT SDK -->
+    <!-- THƯ VIỆN GOOGLE FIREBASE & YOUTUBE IFRAME API CHÍNH THỨC -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
 
     <script>
         const firebaseConfig = {
@@ -21,8 +22,14 @@
             messagingSenderId: "64006503844",
             appId: "1:64006503844:web:eee29c771d9fb5cb945531"
         };
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
+        
+        let db = null;
+        try {
+            firebase.initializeApp(firebaseConfig);
+            db = firebase.database();
+        } catch(e) {
+            console.warn("Khởi tạo Firebase dự phòng:", e);
+        }
 
         if ('scrollRestoration' in history) {
             history.scrollRestoration = 'manual';
@@ -67,7 +74,7 @@
             width: 100%;
         }
 
-        /* VECTOR SVG LUXURY */
+        /* VECTOR SVG */
         .luxury-heart-svg {
             width: 17px; height: 17px; display: inline-block; vertical-align: middle;
             fill: url(#heartGradient); filter: drop-shadow(0 0 5px rgba(244, 63, 94, 0.6));
@@ -92,27 +99,28 @@
             background: rgba(229, 9, 20, 0.12); border-radius: 4px; cursor: text; padding: 2px 4px;
         }
 
+        /* SAO NỔ MỜ MÀU HỒNG PASTEL / ĐỎ */
         .sparkle-particle {
-            position: fixed; pointer-events: none; z-index: 999999;
-            color: #ff6b8b; font-size: 15px; user-select: none;
-            animation: starBurstAnim 0.65s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
-            text-shadow: 0 0 8px rgba(255, 107, 139, 0.9), 0 0 16px rgba(229, 9, 20, 0.5);
+            position: fixed; pointer-events: none; z-index: 9999999;
+            color: #ff758c; font-size: 16px; user-select: none;
+            animation: starBurstAnim 0.7s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+            text-shadow: 0 0 8px rgba(255, 117, 140, 0.9), 0 0 16px rgba(229, 9, 20, 0.6);
         }
         @keyframes starBurstAnim {
             0% { transform: translate(-50%, -50%) scale(0.2) rotate(0deg); opacity: 1; }
-            100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.2) rotate(var(--rot)); opacity: 0; }
+            100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.3) rotate(var(--rot)); opacity: 0; }
         }
 
-        /* 1. MÀN CHỜ VŨ TRỤ ĐỘNG */
+        /* 1. MÀN CHỜ VŨ TRỤ ĐỘNG & NÚT ENTER */
         #intro-loader {
             position: fixed; inset: 0; background: #040507; z-index: 99999;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             text-align: center; padding: 20px;
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+            transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.9s;
             overflow: hidden;
-            cursor: pointer;
+            pointer-events: auto;
         }
-        #intro-loader.fade-out { opacity: 0; visibility: hidden; }
+        #intro-loader.fade-out { opacity: 0; visibility: hidden; pointer-events: none; }
 
         #introCanvas {
             position: absolute; inset: 0; width: 100%; height: 100%;
@@ -170,12 +178,31 @@
             position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
             font-size: 0.8rem; color: #fff; font-weight: 700; letter-spacing: 1px;
         }
-        .intro-tap-hint {
-            font-size: 0.75rem; color: #fca5a5; letter-spacing: 1.5px; margin-top: 10px;
-            opacity: 0; transition: opacity 0.4s;
+
+        /* NÚT ENTER CHỈ BẤM ĐÚNG MỚI VÀO */
+        .intro-enter-btn-wrap {
+            margin-top: 25px; height: 50px; display: flex; justify-content: center; align-items: center;
+            pointer-events: auto;
+        }
+        .intro-enter-btn {
+            background: linear-gradient(135deg, rgba(229,9,20,0.85) 0%, rgba(186,18,60,0.95) 100%);
+            color: #fff; border: 1px solid rgba(255,255,255,0.35);
+            padding: 12px 28px; border-radius: 30px; font-family: var(--font-sans);
+            font-size: 0.85rem; font-weight: 700; letter-spacing: 2px; cursor: pointer;
+            box-shadow: 0 0 25px var(--crimson-glow);
+            transition: all 0.4s ease; display: none; opacity: 0; transform: translateY(10px);
+        }
+        .intro-enter-btn.active {
+            display: inline-flex; animation: enterBtnShow 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes enterBtnShow {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .intro-enter-btn:hover {
+            transform: scale(1.05); box-shadow: 0 0 35px rgba(229,9,20,0.8);
         }
 
-        /* 2. HEADER ĐỐI XỨNG */
+        /* 2. HEADER */
         header {
             position: fixed; top: 0; left: 0; width: 100%;
             padding: 14px 5%; padding-top: calc(12px + env(safe-area-inset-top));
@@ -199,7 +226,7 @@
             display: flex; align-items: center; justify-content: center;
         }
 
-        /* NÚT BẬT/TẮT NHẠC */
+        /* NÚT SÓNG ÂM THANH HI-FI */
         .sound-btn {
             background: none; border: none; cursor: pointer;
             justify-self: end; padding: 6px 0; display: flex; align-items: center;
@@ -265,7 +292,7 @@
             border-radius: 8px; margin-top: 8px;
         }
 
-        /* 3. HERO SECTION (TỐI ƯU HÓA KHÔNG ĐƠ TRÊN ĐIỆN THOẠI) */
+        /* 3. HERO SECTION */
         .hero {
             position: relative; width: 100%; height: 100dvh; min-height: 520px;
             display: flex; flex-direction: column; justify-content: flex-end;
@@ -510,7 +537,7 @@
             margin: 0; width: 100%;
         }
 
-        /* MODALS */
+        /* MODALS PHÓNG TO MƯỢT MÀ */
         .modal-wrap {
             position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(15px);
             z-index: 6000; display: none; justify-content: center; align-items: center; padding: 15px;
@@ -607,10 +634,11 @@
 
     <!-- TRÌNH PHÁT NHẠC NỀN & KHUNG YOUTUBE AUDIO CẤU HÌNH GỠ BỎ DELAY -->
     <audio id="mainAudioPlayer" loop playsinline preload="auto"></audio>
-    <div id="ytAudioContainer" style="position:fixed; top:-9999px; left:-9999px; width:200px; height:200px; opacity:0; pointer-events:none; z-index:-999; overflow:hidden;"></div>
+    <!-- KHUNG CHỨA YOUTUBE AUDIO TRỰC TIẾP -->
+    <div id="ytAudioPlayerBox" style="position:fixed; bottom:0; right:0; width:200px; height:200px; opacity:0.01; pointer-events:none; z-index:-10;"></div>
 
-    <!-- 1. MÀN CHỜ VŨ TRỤ ĐỘNG HOÀNH TRÁNG (BẤM VÀO SẼ KÍCH HOẠT NHẠC NGAY) -->
-    <div id="intro-loader" onclick="handleIntroTap()">
+    <!-- 1. MÀN CHỜ VŨ TRỤ ĐỘNG VỚI NÚT ENTER KHỞI ĐỘNG HỆ THỐNG -->
+    <div id="intro-loader">
         <canvas id="introCanvas"></canvas>
         <div class="intro-aurora"></div>
         <div class="intro-content-wrap">
@@ -618,18 +646,24 @@
             <div class="intro-title-line2" data-cms="intro_line2">Rổ Satoru nhà Ethera</div>
             <div class="intro-sub" data-cms="intro_sub">Nơi treo lô chatbot Satoru di cư từ Doki!</div>
             
-            <div class="intro-radar-wrap">
+            <div class="intro-radar-wrap" id="introRadarBox">
                 <svg class="intro-radar-svg">
                     <circle class="intro-radar-bg" cx="32" cy="32" r="30"></circle>
                     <circle class="intro-radar-val" id="introRadarCircle" cx="32" cy="32" r="30"></circle>
                 </svg>
                 <div class="intro-counter" id="introPercent">00%</div>
             </div>
-            <div class="intro-tap-hint" id="introTapHint">✦ Chạm màn hình để hòa vào không gian ✦</div>
+
+            <!-- NÚT BẤM ENTER CHUẨN XÁC ĐỂ KHỞI ĐỘNG VÀ BẬT NHẠC -->
+            <div class="intro-enter-btn-wrap">
+                <button class="intro-enter-btn" id="introEnterBtn" onclick="handleEnterAtelier(event)">
+                    KHỞI ĐỘNG HỆ THỐNG // ENTER ↗
+                </button>
+            </div>
         </div>
     </div>
 
-    <!-- 2. HEADER ĐỐI XỨNG TUYỆT ĐỐI -->
+    <!-- 2. HEADER ĐỐI XỨNG -->
     <header>
         <button class="menu-btn" onclick="toggleSidebar()" aria-label="Menu">
             <div class="menu-bars"><span></span><span></span></div>
@@ -697,11 +731,10 @@
         </div>
     </div>
 
-    <!-- 3. HERO SECTION (TỰ PHỤC HỒI KHI BỊ NGẮT TRÊN MOBILE) -->
+    <!-- 3. HERO SECTION (TỰ ĐỘNG CHẠY VÀ PHỤC HỒI VIDEO) -->
     <div class="hero" id="hero">
         <video id="mainHeroVideo" class="hero-video" src="https://videotourl.com/videos/1791993553264-7736ed0d-bbc4-4d12-8d32-0a6c0c573d3b.mp4" 
-            autoplay muted loop playsinline webkit-playsinline preload="auto" 
-            disablepictureinpicture disableremoteplayback>
+            autoplay muted loop playsinline webkit-playsinline preload="auto">
             <source id="mainVideoSource" src="https://videotourl.com/videos/1791993553264-7736ed0d-bbc4-4d12-8d32-0a6c0c573d3b.mp4" type="video/mp4">
         </video>
         <iframe id="mainHeroIframe" class="hero-iframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
@@ -751,7 +784,7 @@
                 <div class="showroom-btn" data-cms="btn_op">Khám Phá →</div>
             </div>
 
-            <!-- THẺ LƯU Ý NHỎ -->
+            <!-- THẺ LƯU Ý NHỎ: MỞ QUY TẮC -->
             <div class="showroom-card" style="border-color: rgba(245, 158, 11, 0.4);" onclick="handleShowroomCardClick('Lưu ý', event)">
                 <div>
                     <span style="color:#f59e0b; font-weight:700; font-size:0.75rem;" data-cms="rules_code">HOUSE RULES</span>
@@ -1064,15 +1097,18 @@
         let bots = [];
         let globalThreads = [];
 
-        // QUẢN TRỊ ÂM THANH REALTIME (HỖ TRỢ YOUTUBE & MP3)
+        // QUẢN TRỊ ÂM THANH
         let isAudioPlaying = false;
         let userHasPausedManually = false;
+        let shouldPlayAudioWhenReady = false;
         let currentAudioType = 'html5';
         let currentAudioSrc = '';
-        let isAudioReady = false;
+        let isYtReady = false;
+        let ytPlayer = null;
         let introDismissed = false;
         let introAnimId = null;
 
+        // BẬT / TẮT NHẠC
         function toggleAudio(manualClick = false) {
             if (manualClick) {
                 userHasPausedManually = isAudioPlaying;
@@ -1086,34 +1122,34 @@
         }
 
         function playAudio() {
+            shouldPlayAudioWhenReady = true;
             if (userHasPausedManually) return;
             const btn = document.getElementById('soundToggleBtn');
             const audioEl = document.getElementById('mainAudioPlayer');
-            const ytIframe = document.getElementById('ytAudioIframe');
 
-            if (currentAudioType === 'youtube' && ytIframe && ytIframe.contentWindow) {
-                ytIframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
-                ytIframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-                isAudioPlaying = true;
-                btn.classList.add('playing');
+            if (currentAudioType === 'youtube') {
+                if (ytPlayer && isYtReady && ytPlayer.playVideo) {
+                    try {
+                        ytPlayer.unMute();
+                        ytPlayer.playVideo();
+                        isAudioPlaying = true;
+                        btn.classList.add('playing');
+                    } catch(e) {}
+                }
             } else if (audioEl && audioEl.src) {
                 audioEl.play().then(() => {
                     isAudioPlaying = true;
                     btn.classList.add('playing');
-                }).catch(() => {
-                    // Trình duyệt cần tương tác
-                    showTapHint();
-                });
+                }).catch(() => {});
             }
         }
 
         function pauseAudio() {
             const btn = document.getElementById('soundToggleBtn');
             const audioEl = document.getElementById('mainAudioPlayer');
-            const ytIframe = document.getElementById('ytAudioIframe');
 
-            if (currentAudioType === 'youtube' && ytIframe && ytIframe.contentWindow) {
-                ytIframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+            if (currentAudioType === 'youtube' && ytPlayer && ytPlayer.pauseVideo) {
+                try { ytPlayer.pauseVideo(); } catch(e){}
             } else if (audioEl) {
                 audioEl.pause();
             }
@@ -1121,88 +1157,143 @@
             btn.classList.remove('playing');
         }
 
+        // KHỞI TẠO HOẶC ĐỔI NGUỒN NHẠC
         function setAudioSource(sourceData) {
             if (!sourceData) return;
-            currentAudioSrc = sourceData.url || sourceData;
+            currentAudioSrc = (typeof sourceData === 'object' && sourceData.url) ? sourceData.url : (typeof sourceData === 'string' ? sourceData : '');
+            if (!currentAudioSrc) return;
             localStorage.setItem('ethera_cached_audio_src', currentAudioSrc);
 
             const ytId = extractYouTubeId(currentAudioSrc);
             const audioEl = document.getElementById('mainAudioPlayer');
-            const ytContainer = document.getElementById('ytAudioContainer');
 
             if (ytId) {
                 currentAudioType = 'youtube';
                 if (audioEl) audioEl.pause();
-                
-                // Embed với autoplay=1 và nhận diện postMessage
-                ytContainer.innerHTML = `<iframe id="ytAudioIframe" width="200" height="200" src="https://www.youtube.com/embed/${ytId}?enablejsapi=1&autoplay=1&loop=1&playlist=${ytId}&playsinline=1" frameborder="0" allow="autoplay; encrypted-media"></iframe>`;
+                createYTPlayerInstance(ytId);
             } else {
                 currentAudioType = 'html5';
-                ytContainer.innerHTML = '';
+                if (ytPlayer && ytPlayer.destroy) {
+                    try { ytPlayer.destroy(); } catch(e){}
+                    isYtReady = false;
+                }
                 if (audioEl) {
                     audioEl.src = currentAudioSrc;
                     audioEl.load();
+                    if (shouldPlayAudioWhenReady && !userHasPausedManually) {
+                        playAudio();
+                    }
                 }
             }
         }
 
-        // LẮNG NGHE TÍN HIỆU TỪ YOUTUBE ĐỂ BIẾT CHÍNH XÁC KHI NÀO NHẠC ĐÃ PHÁT
-        window.addEventListener('message', (e) => {
+        // TẠO THỂ HIỆN YOUTUBE PLAYER BẰNG IFRAME API CHÍNH THỨC
+        function createYTPlayerInstance(ytId) {
+            if (!window.YT || !window.YT.Player) {
+                // Nếu API chưa tải xong, đợi rồi gọi lại
+                window.onYouTubeIframeAPIReady = () => createYTPlayerInstance(ytId);
+                return;
+            }
+
+            const box = document.getElementById('ytAudioPlayerBox');
+            if (!box) return;
+            box.innerHTML = '<div id="ytPlayerTarget"></div>';
+
             try {
-                const data = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
-                if (data) {
-                    if (data.event === 'onReady') {
-                        const ytIframe = document.getElementById('ytAudioIframe');
-                        if (ytIframe && ytIframe.contentWindow) {
-                            ytIframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
-                            ytIframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                ytPlayer = new YT.Player('ytPlayerTarget', {
+                    height: '200',
+                    width: '200',
+                    videoId: ytId,
+                    playerVars: {
+                        autoplay: 0,
+                        controls: 0,
+                        disablekb: 1,
+                        fs: 0,
+                        loop: 1,
+                        playlist: ytId,
+                        playsinline: 1
+                    },
+                    events: {
+                        onReady: (event) => {
+                            isYtReady = true;
+                            if (shouldPlayAudioWhenReady && !userHasPausedManually) {
+                                event.target.unMute();
+                                event.target.playVideo();
+                                isAudioPlaying = true;
+                                document.getElementById('soundToggleBtn').classList.add('playing');
+                            }
+                        },
+                        onStateChange: (event) => {
+                            if (event.data === YT.PlayerState.PLAYING) {
+                                isAudioPlaying = true;
+                                document.getElementById('soundToggleBtn').classList.add('playing');
+                            } else if (event.data === YT.PlayerState.PAUSED) {
+                                isAudioPlaying = false;
+                                document.getElementById('soundToggleBtn').classList.remove('playing');
+                            } else if (event.data === YT.PlayerState.ENDED) {
+                                event.target.playVideo();
+                            }
                         }
                     }
-                    if (data.event === 'infoDelivery' && data.info && data.info.playerState === 1) {
-                        isAudioReady = true;
-                        isAudioPlaying = true;
-                        document.getElementById('soundToggleBtn').classList.add('playing');
-                    }
-                }
-            } catch(err) {}
-        });
-
-        const mainAudio = document.getElementById('mainAudioPlayer');
-        if (mainAudio) {
-            mainAudio.addEventListener('playing', () => {
-                isAudioReady = true;
-                isAudioPlaying = true;
-                document.getElementById('soundToggleBtn').classList.add('playing');
-            });
-        }
-
-        function showTapHint() {
-            const hint = document.getElementById('introTapHint');
-            if (hint && !introDismissed) {
-                hint.style.opacity = '1';
+                });
+            } catch(e) {
+                console.warn("Lỗi khởi tạo YT Player:", e);
             }
         }
 
-        function handleIntroTap() {
+        // ========================================================
+        // NÚT ENTER CHUẨN XÁC: CHỈ BẤM ĐÚNG MỚI VÀO VÀ BẬT NHẠC
+        // ========================================================
+        function handleEnterAtelier(e) {
+            e.stopPropagation();
+            introDismissed = true;
+            if (introAnimId) cancelAnimationFrame(introAnimId);
+            
+            document.getElementById('intro-loader').classList.add('fade-out');
+            window.scrollTo(0, 0);
+            
+            // Kích hoạt phát video và nhạc ngay lập tức
+            ensureVideoPlaying();
             userHasPausedManually = false;
             playAudio();
         }
 
-        // TỰ PHỤC HỒI KHI CHẠM HOẶC LƯỚT MÀN HÌNH ĐẦU TIÊN
-        function unlockAutoplayOnFirstGesture() {
-            if (!userHasPausedManually) {
-                playAudio();
+        // HIỆU ỨNG CLICK BẮN SAO MỜ PASTEL (HỖ TRỢ CẢ CHUỘT VÀ CHẠM TAY)
+        function triggerSparkleBurst(x, y) {
+            const stars = ['✦', '✧', '★', '·'];
+            for (let i = 0; i < 7; i++) {
+                const span = document.createElement('span');
+                span.className = 'sparkle-particle';
+                span.innerText = stars[Math.floor(Math.random() * stars.length)];
+                const angle = Math.random() * 2 * Math.PI;
+                const distance = 20 + Math.random() * 45;
+                span.style.left = x + 'px';
+                span.style.top = y + 'px';
+                span.style.setProperty('--dx', (Math.cos(angle) * distance) + 'px');
+                span.style.setProperty('--dy', (Math.sin(angle) * distance) + 'px');
+                span.style.setProperty('--rot', (Math.random() * 360) + 'deg');
+                document.body.appendChild(span);
+                setTimeout(() => span.remove(), 700);
             }
-            ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt => {
-                document.removeEventListener(evt, unlockAutoplayOnFirstGesture);
-            });
         }
-        ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt => {
-            document.addEventListener(evt, unlockAutoplayOnFirstGesture, { passive: true, once: true });
-        });
+
+        function handlePointerSparkle(e) {
+            if (['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON', 'A'].includes(e.target.tagName)) return;
+            const x = e.clientX || (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
+            const y = e.clientY || (e.touches && e.touches[0] ? e.touches[0].clientY : 0);
+            if (x && y) triggerSparkleBurst(x, y);
+        }
+
+        window.addEventListener('click', handlePointerSparkle);
+        window.addEventListener('touchstart', (e) => {
+            if (['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON', 'A'].includes(e.target.tagName)) return;
+            const t = e.touches[0];
+            if (t) triggerSparkleBurst(t.clientX, t.clientY);
+        }, { passive: true });
 
         // 1. KẾT NỐI REALTIME FIREBASE
         function syncDatabase() {
+            if (!db) return;
             db.ref('roster').on('value', (snapshot) => {
                 const data = snapshot.val();
                 bots = data ? Object.values(data) : [];
@@ -1215,6 +1306,7 @@
                 renderGlobalForum();
             });
 
+            // Lắng nghe Video nền (Có bộ lọc loại bỏ link Catbox cũ hỏng)
             db.ref('custom_video').on('value', (snapshot) => {
                 const vidData = snapshot.val();
                 if (vidData) setBackgroundVideoSource(vidData);
@@ -1254,7 +1346,7 @@
             document.querySelectorAll('[data-cms]').forEach(el => {
                 texts[el.getAttribute('data-cms')] = el.innerHTML;
             });
-            db.ref('cms_texts').set(texts);
+            if (db) db.ref('cms_texts').set(texts);
             alert("✓ Đã lưu toàn bộ nội dung văn bản (kể cả Menu) lên Firebase!");
         }
 
@@ -1319,26 +1411,35 @@
             const ig = document.getElementById('inputLinkIg').value.trim() || 'https://instagram.com';
             const doki = document.getElementById('inputLinkDoki').value.trim() || 'https://dokichat.com';
             
-            db.ref('contact_links').set({ fb, ig, doki });
+            if (db) db.ref('contact_links').set({ fb, ig, doki });
             closeModal('adminContactModal');
             alert("✓ Đã cập nhật link liên hệ trong Menu thành công!");
         }
 
         function extractYouTubeId(url) {
-            if (!url) return null;
+            if (!url || typeof url !== 'string') return null;
             const cleanUrl = url.trim();
             const match = cleanUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/)|music\.youtube\.com\/watch\?v=)([a-zA-Z0-9_-]{11})/);
             return match ? match[1] : null;
         }
 
         function extractTikTokId(url) {
-            if (!url) return null;
+            if (!url || typeof url !== 'string') return null;
             const match = url.match(/\/video\/(\d+)/) || url.match(/\/v\/(\d+)/);
             return match ? match[1] : null;
         }
 
-        function setBackgroundVideoSource(url) {
+        function setBackgroundVideoSource(urlData) {
+            if (!urlData) return;
+            let url = (typeof urlData === 'object' && urlData.url) ? urlData.url : (typeof urlData === 'string' ? urlData : '');
             if (!url) return;
+            url = url.trim();
+
+            // BỘ LỌC BẢO VỆ: Chặn link Catbox cũ hỏng không cho ghi đè
+            if (url.includes('catbox.moe/dxm8ui.mp4')) {
+                return;
+            }
+
             const videoEl = document.getElementById('mainHeroVideo');
             const iframeEl = document.getElementById('mainHeroIframe');
             const sourceEl = document.getElementById('mainVideoSource');
@@ -1348,21 +1449,22 @@
 
             if (ytId) {
                 videoEl.style.display = 'none';
-                videoEl.pause();
+                try { videoEl.pause(); } catch(e){}
                 iframeEl.style.display = 'block';
-                iframeEl.src = `https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&mute=1&loop=1&playlist=${ytId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`;
+                const embedSrc = `https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&mute=1&loop=1&playlist=${ytId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`;
+                if (iframeEl.src !== embedSrc) iframeEl.src = embedSrc;
             } else if (ttId) {
                 videoEl.style.display = 'none';
-                videoEl.pause();
+                try { videoEl.pause(); } catch(e){}
                 iframeEl.style.display = 'block';
                 iframeEl.src = `https://www.tiktok.com/embed/v2/${ttId}`;
             } else {
                 iframeEl.style.display = 'none';
                 iframeEl.src = '';
                 videoEl.style.display = 'block';
-                if (sourceEl.src !== url) {
-                    sourceEl.src = url;
+                if (videoEl.src !== url) {
                     videoEl.src = url;
+                    if (sourceEl) sourceEl.src = url;
                     videoEl.load();
                 }
                 videoEl.muted = true;
@@ -1370,33 +1472,39 @@
             }
         }
 
-        // TỰ ĐỘNG PHỤC HỒI VIDEO NỀN TRÊN ĐIỆN THOẠI KHI BỊ HỆ ĐIỀU HÀNH PAUSE
+        // TỰ ĐỘNG PHỤC HỒI VIDEO NỀN
+        function ensureVideoPlaying() {
+            const vid = document.getElementById('mainHeroVideo');
+            if (vid && vid.style.display !== 'none' && vid.paused) {
+                vid.muted = true;
+                vid.play().catch(() => {});
+            }
+        }
+
         function initBackgroundVideo() {
             const videoEl = document.getElementById('mainHeroVideo');
             if (videoEl) {
                 videoEl.muted = true;
                 videoEl.defaultMuted = true;
-                videoEl.setAttribute('muted', '');
-                videoEl.setAttribute('playsinline', '');
-                videoEl.setAttribute('webkit-playsinline', '');
+                videoEl.playsInline = true;
 
-                const tryPlay = () => videoEl.play().catch(()=>{});
-                tryPlay();
+                ensureVideoPlaying();
+                setInterval(ensureVideoPlaying, 1200);
 
                 videoEl.addEventListener('pause', () => {
-                    if (!document.hidden) tryPlay();
+                    if (!document.hidden && videoEl.style.display !== 'none') ensureVideoPlaying();
                 });
                 
                 document.addEventListener('visibilitychange', () => {
                     if (!document.hidden) {
-                        tryPlay();
+                        ensureVideoPlaying();
                         if (isAudioPlaying && !userHasPausedManually) playAudio();
                     }
                 });
             }
         }
 
-        // CANVAS HIỆU ỨNG VŨ TRỤ ĐỘNG (TỰ ĐỘNG HỦY KHI VÀO TRANG CHÍNH ĐỂ KHÔNG NÓNG MÁY)
+        // CANVAS HIỆU ỨNG VŨ TRỤ ĐỘNG
         function initIntroCanvas() {
             const canvas = document.getElementById('introCanvas');
             if (!canvas) return;
@@ -1417,7 +1525,7 @@
             }
 
             function draw() {
-                if (introDismissed) return; // HỦY VẼ KHI ĐÃ VÀO WEB ĐỂ TIẾT KIỆM PIN & TRÁNH ĐƠ VIDEO
+                if (introDismissed) return;
                 ctx.clearRect(0, 0, w, h);
                 particles.forEach(p => {
                     ctx.beginPath();
@@ -1445,13 +1553,10 @@
             });
         }
 
-        // ========================================================
-        // ĐIỀU HÀNH MÀN CHỜ ĐỒNG BỘ VỚI TIẾN ĐỘ LOAD NHẠC
-        // ========================================================
+        // KHỞI ĐỘNG
         window.addEventListener('load', () => {
             initIntroCanvas();
 
-            // Khởi tạo ngay nguồn nhạc đã lưu đệm từ máy để giảm độ trễ
             const cachedAudio = localStorage.getItem('ethera_cached_audio_src');
             if (cachedAudio) {
                 setAudioSource(cachedAudio);
@@ -1463,27 +1568,13 @@
             let percent = 0;
             const counterEl = document.getElementById('introPercent');
             const radarCircle = document.getElementById('introRadarCircle');
+            const radarBox = document.getElementById('introRadarBox');
+            const enterBtn = document.getElementById('introEnterBtn');
             const totalCircum = 188;
-            let forceExitTimer = null;
-
-            // Timer tối đa 4.5s để web luôn mở kể cả mạng quá yếu
-            forceExitTimer = setTimeout(() => {
-                isAudioReady = true;
-            }, 4200);
 
             const interval = setInterval(() => {
-                // Tăng nhanh đến 85%
-                if (percent < 85) {
-                    percent += 2;
-                } else if (percent < 98) {
-                    // Từ 85% trở đi chờ nhạc nạp xong
-                    if (isAudioReady) {
-                        percent += 4;
-                    } else {
-                        showTapHint();
-                    }
-                } else {
-                    percent = 100;
+                if (percent < 100) {
+                    percent += 3;
                 }
 
                 counterEl.innerText = percent < 10 ? `0${percent}%` : `${percent}%`;
@@ -1494,14 +1585,10 @@
 
                 if (percent >= 100) {
                     clearInterval(interval);
-                    clearTimeout(forceExitTimer);
-                    setTimeout(() => { 
-                        introDismissed = true;
-                        if (introAnimId) cancelAnimationFrame(introAnimId);
-                        document.getElementById('intro-loader').classList.add('fade-out');
-                        window.scrollTo(0, 0);
-                        playAudio(); // Nhạc đã sẵn sàng và lập tức phát khi vào web!
-                    }, 300);
+                    setTimeout(() => {
+                        if (radarBox) radarBox.style.display = 'none';
+                        if (enterBtn) enterBtn.classList.add('active');
+                    }, 200);
                 }
             }, 30);
 
@@ -1574,30 +1661,32 @@
             document.getElementById('forumAuthor').value = newName;
             document.getElementById('charCommentAuthor').value = newName;
 
-            db.ref('forum').once('value', (snap) => {
-                const data = snap.val();
-                if (data) {
-                    const list = Object.values(data);
-                    updateAuthorRecursively(list, newName);
-                    const obj = {};
-                    list.forEach(i => obj[i.id] = i);
-                    db.ref('forum').set(obj);
-                }
-            });
-
-            db.ref('char_comments').once('value', (snap) => {
-                const allCharComments = snap.val();
-                if (allCharComments) {
-                    Object.keys(allCharComments).forEach(botId => {
-                        const commentsObj = allCharComments[botId];
-                        const list = Object.values(commentsObj);
+            if (db) {
+                db.ref('forum').once('value', (snap) => {
+                    const data = snap.val();
+                    if (data) {
+                        const list = Object.values(data);
                         updateAuthorRecursively(list, newName);
-                        const updatedObj = {};
-                        list.forEach(i => updatedObj[i.id] = i);
-                        db.ref('char_comments/' + botId).set(updatedObj);
-                    });
-                }
-            });
+                        const obj = {};
+                        list.forEach(i => obj[i.id] = i);
+                        db.ref('forum').set(obj);
+                    }
+                });
+
+                db.ref('char_comments').once('value', (snap) => {
+                    const allCharComments = snap.val();
+                    if (allCharComments) {
+                        Object.keys(allCharComments).forEach(botId => {
+                            const commentsObj = allCharComments[botId];
+                            const list = Object.values(commentsObj);
+                            updateAuthorRecursively(list, newName);
+                            const updatedObj = {};
+                            list.forEach(i => updatedObj[i.id] = i);
+                            db.ref('char_comments/' + botId).set(updatedObj);
+                        });
+                    }
+                });
+            }
 
             alert(`✓ Đã đổi tên Admin thành "${newName}" và cập nhật hàng loạt toàn bộ tin nhắn cũ!`);
         }
@@ -1612,7 +1701,6 @@
             });
         }
 
-        // QUẢN TRỊ VIDEO
         function openVideoManagerModal() {
             const videoEl = document.getElementById('mainHeroVideo');
             document.getElementById('inputVideoUrl').value = videoEl ? videoEl.src : '';
@@ -1627,12 +1715,12 @@
                 const file = fileInput.files[0];
                 const fileUrl = URL.createObjectURL(file);
                 setBackgroundVideoSource(fileUrl);
-                db.ref('custom_video').set(fileUrl);
+                if (db) db.ref('custom_video').set(fileUrl);
                 closeModal('adminVideoModal');
                 alert("✓ Đã tải và áp dụng video trực tiếp từ thiết bị!");
             } else if (urlInput) {
                 setBackgroundVideoSource(urlInput);
-                db.ref('custom_video').set(urlInput);
+                if (db) db.ref('custom_video').set(urlInput);
                 closeModal('adminVideoModal');
                 alert("✓ Đã áp dụng và lưu video (YouTube/TikTok/MP4) lên Cloud Database!");
             } else {
@@ -1640,7 +1728,6 @@
             }
         }
 
-        // QUẢN TRỊ NHẠC NỀN AUDIO
         function openAudioManagerModal() {
             document.getElementById('inputAudioUrl').value = currentAudioSrc || '';
             document.getElementById('adminAudioModal').classList.add('open');
@@ -1654,12 +1741,12 @@
                 const file = fileInput.files[0];
                 const fileUrl = URL.createObjectURL(file);
                 setAudioSource({ url: fileUrl });
-                db.ref('custom_audio').set({ url: fileUrl });
+                if (db) db.ref('custom_audio').set({ url: fileUrl });
                 closeModal('adminAudioModal');
                 alert("✓ Đã lưu file nhạc từ máy lên Database!");
             } else if (urlInput) {
                 setAudioSource({ url: urlInput });
-                db.ref('custom_audio').set({ url: urlInput });
+                if (db) db.ref('custom_audio').set({ url: urlInput });
                 closeModal('adminAudioModal');
                 alert("✓ Đã lưu nhạc nền (YouTube hoặc MP3) lên Cloud Database!");
             } else {
@@ -1689,7 +1776,7 @@
             const newT = prompt("Nhập tên Tag mới muốn ghim vào thanh tìm kiếm (không cần gõ #):");
             if (newT && !presetTags.includes(newT.trim())) {
                 presetTags.push(newT.trim());
-                db.ref('preset_tags').set(presetTags);
+                if (db) db.ref('preset_tags').set(presetTags);
             }
         }
 
@@ -1698,7 +1785,7 @@
             if (confirm(`Ethera, bạn muốn xóa Tag #${tag} khỏi danh sách shortcut của thanh tìm kiếm?`)) {
                 presetTags = presetTags.filter(t => t !== tag);
                 selectedTags = selectedTags.filter(t => t !== tag);
-                db.ref('preset_tags').set(presetTags);
+                if (db) db.ref('preset_tags').set(presetTags);
                 renderChips();
                 renderBots();
             }
@@ -1811,7 +1898,7 @@
 
         function openRulesModal() { document.getElementById('rulesModal').classList.add('open'); }
 
-        // RENDER BOT (KHÔNG TỰ Ý CHÈN CHỮ "CHƯA CÓ...")
+        // RENDER BOT
         function renderBots() {
             const container = document.getElementById('charContainer');
             const searchVal = botSearchInput.value.toLowerCase().trim();
@@ -1896,7 +1983,7 @@
             const bot = bots.find(b => String(b.id) === String(id));
             if (!bot) return;
             bot.pinned = !bot.pinned;
-            db.ref('roster/' + bot.id).set(bot);
+            if (db) db.ref('roster/' + bot.id).set(bot);
         }
 
         function toggleLikeBot(e, id) {
@@ -1914,7 +2001,7 @@
                 bot.likes = Math.max(0, (bot.likes || 1) - 1);
                 localStorage.removeItem(key);
             }
-            db.ref('roster/' + bot.id).set(bot);
+            if (db) db.ref('roster/' + bot.id).set(bot);
         }
 
         function handleCardClick(id) {
@@ -2059,7 +2146,7 @@
 
         function deleteChar(id) {
             if (confirm("Ethera, bạn muốn xóa vĩnh viễn nhân vật này khỏi database?")) {
-                db.ref('roster/' + id).remove();
+                if (db) db.ref('roster/' + id).remove();
             }
         }
 
@@ -2127,7 +2214,7 @@
                 timestamp: existingBot ? existingBot.timestamp : Date.now()
             };
 
-            db.ref('roster/' + botData.id).set(botData);
+            if (db) db.ref('roster/' + botData.id).set(botData);
             closeModal('adminFormModal');
         }
 
@@ -2220,7 +2307,7 @@
                 likes: 0, liked: false, pinned: false, isAdmin, userToken, replies: []
             };
 
-            db.ref(`char_comments/${currentCharId}/${newC.id}`).set(newC);
+            if (db) db.ref(`char_comments/${currentCharId}/${newC.id}`).set(newC);
             document.getElementById('charCommentText').value = '';
         }
 
@@ -2230,13 +2317,15 @@
 
             if (activeCharCommentsListener) activeCharCommentsListener.off();
 
-            activeCharCommentsListener = db.ref(`char_comments/${botId}`);
-            activeCharCommentsListener.on('value', (snapshot) => {
-                const data = snapshot.val();
-                const comments = data ? Object.values(data) : [];
-                const sorted = sortCommentThreads(comments, sortVal);
-                feed.innerHTML = buildThreadTreeHTML(sorted, `char_${botId}`, 0);
-            });
+            if (db) {
+                activeCharCommentsListener = db.ref(`char_comments/${botId}`);
+                activeCharCommentsListener.on('value', (snapshot) => {
+                    const data = snapshot.val();
+                    const comments = data ? Object.values(data) : [];
+                    const sorted = sortCommentThreads(comments, sortVal);
+                    feed.innerHTML = buildThreadTreeHTML(sorted, `char_${botId}`, 0);
+                });
+            }
         }
 
         // BÌNH LUẬN DIỄN ĐÀN CHUNG
@@ -2252,7 +2341,7 @@
                 likes: 0, liked: false, pinned: false, isAdmin, userToken, replies: []
             };
 
-            db.ref('forum/' + newPost.id).set(newPost);
+            if (db) db.ref('forum/' + newPost.id).set(newPost);
             document.getElementById('forumMsg').value = '';
         }
 
@@ -2327,6 +2416,7 @@
             if (box) box.classList.toggle('open'); 
         }
 
+        // PHẢN HỒI BÌNH LUẬN ĐỒNG BỘ
         function submitNestedReply(contextKey, parentId) {
             const input = document.getElementById(`replyInput_${parentId}`);
             const text = input.value.trim();
@@ -2341,16 +2431,18 @@
 
             const dbPath = contextKey === 'forum' ? 'forum' : `char_comments/${contextKey.replace('char_', '')}`;
 
-            db.ref(dbPath).once('value', (snap) => {
-                const data = snap.val();
-                if (data) {
-                    const list = Object.values(data);
-                    addReplyRecursively(list, String(parentId), newRep);
-                    const obj = {};
-                    list.forEach(item => { obj[item.id] = item; });
-                    db.ref(dbPath).set(obj);
-                }
-            });
+            if (db) {
+                db.ref(dbPath).once('value', (snap) => {
+                    const data = snap.val();
+                    if (data) {
+                        const list = Object.values(data);
+                        addReplyRecursively(list, String(parentId), newRep);
+                        const obj = {};
+                        list.forEach(item => { obj[item.id] = item; });
+                        db.ref(dbPath).set(obj);
+                    }
+                });
+            }
             input.value = '';
             toggleReplyBox(parentId);
         }
@@ -2373,16 +2465,18 @@
 
         function toggleLike(contextKey, id) {
             const dbPath = contextKey === 'forum' ? 'forum' : `char_comments/${contextKey.replace('char_', '')}`;
-            db.ref(dbPath).once('value', (snap) => {
-                const data = snap.val();
-                if (data) {
-                    const list = Object.values(data);
-                    toggleLikeRecursively(list, String(id));
-                    const obj = {};
-                    list.forEach(item => { obj[item.id] = item; });
-                    db.ref(dbPath).set(obj);
-                }
-            });
+            if (db) {
+                db.ref(dbPath).once('value', (snap) => {
+                    const data = snap.val();
+                    if (data) {
+                        const list = Object.values(data);
+                        toggleLikeRecursively(list, String(id));
+                        const obj = {};
+                        list.forEach(item => { obj[item.id] = item; });
+                        db.ref(dbPath).set(obj);
+                    }
+                });
+            }
         }
 
         function toggleLikeRecursively(items, targetId) {
@@ -2402,16 +2496,18 @@
 
         function togglePinComment(contextKey, id) {
             const dbPath = contextKey === 'forum' ? 'forum' : `char_comments/${contextKey.replace('char_', '')}`;
-            db.ref(dbPath).once('value', (snap) => {
-                const data = snap.val();
-                if (data) {
-                    const list = Object.values(data);
-                    togglePinRecursively(list, String(id));
-                    const obj = {};
-                    list.forEach(item => { obj[item.id] = item; });
-                    db.ref(dbPath).set(obj);
-                }
-            });
+            if (db) {
+                db.ref(dbPath).once('value', (snap) => {
+                    const data = snap.val();
+                    if (data) {
+                        const list = Object.values(data);
+                        togglePinRecursively(list, String(id));
+                        const obj = {};
+                        list.forEach(item => { obj[item.id] = item; });
+                        db.ref(dbPath).set(obj);
+                    }
+                });
+            }
         }
 
         function togglePinRecursively(items, targetId) {
@@ -2431,16 +2527,18 @@
         function deleteCommentNode(contextKey, id) {
             if (!confirm("Bạn có chắc chắn muốn xóa phản hồi này?")) return;
             const dbPath = contextKey === 'forum' ? 'forum' : `char_comments/${contextKey.replace('char_', '')}`;
-            db.ref(dbPath).once('value', (snap) => {
-                const data = snap.val();
-                if (data) {
-                    let list = Object.values(data);
-                    list = deleteRecursively(list, String(id));
-                    const obj = {};
-                    list.forEach(item => { obj[item.id] = item; });
-                    db.ref(dbPath).set(obj);
-                }
-            });
+            if (db) {
+                db.ref(dbPath).once('value', (snap) => {
+                    const data = snap.val();
+                    if (data) {
+                        let list = Object.values(data);
+                        list = deleteRecursively(list, String(id));
+                        const obj = {};
+                        list.forEach(item => { obj[item.id] = item; });
+                        db.ref(dbPath).set(obj);
+                    }
+                });
+            }
         }
 
         function deleteRecursively(items, targetId) {
