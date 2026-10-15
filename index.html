@@ -92,7 +92,6 @@
             background: rgba(229, 9, 20, 0.12); border-radius: 4px; cursor: text; padding: 2px 4px;
         }
 
-        /* SAO BẮN HỒNG PASTEL KHI CHẠM MÀN HÌNH */
         .sparkle-particle {
             position: fixed; pointer-events: none; z-index: 999999;
             color: #ff6b8b; font-size: 15px; user-select: none;
@@ -104,13 +103,14 @@
             100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.2) rotate(var(--rot)); opacity: 0; }
         }
 
-        /* 1. MÀN CHỜ VŨ TRỤ ĐỘNG HOÀNH TRÁNG (BỎ KHUNG) */
+        /* 1. MÀN CHỜ VŨ TRỤ ĐỘNG */
         #intro-loader {
             position: fixed; inset: 0; background: #040507; z-index: 99999;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             text-align: center; padding: 20px;
-            transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.9s;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
             overflow: hidden;
+            cursor: pointer;
         }
         #intro-loader.fade-out { opacity: 0; visibility: hidden; }
 
@@ -130,7 +130,7 @@
             100% { transform: scale(1.25) rotate(45deg); opacity: 1; filter: blur(45px); }
         }
 
-        .intro-content-wrap { position: relative; z-index: 3; max-width: 900px; }
+        .intro-content-wrap { position: relative; z-index: 3; max-width: 900px; pointer-events: none; }
 
         .intro-title-line1 {
             font-family: var(--font-serif); font-size: clamp(1.2rem, 3.8vw, 2.2rem);
@@ -170,8 +170,12 @@
             position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
             font-size: 0.8rem; color: #fff; font-weight: 700; letter-spacing: 1px;
         }
+        .intro-tap-hint {
+            font-size: 0.75rem; color: #fca5a5; letter-spacing: 1.5px; margin-top: 10px;
+            opacity: 0; transition: opacity 0.4s;
+        }
 
-        /* 2. HEADER ĐỐI XỨNG TUYỆT ĐỐI */
+        /* 2. HEADER ĐỐI XỨNG */
         header {
             position: fixed; top: 0; left: 0; width: 100%;
             padding: 14px 5%; padding-top: calc(12px + env(safe-area-inset-top));
@@ -195,7 +199,7 @@
             display: flex; align-items: center; justify-content: center;
         }
 
-        /* NÚT BẬT/TẮT NHẠC ĐỐI XỨNG */
+        /* NÚT BẬT/TẮT NHẠC */
         .sound-btn {
             background: none; border: none; cursor: pointer;
             justify-self: end; padding: 6px 0; display: flex; align-items: center;
@@ -261,7 +265,7 @@
             border-radius: 8px; margin-top: 8px;
         }
 
-        /* 3. HERO SECTION */
+        /* 3. HERO SECTION (TỐI ƯU HÓA KHÔNG ĐƠ TRÊN ĐIỆN THOẠI) */
         .hero {
             position: relative; width: 100%; height: 100dvh; min-height: 520px;
             display: flex; flex-direction: column; justify-content: flex-end;
@@ -270,6 +274,7 @@
         .hero-video {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             object-fit: cover; z-index: 1; filter: brightness(0.85) contrast(1.05);
+            pointer-events: none;
         }
         .hero-iframe {
             position: absolute; top: 50%; left: 50%; width: 100vw; height: 56.25vw;
@@ -364,7 +369,6 @@
             font-size: 0.75rem; padding: 5px 12px; border-radius: 20px;
             background: #ede9df; border: 1px solid rgba(0,0,0,0.06);
             color: var(--cream-muted); cursor: pointer; transition: var(--transition); font-weight: 500;
-            display: inline-flex; align-items: center; gap: 6px;
         }
         .tag-btn.active { background: var(--crimson); border-color: var(--crimson); color: #fff; }
         .tag-del-btn { color: #888; font-size: 0.85rem; cursor: pointer; }
@@ -506,7 +510,7 @@
             margin: 0; width: 100%;
         }
 
-        /* MODALS PHÓNG TO MƯỢT MÀ */
+        /* MODALS */
         .modal-wrap {
             position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(15px);
             z-index: 6000; display: none; justify-content: center; align-items: center; padding: 15px;
@@ -601,12 +605,12 @@
         </defs>
     </svg>
 
-    <!-- TRÌNH PHÁT NHẠC NỀN HTML5 & KHUNG YOUTUBE AUDIO CẤU HÌNH CHUẨN 200PX -->
+    <!-- TRÌNH PHÁT NHẠC NỀN & KHUNG YOUTUBE AUDIO CẤU HÌNH GỠ BỎ DELAY -->
     <audio id="mainAudioPlayer" loop playsinline preload="auto"></audio>
     <div id="ytAudioContainer" style="position:fixed; top:-9999px; left:-9999px; width:200px; height:200px; opacity:0; pointer-events:none; z-index:-999; overflow:hidden;"></div>
 
-    <!-- 1. MÀN CHỜ VŨ TRỤ ĐỘNG HOÀNH TRÁNG -->
-    <div id="intro-loader">
+    <!-- 1. MÀN CHỜ VŨ TRỤ ĐỘNG HOÀNH TRÁNG (BẤM VÀO SẼ KÍCH HOẠT NHẠC NGAY) -->
+    <div id="intro-loader" onclick="handleIntroTap()">
         <canvas id="introCanvas"></canvas>
         <div class="intro-aurora"></div>
         <div class="intro-content-wrap">
@@ -621,10 +625,11 @@
                 </svg>
                 <div class="intro-counter" id="introPercent">00%</div>
             </div>
+            <div class="intro-tap-hint" id="introTapHint">✦ Chạm màn hình để hòa vào không gian ✦</div>
         </div>
     </div>
 
-    <!-- 2. HEADER ĐỐI XỨNG TUYỆT ĐỐI (TRÁI: MENU - PHẢI: NÚT SÓNG ÂM THANH HI-FI) -->
+    <!-- 2. HEADER ĐỐI XỨNG TUYỆT ĐỐI -->
     <header>
         <button class="menu-btn" onclick="toggleSidebar()" aria-label="Menu">
             <div class="menu-bars"><span></span><span></span></div>
@@ -638,7 +643,7 @@
             <svg class="luxury-sparkle-svg" viewBox="0 0 24 24"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
         </a>
 
-        <!-- NÚT BẬT/TẮT NHẠC ĐỐI XỨNG CHUẨN CONCEPT ATELIER -->
+        <!-- NÚT BẬT/TẮT NHẠC ĐỐI XỨNG -->
         <button class="sound-btn" id="soundToggleBtn" onclick="toggleAudio(true)" aria-label="Bật/Tắt Nhạc Nền">
             <div class="sound-bars">
                 <span></span><span></span><span></span>
@@ -692,9 +697,11 @@
         </div>
     </div>
 
-    <!-- 3. HERO SECTION (HỖ TRỢ MP4, YOUTUBE, TIKTOK) -->
+    <!-- 3. HERO SECTION (TỰ PHỤC HỒI KHI BỊ NGẮT TRÊN MOBILE) -->
     <div class="hero" id="hero">
-        <video id="mainHeroVideo" class="hero-video" src="https://videotourl.com/videos/1791993553264-7736ed0d-bbc4-4d12-8d32-0a6c0c573d3b.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto">
+        <video id="mainHeroVideo" class="hero-video" src="https://videotourl.com/videos/1791993553264-7736ed0d-bbc4-4d12-8d32-0a6c0c573d3b.mp4" 
+            autoplay muted loop playsinline webkit-playsinline preload="auto" 
+            disablepictureinpicture disableremoteplayback>
             <source id="mainVideoSource" src="https://videotourl.com/videos/1791993553264-7736ed0d-bbc4-4d12-8d32-0a6c0c573d3b.mp4" type="video/mp4">
         </video>
         <iframe id="mainHeroIframe" class="hero-iframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
@@ -744,7 +751,7 @@
                 <div class="showroom-btn" data-cms="btn_op">Khám Phá →</div>
             </div>
 
-            <!-- THẺ LƯU Ý NHỎ: MỞ QUY TẮC -->
+            <!-- THẺ LƯU Ý NHỎ -->
             <div class="showroom-card" style="border-color: rgba(245, 158, 11, 0.4);" onclick="handleShowroomCardClick('Lưu ý', event)">
                 <div>
                     <span style="color:#f59e0b; font-weight:700; font-size:0.75rem;" data-cms="rules_code">HOUSE RULES</span>
@@ -945,7 +952,7 @@
         </div>
     </div>
 
-    <!-- MODAL 4: QUẢN LÝ VIDEO NỀN (HỖ TRỢ MP4, YOUTUBE, TIKTOK, FILE) -->
+    <!-- MODAL 4: QUẢN LÝ VIDEO NỀN -->
     <div id="adminVideoModal" class="modal-wrap">
         <div class="modal-content" style="max-width:500px;">
             <button class="modal-close" onclick="closeModal('adminVideoModal')">✕</button>
@@ -953,7 +960,7 @@
             
             <div style="display:flex; flex-direction:column; gap:12px;">
                 <div>
-                    <label style="font-size:0.75rem; color:#cbd5e1; display:block; margin-bottom:3px;">1. Dán link video (Link MP4 trực tiếp, Link YouTube, hoặc Link TikTok):</label>
+                    <label style="font-size:0.75rem; color:#cbd5e1; display:block; margin-bottom:3px;">1. Dán link video (MP4 trực tiếp, YouTube, TikTok):</label>
                     <input type="text" id="inputVideoUrl" placeholder="https://youtube.com/watch?v=... hoặc https://...mp4">
                 </div>
 
@@ -1012,7 +1019,7 @@
         </div>
     </div>
 
-    <!-- MODAL 7: CÀI ĐẶT NHẠC NỀN AUDIO (MP3, YOUTUBE, FILE) -->
+    <!-- MODAL 7: CÀI ĐẶT NHẠC NỀN AUDIO -->
     <div id="adminAudioModal" class="modal-wrap">
         <div class="modal-content" style="max-width:500px;">
             <button class="modal-close" onclick="closeModal('adminAudioModal')">✕</button>
@@ -1020,7 +1027,7 @@
             
             <div style="display:flex; flex-direction:column; gap:12px;">
                 <div>
-                    <label style="font-size:0.75rem; color:#cbd5e1; display:block; margin-bottom:3px;">1. Dán link nhạc (Link MP3 hoặc link bài hát YouTube):</label>
+                    <label style="font-size:0.75rem; color:#cbd5e1; display:block; margin-bottom:3px;">1. Dán link nhạc (Hỗ trợ MP3 hoặc link bài hát YouTube):</label>
                     <input type="text" id="inputAudioUrl" placeholder="https://youtube.com/watch?v=... hoặc https://...mp3">
                 </div>
 
@@ -1062,10 +1069,13 @@
         let userHasPausedManually = false;
         let currentAudioType = 'html5';
         let currentAudioSrc = '';
+        let isAudioReady = false;
+        let introDismissed = false;
+        let introAnimId = null;
 
         function toggleAudio(manualClick = false) {
             if (manualClick) {
-                userHasPausedManually = isAudioPlaying; // Nếu người dùng chủ động bấm tắt
+                userHasPausedManually = isAudioPlaying;
             }
             if (isAudioPlaying) {
                 pauseAudio();
@@ -1091,7 +1101,8 @@
                     isAudioPlaying = true;
                     btn.classList.add('playing');
                 }).catch(() => {
-                    // Chờ tương tác người dùng để tự phát
+                    // Trình duyệt cần tương tác
+                    showTapHint();
                 });
             }
         }
@@ -1113,6 +1124,8 @@
         function setAudioSource(sourceData) {
             if (!sourceData) return;
             currentAudioSrc = sourceData.url || sourceData;
+            localStorage.setItem('ethera_cached_audio_src', currentAudioSrc);
+
             const ytId = extractYouTubeId(currentAudioSrc);
             const audioEl = document.getElementById('mainAudioPlayer');
             const ytContainer = document.getElementById('ytAudioContainer');
@@ -1120,24 +1133,62 @@
             if (ytId) {
                 currentAudioType = 'youtube';
                 if (audioEl) audioEl.pause();
-                // Kích thước chuẩn 200px giấu vô hình ngoài màn hình, cho phép tự chạy
-                ytContainer.innerHTML = `<iframe id="ytAudioIframe" width="200" height="200" src="https://www.youtube.com/embed/${ytId}?enablejsapi=1&autoplay=1&loop=1&playlist=${ytId}&playsinline=1" frameborder="0" allow="autoplay; encrypted-media"></iframe>`;
                 
-                setTimeout(() => {
-                    playAudio();
-                }, 800);
+                // Embed với autoplay=1 và nhận diện postMessage
+                ytContainer.innerHTML = `<iframe id="ytAudioIframe" width="200" height="200" src="https://www.youtube.com/embed/${ytId}?enablejsapi=1&autoplay=1&loop=1&playlist=${ytId}&playsinline=1" frameborder="0" allow="autoplay; encrypted-media"></iframe>`;
             } else {
                 currentAudioType = 'html5';
                 ytContainer.innerHTML = '';
                 if (audioEl) {
                     audioEl.src = currentAudioSrc;
                     audioEl.load();
-                    playAudio();
                 }
             }
         }
 
-        // TỰ ĐỘNG PHÁT NHẠC KHI TRUY CẬP (MỞ KHÓA TRÊN LẦN CHẠM ĐẦU TIÊN NẾU BỊ CHẶN)
+        // LẮNG NGHE TÍN HIỆU TỪ YOUTUBE ĐỂ BIẾT CHÍNH XÁC KHI NÀO NHẠC ĐÃ PHÁT
+        window.addEventListener('message', (e) => {
+            try {
+                const data = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
+                if (data) {
+                    if (data.event === 'onReady') {
+                        const ytIframe = document.getElementById('ytAudioIframe');
+                        if (ytIframe && ytIframe.contentWindow) {
+                            ytIframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+                            ytIframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                        }
+                    }
+                    if (data.event === 'infoDelivery' && data.info && data.info.playerState === 1) {
+                        isAudioReady = true;
+                        isAudioPlaying = true;
+                        document.getElementById('soundToggleBtn').classList.add('playing');
+                    }
+                }
+            } catch(err) {}
+        });
+
+        const mainAudio = document.getElementById('mainAudioPlayer');
+        if (mainAudio) {
+            mainAudio.addEventListener('playing', () => {
+                isAudioReady = true;
+                isAudioPlaying = true;
+                document.getElementById('soundToggleBtn').classList.add('playing');
+            });
+        }
+
+        function showTapHint() {
+            const hint = document.getElementById('introTapHint');
+            if (hint && !introDismissed) {
+                hint.style.opacity = '1';
+            }
+        }
+
+        function handleIntroTap() {
+            userHasPausedManually = false;
+            playAudio();
+        }
+
+        // TỰ PHỤC HỒI KHI CHẠM HOẶC LƯỚT MÀN HÌNH ĐẦU TIÊN
         function unlockAutoplayOnFirstGesture() {
             if (!userHasPausedManually) {
                 playAudio();
@@ -1319,19 +1370,33 @@
             }
         }
 
+        // TỰ ĐỘNG PHỤC HỒI VIDEO NỀN TRÊN ĐIỆN THOẠI KHI BỊ HỆ ĐIỀU HÀNH PAUSE
         function initBackgroundVideo() {
             const videoEl = document.getElementById('mainHeroVideo');
             if (videoEl) {
                 videoEl.muted = true;
                 videoEl.defaultMuted = true;
-                videoEl.play().catch(() => {
-                    document.addEventListener('click', () => { videoEl.play(); }, { once: true });
-                    document.addEventListener('touchstart', () => { videoEl.play(); }, { once: true });
+                videoEl.setAttribute('muted', '');
+                videoEl.setAttribute('playsinline', '');
+                videoEl.setAttribute('webkit-playsinline', '');
+
+                const tryPlay = () => videoEl.play().catch(()=>{});
+                tryPlay();
+
+                videoEl.addEventListener('pause', () => {
+                    if (!document.hidden) tryPlay();
+                });
+                
+                document.addEventListener('visibilitychange', () => {
+                    if (!document.hidden) {
+                        tryPlay();
+                        if (isAudioPlaying && !userHasPausedManually) playAudio();
+                    }
                 });
             }
         }
 
-        // CANVAS HIỆU ỨNG VŨ TRỤ ĐỘNG
+        // CANVAS HIỆU ỨNG VŨ TRỤ ĐỘNG (TỰ ĐỘNG HỦY KHI VÀO TRANG CHÍNH ĐỂ KHÔNG NÓNG MÁY)
         function initIntroCanvas() {
             const canvas = document.getElementById('introCanvas');
             if (!canvas) return;
@@ -1340,7 +1405,7 @@
             let h = canvas.height = window.innerHeight;
 
             const particles = [];
-            for (let i = 0; i < 75; i++) {
+            for (let i = 0; i < 60; i++) {
                 particles.push({
                     x: Math.random() * w,
                     y: Math.random() * h,
@@ -1352,6 +1417,7 @@
             }
 
             function draw() {
+                if (introDismissed) return; // HỦY VẼ KHI ĐÃ VÀO WEB ĐỂ TIẾT KIỆM PIN & TRÁNH ĐƠ VIDEO
                 ctx.clearRect(0, 0, w, h);
                 particles.forEach(p => {
                     ctx.beginPath();
@@ -1368,19 +1434,29 @@
                         p.x = Math.random() * w;
                     }
                 });
-                requestAnimationFrame(draw);
+                introAnimId = requestAnimationFrame(draw);
             }
             draw();
 
             window.addEventListener('resize', () => {
+                if (introDismissed) return;
                 w = canvas.width = window.innerWidth;
                 h = canvas.height = window.innerHeight;
             });
         }
 
-        // KHỞI ĐỘNG
+        // ========================================================
+        // ĐIỀU HÀNH MÀN CHỜ ĐỒNG BỘ VỚI TIẾN ĐỘ LOAD NHẠC
+        // ========================================================
         window.addEventListener('load', () => {
             initIntroCanvas();
+
+            // Khởi tạo ngay nguồn nhạc đã lưu đệm từ máy để giảm độ trễ
+            const cachedAudio = localStorage.getItem('ethera_cached_audio_src');
+            if (cachedAudio) {
+                setAudioSource(cachedAudio);
+            }
+
             syncDatabase();
             initBackgroundVideo();
 
@@ -1388,21 +1464,44 @@
             const counterEl = document.getElementById('introPercent');
             const radarCircle = document.getElementById('introRadarCircle');
             const totalCircum = 188;
+            let forceExitTimer = null;
+
+            // Timer tối đa 4.5s để web luôn mở kể cả mạng quá yếu
+            forceExitTimer = setTimeout(() => {
+                isAudioReady = true;
+            }, 4200);
 
             const interval = setInterval(() => {
-                percent += 1;
+                // Tăng nhanh đến 85%
+                if (percent < 85) {
+                    percent += 2;
+                } else if (percent < 98) {
+                    // Từ 85% trở đi chờ nhạc nạp xong
+                    if (isAudioReady) {
+                        percent += 4;
+                    } else {
+                        showTapHint();
+                    }
+                } else {
+                    percent = 100;
+                }
+
                 counterEl.innerText = percent < 10 ? `0${percent}%` : `${percent}%`;
                 if (radarCircle) {
                     const offset = totalCircum - (percent / 100) * totalCircum;
                     radarCircle.style.strokeDashoffset = offset;
                 }
+
                 if (percent >= 100) {
                     clearInterval(interval);
+                    clearTimeout(forceExitTimer);
                     setTimeout(() => { 
+                        introDismissed = true;
+                        if (introAnimId) cancelAnimationFrame(introAnimId);
                         document.getElementById('intro-loader').classList.add('fade-out');
                         window.scrollTo(0, 0);
-                        playAudio(); // Tự động bật nhạc khi màn hình loading tắt
-                    }, 400);
+                        playAudio(); // Nhạc đã sẵn sàng và lập tức phát khi vào web!
+                    }, 300);
                 }
             }, 30);
 
@@ -1513,6 +1612,7 @@
             });
         }
 
+        // QUẢN TRỊ VIDEO
         function openVideoManagerModal() {
             const videoEl = document.getElementById('mainHeroVideo');
             document.getElementById('inputVideoUrl').value = videoEl ? videoEl.src : '';
@@ -1540,6 +1640,7 @@
             }
         }
 
+        // QUẢN TRỊ NHẠC NỀN AUDIO
         function openAudioManagerModal() {
             document.getElementById('inputAudioUrl').value = currentAudioSrc || '';
             document.getElementById('adminAudioModal').classList.add('open');
@@ -1834,7 +1935,6 @@
             showDetailModalDirectly(id);
         }
 
-        // MỞ CHI TIẾT BOT
         function showDetailModalDirectly(id) {
             currentCharId = id;
             const bot = bots.find(b => String(b.id) === String(id));
@@ -1888,7 +1988,6 @@
             document.getElementById('charDetailModal').classList.add('open');
         }
 
-        // QUẢN LÝ LINK TRONG FORM TẠO/SỬA BOT
         function addLinkRow(label = 'Vào đoạn chat', url = '') {
             const container = document.getElementById('formLinksListContainer');
             const row = document.createElement('div');
