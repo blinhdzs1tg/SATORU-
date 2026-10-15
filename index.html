@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Rổ Satoru nhà Ethera</title>
+    <!-- Google Fonts chuẩn Tiếng Việt 100% -->
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
     
     <!-- FIREBASE COMPAT SDK -->
@@ -66,6 +67,7 @@
             width: 100%;
         }
 
+        /* VECTOR SVG LUXURY */
         .luxury-heart-svg {
             width: 17px; height: 17px; display: inline-block; vertical-align: middle;
             fill: url(#heartGradient); filter: drop-shadow(0 0 5px rgba(244, 63, 94, 0.6));
@@ -90,6 +92,7 @@
             background: rgba(229, 9, 20, 0.12); border-radius: 4px; cursor: text; padding: 2px 4px;
         }
 
+        /* SAO BẮN HỒNG PASTEL KHI CHẠM MÀN HÌNH */
         .sparkle-particle {
             position: fixed; pointer-events: none; z-index: 999999;
             color: #ff6b8b; font-size: 15px; user-select: none;
@@ -101,7 +104,7 @@
             100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.2) rotate(var(--rot)); opacity: 0; }
         }
 
-        /* 1. MÀN CHỜ VŨ TRỤ */
+        /* 1. MÀN CHỜ VŨ TRỤ ĐỘNG HOÀNH TRÁNG (BỎ KHUNG) */
         #intro-loader {
             position: fixed; inset: 0; background: #040507; z-index: 99999;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -160,19 +163,21 @@
         .intro-radar-bg { stroke: rgba(255,255,255,0.1); stroke-width: 3; fill: none; }
         .intro-radar-val {
             stroke: url(#heartGradient); stroke-width: 3; fill: none;
-            stroke-dasharray: 188; stroke-dashoffset: 188; stroke-linecap: round;
-            transition: stroke-dashoffset 0.05s linear;
+            stroke-dasharray: 188; stroke-dashoffset: 188;
+            stroke-linecap: round; transition: stroke-dashoffset 0.05s linear;
         }
         .intro-counter {
             position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
             font-size: 0.8rem; color: #fff; font-weight: 700; letter-spacing: 1px;
         }
 
-        /* 2. HEADER */
+        /* 2. HEADER ĐỐI XỨNG TUYỆT ĐỐI */
         header {
             position: fixed; top: 0; left: 0; width: 100%;
             padding: 14px 5%; padding-top: calc(12px + env(safe-area-inset-top));
-            display: grid; grid-template-columns: 44px 1fr 44px; align-items: center;
+            display: grid;
+            grid-template-columns: 44px 1fr 44px;
+            align-items: center;
             background: rgba(8, 9, 13, 0.45);
             backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid rgba(255,255,255,0.06); z-index: 1000;
@@ -184,12 +189,37 @@
         .menu-bars { width: 22px; height: 10px; display: flex; flex-direction: column; justify-content: space-between; }
         .menu-bars span { display: block; width: 100%; height: 2px; background: #fff; border-radius: 2px; }
         .logo-text {
-            font-family: var(--font-serif); font-size: clamp(1rem, 3.2vw, 1.45rem);
+            font-family: var(--font-serif); font-size: clamp(0.95rem, 3.2vw, 1.45rem);
             font-weight: 700; color: #fff; text-decoration: none;
             justify-self: center; text-align: center; white-space: nowrap;
             display: flex; align-items: center; justify-content: center;
         }
-        .header-spacer-right { justify-self: end; width: 44px; height: 1px; }
+
+        /* NÚT BẬT/TẮT NHẠC ĐỐI XỨNG */
+        .sound-btn {
+            background: none; border: none; cursor: pointer;
+            justify-self: end; padding: 6px 0; display: flex; align-items: center;
+        }
+        .sound-bars {
+            display: flex; align-items: center; gap: 3px; height: 14px;
+        }
+        .sound-bars span {
+            display: block; width: 2px; height: 4px; background: #94a3b8;
+            border-radius: 2px; transition: all 0.3s ease;
+        }
+        .sound-btn.playing .sound-bars span {
+            background: #ff4d6d;
+            box-shadow: 0 0 8px rgba(255, 77, 109, 0.6);
+            animation: soundWave 1.2s ease-in-out infinite alternate;
+        }
+        .sound-btn.playing .sound-bars span:nth-child(1) { animation-delay: 0.1s; }
+        .sound-btn.playing .sound-bars span:nth-child(2) { animation-delay: 0.3s; }
+        .sound-btn.playing .sound-bars span:nth-child(3) { animation-delay: 0.2s; }
+        @keyframes soundWave {
+            0% { height: 4px; }
+            50% { height: 14px; }
+            100% { height: 7px; }
+        }
 
         /* THANH ĐIỀU KHIỂN ADMIN */
         #admin-strip {
@@ -241,6 +271,13 @@
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             object-fit: cover; z-index: 1; filter: brightness(0.85) contrast(1.05);
         }
+        .hero-iframe {
+            position: absolute; top: 50%; left: 50%; width: 100vw; height: 56.25vw;
+            min-height: 100vh; min-width: 177.77vh; transform: translate(-50%, -50%);
+            z-index: 1; pointer-events: none; border: none; filter: brightness(0.85);
+            display: none;
+        }
+
         .hero-bottom-fade {
             position: absolute; inset: 0; z-index: 2;
             background: linear-gradient(180deg, rgba(8,9,13,0.02) 0%, rgba(8,9,13,0.25) 50%, rgba(8,9,13,0.7) 80%, #08090d 100%);
@@ -359,7 +396,6 @@
             padding: 3px 8px; border-radius: 4px; box-shadow: 0 0 10px var(--crimson-glow);
         }
         
-        /* BANNER NỀN RÕ NÉT & CHỮ TƯƠNG PHẢN KHÔNG BỊ TRÙNG MÀU */
         .char-header-banner {
             width: 100%; height: 185px; position: relative; overflow: hidden;
             display: flex; align-items: center; justify-content: center;
@@ -367,8 +403,7 @@
         }
         .char-bg-cover {
             position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-            filter: brightness(0.9) contrast(1.05); /* Rõ nét, không bị mờ đục */
-            transform: scale(1.02);
+            filter: brightness(0.9) contrast(1.05); transform: scale(1.02);
         }
         .char-bg-gradient {
             position: absolute; inset: 0;
@@ -471,7 +506,7 @@
             margin: 0; width: 100%;
         }
 
-        /* MODALS */
+        /* MODALS PHÓNG TO MƯỢT MÀ */
         .modal-wrap {
             position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(15px);
             z-index: 6000; display: none; justify-content: center; align-items: center; padding: 15px;
@@ -508,19 +543,14 @@
             font-size: 0.92rem; color: #f1f5f9; border-radius: 0 6px 6px 0; position: relative; z-index: 1;
         }
 
-        .tag-picker-wrap {
-            display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px;
-        }
+        .tag-picker-wrap { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
         .tag-pick-pill {
             font-size: 0.75rem; padding: 3px 9px; border-radius: 14px;
             background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15);
             color: #cbd5e1; cursor: pointer; transition: var(--transition);
         }
 
-        /* KHUNG DANH SÁCH NHIỀU NÚT CHAT LINK */
-        .modal-chat-links-wrap {
-            display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px;
-        }
+        .modal-chat-links-wrap { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
         .modal-chat-btn {
             background: #fff; color: #000; padding: 9px 16px; border-radius: 8px;
             font-size: 0.82rem; font-weight: 700; text-decoration: none; display: inline-flex;
@@ -571,6 +601,10 @@
         </defs>
     </svg>
 
+    <!-- TRÌNH PHÁT NHẠC NỀN HTML5 & KHUNG YOUTUBE AUDIO CẤU HÌNH CHUẨN 200PX -->
+    <audio id="mainAudioPlayer" loop playsinline preload="auto"></audio>
+    <div id="ytAudioContainer" style="position:fixed; top:-9999px; left:-9999px; width:200px; height:200px; opacity:0; pointer-events:none; z-index:-999; overflow:hidden;"></div>
+
     <!-- 1. MÀN CHỜ VŨ TRỤ ĐỘNG HOÀNH TRÁNG -->
     <div id="intro-loader">
         <canvas id="introCanvas"></canvas>
@@ -590,7 +624,7 @@
         </div>
     </div>
 
-    <!-- 2. HEADER CĂN CHÍNH GIỮA TUYỆT ĐỐI -->
+    <!-- 2. HEADER ĐỐI XỨNG TUYỆT ĐỐI (TRÁI: MENU - PHẢI: NÚT SÓNG ÂM THANH HI-FI) -->
     <header>
         <button class="menu-btn" onclick="toggleSidebar()" aria-label="Menu">
             <div class="menu-bars"><span></span><span></span></div>
@@ -604,10 +638,15 @@
             <svg class="luxury-sparkle-svg" viewBox="0 0 24 24"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
         </a>
 
-        <div class="header-spacer-right"></div>
+        <!-- NÚT BẬT/TẮT NHẠC ĐỐI XỨNG CHUẨN CONCEPT ATELIER -->
+        <button class="sound-btn" id="soundToggleBtn" onclick="toggleAudio(true)" aria-label="Bật/Tắt Nhạc Nền">
+            <div class="sound-bars">
+                <span></span><span></span><span></span>
+            </div>
+        </button>
     </header>
 
-    <!-- THANH QUẢN TRỊ ADMIN CHIA 2 CHẾ ĐỘ RÕ RÀNG -->
+    <!-- THANH QUẢN TRỊ ADMIN -->
     <div id="admin-strip">
         <div class="admin-mode-tabs">
             <button class="admin-tab-btn active" id="tabInteractBtn" onclick="switchAdminTab('interact')">🎮 Tương Tác & Quản Lý</button>
@@ -618,6 +657,7 @@
             <span style="color:#a78bfa; font-weight:700;">Admin: <strong id="adminNameDisplayLabel">Ethera</strong></span>
             <button class="btn-brand" style="background:var(--crimson); color:#fff;" onclick="openCharFormModal()">+ Thêm Bot Mới</button>
             <button class="btn-brand" style="background:#8b5cf6; color:#fff;" onclick="openVideoManagerModal()">🎬 Đổi Video Nền</button>
+            <button class="btn-brand" style="background:#ec4899; color:#fff;" onclick="openAudioManagerModal()">🎵 Cài Đặt Nhạc Nền</button>
             <button class="btn-brand" style="background:#f59e0b; color:#000;" onclick="openContactLinksModal()">🔗 Sửa Link Menu</button>
             <button class="btn-brand" style="background:#282b37; color:#cbd5e1;" onclick="logoutAdmin()">Thoát Admin</button>
         </div>
@@ -652,11 +692,12 @@
         </div>
     </div>
 
-    <!-- 3. HERO SECTION -->
+    <!-- 3. HERO SECTION (HỖ TRỢ MP4, YOUTUBE, TIKTOK) -->
     <div class="hero" id="hero">
         <video id="mainHeroVideo" class="hero-video" src="https://videotourl.com/videos/1791993553264-7736ed0d-bbc4-4d12-8d32-0a6c0c573d3b.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto">
             <source id="mainVideoSource" src="https://videotourl.com/videos/1791993553264-7736ed0d-bbc4-4d12-8d32-0a6c0c573d3b.mp4" type="video/mp4">
         </video>
+        <iframe id="mainHeroIframe" class="hero-iframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         <div class="hero-bottom-fade"></div>
 
         <div class="hero-content reveal">
@@ -703,7 +744,7 @@
                 <div class="showroom-btn" data-cms="btn_op">Khám Phá →</div>
             </div>
 
-            <!-- THẺ LƯU Ý NHỎ: LUÔN MỞ ĐƯỢC KỂ CẢ KHI BẬT SỬA CHỮ CMS -->
+            <!-- THẺ LƯU Ý NHỎ: MỞ QUY TẮC -->
             <div class="showroom-card" style="border-color: rgba(245, 158, 11, 0.4);" onclick="handleShowroomCardClick('Lưu ý', event)">
                 <div>
                     <span style="color:#f59e0b; font-weight:700; font-size:0.75rem;" data-cms="rules_code">HOUSE RULES</span>
@@ -803,7 +844,7 @@
         </div>
     </div>
 
-    <!-- MODAL 2: CHI TIẾT NHÂN VẬT & COMMENT (HỖ TRỢ NHIỀU NÚT BẤM CHAT LINK TÙY CHỈNH) -->
+    <!-- MODAL 2: CHI TIẾT NHÂN VẬT & COMMENT -->
     <div id="charDetailModal" class="modal-wrap">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('charDetailModal')">✕</button>
@@ -824,7 +865,6 @@
                         <p id="detailDesc" style="color:#e2e8f0; font-size:0.88rem;"></p>
                     </div>
 
-                    <!-- DANH SÁCH CÁC NÚT BẤM CHAT (TỰ ĐỘNG SINH THEO SỐ LINK CÀI ĐẶT) -->
                     <div class="modal-chat-links-wrap" id="detailChatLinksContainer"></div>
                 </div>
             </div>
@@ -853,7 +893,7 @@
         </div>
     </div>
 
-    <!-- MODAL 3: ADMIN THÊM / SỬA BOT (HỖ TRỢ NHIỀU LINK VÀ TÊN NÚT TÙY CHỌN) -->
+    <!-- MODAL 3: ADMIN THÊM / SỬA BOT -->
     <div id="adminFormModal" class="modal-wrap">
         <div class="modal-content" style="max-width:540px;">
             <button class="modal-close" onclick="closeModal('adminFormModal')">✕</button>
@@ -892,7 +932,6 @@
                 <textarea id="formDesc" rows="2" placeholder="Lời giới thiệu ngắn tính cách (Tùy chọn)"></textarea>
                 <textarea id="formPrologue" rows="2" placeholder="Lời tựa / Monologue (Tùy chọn)"></textarea>
 
-                <!-- KHU VỰC THÊM NHIỀU LINK ĐOẠN CHAT & TÊN NÚT RIÊNG -->
                 <div style="background:rgba(255,255,255,0.03); padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.1);">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
                         <span style="font-size:0.75rem; color:#cbd5e1; font-weight:700;">Danh sách link & nút bấm:</span>
@@ -906,7 +945,7 @@
         </div>
     </div>
 
-    <!-- MODAL 4: QUẢN LÝ VIDEO NỀN -->
+    <!-- MODAL 4: QUẢN LÝ VIDEO NỀN (HỖ TRỢ MP4, YOUTUBE, TIKTOK, FILE) -->
     <div id="adminVideoModal" class="modal-wrap">
         <div class="modal-content" style="max-width:500px;">
             <button class="modal-close" onclick="closeModal('adminVideoModal')">✕</button>
@@ -914,10 +953,16 @@
             
             <div style="display:flex; flex-direction:column; gap:12px;">
                 <div>
-                    <label style="font-size:0.75rem; color:#cbd5e1; display:block; margin-bottom:3px;">Dán link video trực tiếp (.mp4):</label>
-                    <input type="text" id="inputVideoUrl" placeholder="https://...mp4">
+                    <label style="font-size:0.75rem; color:#cbd5e1; display:block; margin-bottom:3px;">1. Dán link video (Link MP4 trực tiếp, Link YouTube, hoặc Link TikTok):</label>
+                    <input type="text" id="inputVideoUrl" placeholder="https://youtube.com/watch?v=... hoặc https://...mp4">
                 </div>
-                <button class="btn-brand" style="background:#8b5cf6; color:#fff;" onclick="applyCustomVideo()">ÁP DỤNG VIDEO TOÀN CẦU</button>
+
+                <div style="background:rgba(255,255,255,0.04); padding:10px; border-radius:8px; border:1px dashed rgba(255,255,255,0.2);">
+                    <label style="font-size:0.75rem; color:#cbd5e1; display:block; margin-bottom:3px;">2. HOẶC tải file video từ máy/điện thoại:</label>
+                    <input type="file" id="inputVideoFile" accept="video/mp4,video/webm" style="border:none; padding:2px 0; font-size:0.8rem;">
+                </div>
+
+                <button class="btn-brand" style="background:#8b5cf6; color:#fff;" onclick="applyCustomVideo()">ÁP DỤNG VIDEO NỀN TOÀN CẦU</button>
             </div>
         </div>
     </div>
@@ -967,6 +1012,28 @@
         </div>
     </div>
 
+    <!-- MODAL 7: CÀI ĐẶT NHẠC NỀN AUDIO (MP3, YOUTUBE, FILE) -->
+    <div id="adminAudioModal" class="modal-wrap">
+        <div class="modal-content" style="max-width:500px;">
+            <button class="modal-close" onclick="closeModal('adminAudioModal')">✕</button>
+            <h2 style="font-family:var(--font-serif); font-size:1.3rem; color:#ec4899; margin-bottom:12px;">🎵 CÀI ĐẶT NHẠC NỀN BGM</h2>
+            
+            <div style="display:flex; flex-direction:column; gap:12px;">
+                <div>
+                    <label style="font-size:0.75rem; color:#cbd5e1; display:block; margin-bottom:3px;">1. Dán link nhạc (Link MP3 hoặc link bài hát YouTube):</label>
+                    <input type="text" id="inputAudioUrl" placeholder="https://youtube.com/watch?v=... hoặc https://...mp3">
+                </div>
+
+                <div style="background:rgba(255,255,255,0.04); padding:10px; border-radius:8px; border:1px dashed rgba(255,255,255,0.2);">
+                    <label style="font-size:0.75rem; color:#cbd5e1; display:block; margin-bottom:3px;">2. HOẶC tải file nhạc MP3 từ máy/điện thoại:</label>
+                    <input type="file" id="inputAudioFile" accept="audio/mp3,audio/wav,audio/ogg" style="border:none; padding:2px 0; font-size:0.8rem;">
+                </div>
+
+                <button class="btn-brand" style="background:#ec4899; color:#fff;" onclick="applyCustomAudio()">LƯU NHẠC NỀN TOÀN CẦU</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         let isAdmin = false;
         let isCmsActive = false;
@@ -990,6 +1057,99 @@
         let bots = [];
         let globalThreads = [];
 
+        // QUẢN TRỊ ÂM THANH REALTIME (HỖ TRỢ YOUTUBE & MP3)
+        let isAudioPlaying = false;
+        let userHasPausedManually = false;
+        let currentAudioType = 'html5';
+        let currentAudioSrc = '';
+
+        function toggleAudio(manualClick = false) {
+            if (manualClick) {
+                userHasPausedManually = isAudioPlaying; // Nếu người dùng chủ động bấm tắt
+            }
+            if (isAudioPlaying) {
+                pauseAudio();
+            } else {
+                userHasPausedManually = false;
+                playAudio();
+            }
+        }
+
+        function playAudio() {
+            if (userHasPausedManually) return;
+            const btn = document.getElementById('soundToggleBtn');
+            const audioEl = document.getElementById('mainAudioPlayer');
+            const ytIframe = document.getElementById('ytAudioIframe');
+
+            if (currentAudioType === 'youtube' && ytIframe && ytIframe.contentWindow) {
+                ytIframe.contentWindow.postMessage('{"event":"command","func":"unMute","args":""}', '*');
+                ytIframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                isAudioPlaying = true;
+                btn.classList.add('playing');
+            } else if (audioEl && audioEl.src) {
+                audioEl.play().then(() => {
+                    isAudioPlaying = true;
+                    btn.classList.add('playing');
+                }).catch(() => {
+                    // Chờ tương tác người dùng để tự phát
+                });
+            }
+        }
+
+        function pauseAudio() {
+            const btn = document.getElementById('soundToggleBtn');
+            const audioEl = document.getElementById('mainAudioPlayer');
+            const ytIframe = document.getElementById('ytAudioIframe');
+
+            if (currentAudioType === 'youtube' && ytIframe && ytIframe.contentWindow) {
+                ytIframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+            } else if (audioEl) {
+                audioEl.pause();
+            }
+            isAudioPlaying = false;
+            btn.classList.remove('playing');
+        }
+
+        function setAudioSource(sourceData) {
+            if (!sourceData) return;
+            currentAudioSrc = sourceData.url || sourceData;
+            const ytId = extractYouTubeId(currentAudioSrc);
+            const audioEl = document.getElementById('mainAudioPlayer');
+            const ytContainer = document.getElementById('ytAudioContainer');
+
+            if (ytId) {
+                currentAudioType = 'youtube';
+                if (audioEl) audioEl.pause();
+                // Kích thước chuẩn 200px giấu vô hình ngoài màn hình, cho phép tự chạy
+                ytContainer.innerHTML = `<iframe id="ytAudioIframe" width="200" height="200" src="https://www.youtube.com/embed/${ytId}?enablejsapi=1&autoplay=1&loop=1&playlist=${ytId}&playsinline=1" frameborder="0" allow="autoplay; encrypted-media"></iframe>`;
+                
+                setTimeout(() => {
+                    playAudio();
+                }, 800);
+            } else {
+                currentAudioType = 'html5';
+                ytContainer.innerHTML = '';
+                if (audioEl) {
+                    audioEl.src = currentAudioSrc;
+                    audioEl.load();
+                    playAudio();
+                }
+            }
+        }
+
+        // TỰ ĐỘNG PHÁT NHẠC KHI TRUY CẬP (MỞ KHÓA TRÊN LẦN CHẠM ĐẦU TIÊN NẾU BỊ CHẶN)
+        function unlockAutoplayOnFirstGesture() {
+            if (!userHasPausedManually) {
+                playAudio();
+            }
+            ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt => {
+                document.removeEventListener(evt, unlockAutoplayOnFirstGesture);
+            });
+        }
+        ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt => {
+            document.addEventListener(evt, unlockAutoplayOnFirstGesture, { passive: true, once: true });
+        });
+
         // 1. KẾT NỐI REALTIME FIREBASE
         function syncDatabase() {
             db.ref('roster').on('value', (snapshot) => {
@@ -1005,17 +1165,13 @@
             });
 
             db.ref('custom_video').on('value', (snapshot) => {
-                const vidUrl = snapshot.val();
-                if (vidUrl) {
-                    const videoEl = document.getElementById('mainHeroVideo');
-                    const sourceEl = document.getElementById('mainVideoSource');
-                    if (videoEl && sourceEl && videoEl.src !== vidUrl) {
-                        sourceEl.src = vidUrl;
-                        videoEl.src = vidUrl;
-                        videoEl.load();
-                        videoEl.play().catch(()=>{});
-                    }
-                }
+                const vidData = snapshot.val();
+                if (vidData) setBackgroundVideoSource(vidData);
+            });
+
+            db.ref('custom_audio').on('value', (snapshot) => {
+                const audioData = snapshot.val();
+                if (audioData) setAudioSource(audioData);
             });
 
             db.ref('contact_links').on('value', (snapshot) => {
@@ -1058,7 +1214,6 @@
             });
         }
 
-        // CHUYỂN ĐỔI TAB ADMIN
         function switchAdminTab(mode) {
             const tabInteractBtn = document.getElementById('tabInteractBtn');
             const tabCmsBtn = document.getElementById('tabCmsBtn');
@@ -1080,7 +1235,6 @@
             }
         }
 
-        // XỬ LÝ CLICK SHOWROOM: THẺ LƯU Ý LUÔN MỞ ĐƯỢC KỂ CẢ KHI CMS BẬT
         function handleShowroomCardClick(cat, e) {
             if (cat === 'Lưu ý') {
                 openRulesModal();
@@ -1119,18 +1273,61 @@
             alert("✓ Đã cập nhật link liên hệ trong Menu thành công!");
         }
 
+        function extractYouTubeId(url) {
+            if (!url) return null;
+            const cleanUrl = url.trim();
+            const match = cleanUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/)|music\.youtube\.com\/watch\?v=)([a-zA-Z0-9_-]{11})/);
+            return match ? match[1] : null;
+        }
+
+        function extractTikTokId(url) {
+            if (!url) return null;
+            const match = url.match(/\/video\/(\d+)/) || url.match(/\/v\/(\d+)/);
+            return match ? match[1] : null;
+        }
+
+        function setBackgroundVideoSource(url) {
+            if (!url) return;
+            const videoEl = document.getElementById('mainHeroVideo');
+            const iframeEl = document.getElementById('mainHeroIframe');
+            const sourceEl = document.getElementById('mainVideoSource');
+
+            const ytId = extractYouTubeId(url);
+            const ttId = extractTikTokId(url);
+
+            if (ytId) {
+                videoEl.style.display = 'none';
+                videoEl.pause();
+                iframeEl.style.display = 'block';
+                iframeEl.src = `https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&mute=1&loop=1&playlist=${ytId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`;
+            } else if (ttId) {
+                videoEl.style.display = 'none';
+                videoEl.pause();
+                iframeEl.style.display = 'block';
+                iframeEl.src = `https://www.tiktok.com/embed/v2/${ttId}`;
+            } else {
+                iframeEl.style.display = 'none';
+                iframeEl.src = '';
+                videoEl.style.display = 'block';
+                if (sourceEl.src !== url) {
+                    sourceEl.src = url;
+                    videoEl.src = url;
+                    videoEl.load();
+                }
+                videoEl.muted = true;
+                videoEl.play().catch(()=>{});
+            }
+        }
+
         function initBackgroundVideo() {
             const videoEl = document.getElementById('mainHeroVideo');
             if (videoEl) {
                 videoEl.muted = true;
                 videoEl.defaultMuted = true;
-                const p = videoEl.play();
-                if (p !== undefined) {
-                    p.catch(() => {
-                        document.addEventListener('click', () => { videoEl.play(); }, { once: true });
-                        document.addEventListener('touchstart', () => { videoEl.play(); }, { once: true });
-                    });
-                }
+                videoEl.play().catch(() => {
+                    document.addEventListener('click', () => { videoEl.play(); }, { once: true });
+                    document.addEventListener('touchstart', () => { videoEl.play(); }, { once: true });
+                });
             }
         }
 
@@ -1143,7 +1340,7 @@
             let h = canvas.height = window.innerHeight;
 
             const particles = [];
-            for (let i = 0; i < 65; i++) {
+            for (let i = 0; i < 75; i++) {
                 particles.push({
                     x: Math.random() * w,
                     y: Math.random() * h,
@@ -1181,6 +1378,7 @@
             });
         }
 
+        // KHỞI ĐỘNG
         window.addEventListener('load', () => {
             initIntroCanvas();
             syncDatabase();
@@ -1203,6 +1401,7 @@
                     setTimeout(() => { 
                         document.getElementById('intro-loader').classList.add('fade-out');
                         window.scrollTo(0, 0);
+                        playAudio(); // Tự động bật nhạc khi màn hình loading tắt
                     }, 400);
                 }
             }, 30);
@@ -1220,6 +1419,7 @@
 
         function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
 
+        // MẬT MÃ ADMIN: 050407
         const botSearchInput = document.getElementById('botSearch');
         botSearchInput.addEventListener('input', (e) => {
             if (e.target.value.trim() === '050407') {
@@ -1321,12 +1521,48 @@
 
         function applyCustomVideo() {
             const urlInput = document.getElementById('inputVideoUrl').value.trim();
-            if (urlInput) {
+            const fileInput = document.getElementById('inputVideoFile');
+
+            if (fileInput.files && fileInput.files[0]) {
+                const file = fileInput.files[0];
+                const fileUrl = URL.createObjectURL(file);
+                setBackgroundVideoSource(fileUrl);
+                db.ref('custom_video').set(fileUrl);
+                closeModal('adminVideoModal');
+                alert("✓ Đã tải và áp dụng video trực tiếp từ thiết bị!");
+            } else if (urlInput) {
+                setBackgroundVideoSource(urlInput);
                 db.ref('custom_video').set(urlInput);
                 closeModal('adminVideoModal');
-                alert("✓ Đã lưu video lên Cloud Database! Toàn bộ người xem sẽ được phát video mới.");
+                alert("✓ Đã áp dụng và lưu video (YouTube/TikTok/MP4) lên Cloud Database!");
             } else {
-                alert("Vui lòng dán link video .mp4 trực tiếp.");
+                alert("Vui lòng dán link video hoặc chọn tệp.");
+            }
+        }
+
+        function openAudioManagerModal() {
+            document.getElementById('inputAudioUrl').value = currentAudioSrc || '';
+            document.getElementById('adminAudioModal').classList.add('open');
+        }
+
+        function applyCustomAudio() {
+            const urlInput = document.getElementById('inputAudioUrl').value.trim();
+            const fileInput = document.getElementById('inputAudioFile');
+
+            if (fileInput.files && fileInput.files[0]) {
+                const file = fileInput.files[0];
+                const fileUrl = URL.createObjectURL(file);
+                setAudioSource({ url: fileUrl });
+                db.ref('custom_audio').set({ url: fileUrl });
+                closeModal('adminAudioModal');
+                alert("✓ Đã lưu file nhạc từ máy lên Database!");
+            } else if (urlInput) {
+                setAudioSource({ url: urlInput });
+                db.ref('custom_audio').set({ url: urlInput });
+                closeModal('adminAudioModal');
+                alert("✓ Đã lưu nhạc nền (YouTube hoặc MP3) lên Cloud Database!");
+            } else {
+                alert("Vui lòng dán link nhạc hoặc chọn file MP3.");
             }
         }
 
@@ -1598,7 +1834,7 @@
             showDetailModalDirectly(id);
         }
 
-        // MỞ CHI TIẾT BOT (HỖ TRỢ NHIỀU NÚT BẤM CHAT VÀ ĐỂ TRỐNG NẾU KHÔNG CÓ THÔNG TIN)
+        // MỞ CHI TIẾT BOT
         function showDetailModalDirectly(id) {
             currentCharId = id;
             const bot = bots.find(b => String(b.id) === String(id));
@@ -1618,7 +1854,6 @@
             document.getElementById('detailTitle').innerText = bot.name;
             document.getElementById('detailTags').innerText = bot.tags && bot.tags.length > 0 ? '#' + bot.tags.join(' #') : '';
             
-            // Xử lý mô tả: Không tự điền "Chưa có...", chỉ hiện nếu có thật
             const descEl = document.getElementById('detailDesc');
             if (bot.desc && bot.desc.trim()) {
                 descEl.innerText = bot.desc;
@@ -1627,7 +1862,6 @@
                 descEl.style.display = 'none';
             }
 
-            // Xử lý lời tựa
             const proEl = document.getElementById('detailPrologue');
             if (bot.prologue && bot.prologue.trim()) {
                 proEl.innerText = bot.prologue;
@@ -1636,7 +1870,6 @@
                 proEl.style.display = 'none';
             }
 
-            // Xử lý các nút bấm vào đoạn chat (cho phép nhiều nút kèm tên nút tùy chọn)
             const linksContainer = document.getElementById('detailChatLinksContainer');
             linksContainer.innerHTML = '';
             
@@ -1655,7 +1888,7 @@
             document.getElementById('charDetailModal').classList.add('open');
         }
 
-        // QUẢN LÝ DÒNG LINK TRONG FORM TẠO/SỬA BOT
+        // QUẢN LÝ LINK TRONG FORM TẠO/SỬA BOT
         function addLinkRow(label = 'Vào đoạn chat', url = '') {
             const container = document.getElementById('formLinksListContainer');
             const row = document.createElement('div');
@@ -1684,7 +1917,6 @@
             document.getElementById('formDesc').value = "";
             document.getElementById('formPrologue').value = "";
             
-            // Xóa và thêm 1 dòng link mặc định
             document.getElementById('formLinksListContainer').innerHTML = '';
             addLinkRow('Vào đoạn chat', '');
 
@@ -1712,7 +1944,6 @@
             document.getElementById('formDesc').value = b.desc || '';
             document.getElementById('formPrologue').value = b.prologue || "";
             
-            // Nạp danh sách các link đã lưu
             const linksContainer = document.getElementById('formLinksListContainer');
             linksContainer.innerHTML = '';
             if (b.links && b.links.length > 0) {
@@ -1733,7 +1964,6 @@
             }
         }
 
-        // LƯU BOT: HỖ TRỢ NHIỀU LINK ĐOẠN CHAT & TÊN NÚT BẤM
         async function saveCharacter(e) {
             e.preventDefault();
             const editId = document.getElementById('adminCharId').value;
@@ -1749,7 +1979,6 @@
             const desc = document.getElementById('formDesc').value.trim();
             const prologue = document.getElementById('formPrologue').value.trim();
 
-            // Gom toàn bộ danh sách các link chat
             const linkRows = document.querySelectorAll('.form-link-row');
             const links = [];
             linkRows.forEach(row => {
@@ -1877,7 +2106,7 @@
             return sorted;
         }
 
-        // BÌNH LUẬN TRONG BOT (ĐÃ SỬA DỨT ĐIỂM LỖI PHẢN HỒI)
+        // BÌNH LUẬN TRONG BOT
         let activeCharCommentsListener = null;
 
         function postCharComment(e) {
@@ -1971,7 +2200,7 @@
                         <div class="comment-header">
                             <span class="comment-user" style="color:${item.isAdmin ? 'var(--crimson)' : '#fff'};">
                                 ${item.author} ${item.isAdmin ? '<span style="font-size:0.6rem; background:var(--crimson); color:#fff; padding:1px 5px; border-radius:3px;">ADMIN</span>' : ''}
-                                ${item.pinned ? '<span style="font-size:0.6rem; background:#f59e0b; color:#000; font-weight:700; padding:1px 5px; border-radius:3px;">📌 GHIM</span>' : ''}
+                                ${item.pinned ? '<span style="font-size:0.6rem; background:#f59e0b; color:#000; font-weight:700; padding:1px 5px; border-radius:3px;">📌 ĐÃ GHIM</span>' : ''}
                             </span>
                             <span class="comment-time">${item.time}</span>
                         </div>
@@ -1999,7 +2228,6 @@
             if (box) box.classList.toggle('open'); 
         }
 
-        // PHẢN HỒI BÌNH LUẬN ĐỒNG BỘ CHUẨN XÁC LÊN FIREBASE
         function submitNestedReply(contextKey, parentId) {
             const input = document.getElementById(`replyInput_${parentId}`);
             const text = input.value.trim();
