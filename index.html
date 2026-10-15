@@ -23,6 +23,12 @@
         };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
+
+        // Khóa cuộn trang khi mới tải, chống điện thoại bị nhảy lung tung
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
     </script>
 
     <style>
@@ -53,7 +59,6 @@
             line-height: 1.6;
         }
 
-        /* CUỘN ĐẾN ĐẦU MỤC KHÔNG BỊ HEADER CHE */
         section, .hero, .showroom-section, .roster-section, .forum-section {
             scroll-margin-top: 75px;
         }
@@ -83,7 +88,6 @@
             background: rgba(229, 9, 20, 0.08); border-radius: 4px; cursor: text; padding: 2px 4px;
         }
 
-        /* SAO NHẤP NHÁY MÀU HỒNG PASTEL / ĐỎ KHI CHẠM MÀN HÌNH */
         .sparkle-particle {
             position: fixed; pointer-events: none; z-index: 999999;
             color: #ff6b8b; font-size: 15px; user-select: none;
@@ -143,13 +147,15 @@
         }
         .intro-counter { margin-top: 10px; font-size: 0.8rem; color: #cbd5e1; letter-spacing: 2px; font-weight: 600; }
 
-        /* 2. HEADER */
+        /* 2. HEADER KÍNH MỜ TRONG SUỐT (KHÔNG BỊ THANH ĐEN ĐÈ THÔ LÊN VIDEO) */
         header {
-            position: fixed; top: 0; left: 0; width: 100%; padding: 16px 6%;
-            padding-top: calc(14px + env(safe-area-inset-top));
+            position: fixed; top: 0; left: 0; width: 100%; padding: 14px 6%;
+            padding-top: calc(12px + env(safe-area-inset-top));
             display: flex; justify-content: space-between; align-items: center;
-            background: rgba(8, 9, 13, 0.9); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255,255,255,0.08); z-index: 1000;
+            background: rgba(8, 9, 13, 0.45);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255,255,255,0.06); z-index: 1000;
+            transition: background 0.3s;
         }
         .menu-btn {
             background: none; border: none; cursor: pointer; display: flex; align-items: center;
@@ -168,13 +174,28 @@
         }
         .admin-status.active { border-color: var(--crimson); color: var(--crimson); background: rgba(229, 9, 20, 0.15); }
 
-        /* THANH ĐIỀU KHIỂN ADMIN */
+        /* THANH ĐIỀU KHIỂN ADMIN CHIA 2 CHẾ ĐỘ RÕ RÀNG */
         #admin-strip {
             display: none; background: #12141c; border-bottom: 1px solid var(--crimson);
-            padding: 10px 6%; position: fixed; top: 60px; left: 0; width: 100%; z-index: 999;
-            justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 0.8rem;
+            padding: 8px 6%; position: fixed; top: 58px; left: 0; width: 100%; z-index: 999;
+            flex-direction: column; gap: 8px; font-size: 0.8rem;
         }
         #admin-strip.open { display: flex; }
+
+        .admin-mode-tabs {
+            display: flex; gap: 6px; width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 6px;
+        }
+        .admin-tab-btn {
+            background: transparent; border: 1px solid rgba(255,255,255,0.15); color: #94a3b8;
+            padding: 4px 12px; border-radius: 6px; cursor: pointer; font-size: 0.75rem; font-weight: 600;
+        }
+        .admin-tab-btn.active {
+            background: var(--crimson); border-color: var(--crimson); color: #fff;
+        }
+
+        .admin-pane {
+            display: flex; align-items: center; gap: 8px; flex-wrap: wrap; width: 100%;
+        }
 
         /* SIDEBAR */
         #sidebar {
@@ -196,11 +217,12 @@
             border-radius: 8px; margin-top: 8px;
         }
 
-        /* 3. HERO SECTION */
+        /* 3. HERO SECTION (HẠ THẤP CHỮ GIỚI THIỆU XUỐNG SÁT SHOWROOM) */
         .hero {
             position: relative; width: 100%; height: 100dvh; min-height: 520px;
             display: flex; flex-direction: column; justify-content: flex-end;
-            padding: 0 6% 90px; overflow: hidden; background: #08090d;
+            padding: 0 6% 35px; /* Giảm padding đáy để chữ sát xuống Showroom */
+            overflow: hidden; background: #08090d;
         }
         .hero-video {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -208,7 +230,7 @@
         }
         .hero-bottom-fade {
             position: absolute; inset: 0; z-index: 2;
-            background: linear-gradient(180deg, rgba(8,9,13,0.05) 0%, rgba(8,9,13,0.25) 50%, rgba(8,9,13,0.75) 80%, #08090d 100%);
+            background: linear-gradient(180deg, rgba(8,9,13,0.02) 0%, rgba(8,9,13,0.25) 50%, rgba(8,9,13,0.7) 80%, #08090d 100%);
             pointer-events: none;
         }
         .hero-content { position: relative; z-index: 3; }
@@ -217,11 +239,14 @@
             font-weight: 700; line-height: 1.15;
             background: linear-gradient(135deg, #fff 0%, #cbd5e1 60%, #94a3b8 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            max-width: 900px; margin-bottom: 16px;
+            max-width: 900px; margin-bottom: 12px;
+        }
+        .hero-desc {
+            max-width: 620px; font-size: 0.95rem; color: #94a3b8; font-weight: 300; margin-bottom: 0px;
         }
 
-        /* 4. KHUNG GẦM / SHOWROOM */
-        .showroom-section { background-color: #08090d; padding: 80px 6% 50px; }
+        /* 4. KHUNG GẦM / SHOWROOM CÓ THẺ "NGOÀI LỀ" & "LƯU Ý NHỎ" */
+        .showroom-section { background-color: #08090d; padding: 45px 6% 50px; }
         .showroom-scroll {
             display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory;
             padding-top: 16px; margin-top: -16px; padding-bottom: 25px; scrollbar-width: none;
@@ -229,9 +254,9 @@
         }
         .showroom-scroll::-webkit-scrollbar { display: none; }
         .showroom-card {
-            min-width: 290px; max-width: 310px; height: 340px; background: rgba(18, 20, 28, 0.7);
+            min-width: 280px; max-width: 300px; height: 330px; background: rgba(18, 20, 28, 0.7);
             border: 1px solid rgba(255,255,255,0.12); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-radius: 14px; padding: 26px; display: flex; flex-direction: column;
+            border-radius: 14px; padding: 25px; display: flex; flex-direction: column;
             justify-content: space-between; scroll-snap-align: start; cursor: pointer;
             transition: var(--transition); color: #fff; position: relative; overflow: hidden;
             box-shadow: 0 0 1px rgba(255,255,255,0.3);
@@ -246,14 +271,14 @@
             transform: translateY(-8px); border-color: rgba(255,255,255,0.4);
             box-shadow: 0 18px 45px rgba(0,0,0,0.7), 0 0 15px rgba(255,255,255,0.1);
         }
-        .showroom-card h3 { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 700; margin: 6px 0; }
+        .showroom-card h3 { font-family: var(--font-serif); font-size: 1.45rem; font-weight: 700; margin: 6px 0; }
         .showroom-btn { font-size: 0.85rem; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 6px; letter-spacing: 1px; }
 
-        /* DẢI HÒA MÀU */
+        /* DẢI HÒA MÀU (KHÔNG BỊ VIỀN TRẮNG THỪA) */
         .divider-to-cream {
-            height: 200px;
+            height: 180px;
             background: linear-gradient(180deg, #08090d 0%, #1c1e28 25%, #8a867c 60%, #ddd8cc 85%, var(--cream-bg) 100%);
-            margin: 0; border: none;
+            margin: 0; border: none; display: block;
         }
         .roster-section {
             background-color: var(--cream-bg); color: var(--cream-text);
@@ -292,7 +317,7 @@
         }
         .tag-btn.active { background: var(--crimson); border-color: var(--crimson); color: #fff; }
 
-        /* GRID NHÂN VẬT (NHỎ GỌN, KHÔNG BỊ SÁT VIỀN ĐIỆN THOẠI) */
+        /* GRID NHÂN VẬT THU GỌN VỪA VẶN ĐIỆN THOẠI */
         .char-grid {
             display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px;
             width: 100%;
@@ -304,7 +329,7 @@
         }
         .empty-roster-box span { display: block; font-size: 1.8rem; color: var(--crimson); margin-bottom: 8px; }
 
-        /* THẺ NHÂN VẬT CÓ VIỀN PHÁT SÁNG & NỀN TÙY CHỌN */
+        /* THẺ NHÂN VẬT CÓ NỀN TÙY BIẾN & KHUNG AVATAR VIỀN SÁNG */
         .char-card {
             background: #ffffff; border-radius: 14px; overflow: hidden;
             border: 1px solid rgba(0,0,0,0.08);
@@ -319,9 +344,9 @@
             padding: 3px 8px; border-radius: 4px; box-shadow: 0 0 10px var(--crimson-glow);
         }
         
-        /* BANNER NỀN VÀ KHUNG AVATAR VIỀN SÁNG NỔI BẬT */
+        /* BANNER NỀN & KHUNG AVATAR VIỀN PHÁT SÁNG */
         .char-header-banner {
-            width: 100%; height: 210px; position: relative; overflow: hidden;
+            width: 100%; height: 195px; position: relative; overflow: hidden;
             display: flex; align-items: center; justify-content: center;
             background: #11131a;
         }
@@ -334,8 +359,8 @@
             background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(255,255,255,0.7) 80%, #ffffff 100%);
         }
         .char-avatar-glow-box {
-            position: relative; z-index: 2; width: 140px; height: 140px; border-radius: 12px; overflow: hidden;
-            border: 2px solid rgba(255, 255, 255, 0.85);
+            position: relative; z-index: 2; width: 130px; height: 130px; border-radius: 12px; overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.9);
             box-shadow: 0 0 20px rgba(229, 9, 20, 0.45), 0 6px 18px rgba(0,0,0,0.4);
             cursor: pointer;
         }
@@ -364,11 +389,11 @@
         }
         .like-btn.liked { color: var(--crimson); transform: scale(1.08); }
 
-        /* DẢI HÒA MÀU VÀ DIỄN ĐÀN (DIỄN ĐÀN RA KHỎI KHUNG CỐ ĐỊNH, KÉO DÀI TỰ NHIÊN) */
+        /* DẢI HÒA MÀU VÀO DIỄN ĐÀN (KHÔNG BỊ TRẮNG THỪA) */
         .divider-to-dark {
-            height: 200px;
+            height: 180px;
             background: linear-gradient(180deg, var(--cream-bg) 0%, #ddd8cc 15%, #8a867c 40%, #1c1e28 75%, #08090d 100%);
-            margin: 0; border: none;
+            margin: 0; border: none; display: block;
         }
         .forum-section { background-color: #08090d; color: #fff; padding: 10px 6% 90px; margin: 0; }
         .forum-console {
@@ -376,10 +401,9 @@
             box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 20px rgba(255,255,255,0.03);
             width: 100%;
         }
-        /* Bỏ khung cố định: Feed dài tự nhiên */
         .console-feed { padding: 24px; display: flex; flex-direction: column; gap: 16px; }
 
-        /* CÂY BÌNH LUẬN FACEBOOK CHUẨN (ĐƯỜNG MÓC CHỮ L LIỀN MẠCH, KHÓA TỐI ĐA 2 NHÁNH) */
+        /* CÂY BÌNH LUẬN TRỤC LIÊN TỤC VÀ ĐƯỜNG MÓC CHỮ L */
         .comment-node { position: relative; padding: 6px 0; }
         .comment-node.is-pinned { border-left: 3px solid var(--crimson); padding-left: 10px; }
         .branch-level-0 { margin-left: 0; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 14px; }
@@ -431,7 +455,7 @@
             margin: 0;
         }
 
-        /* MODALS PHÓNG TO MƯỢT MÀ (ZOOM-IN EFFECT) */
+        /* MODALS PHÓNG TO MƯỢT MÀ */
         .modal-wrap {
             position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(15px);
             z-index: 6000; display: none; justify-content: center; align-items: center; padding: 15px;
@@ -452,10 +476,21 @@
         }
         .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: none; color: #94a3b8; font-size: 1.4rem; cursor: pointer; z-index: 10; }
         
+        /* BANNER NỀN BÊN TRONG CỬA SỔ CHI TIẾT NHÂN VẬT */
+        .modal-banner-bg {
+            position: absolute; top: 0; left: 0; right: 0; height: 190px;
+            background-size: cover; background-position: center; border-radius: 16px 16px 0 0;
+            z-index: 0; display: none;
+        }
+        .modal-banner-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(180deg, rgba(17,19,26,0.2) 0%, rgba(17,19,26,0.85) 70%, #11131a 100%);
+        }
+
         .char-prologue-box {
             background: rgba(255,255,255,0.03); border-left: 3px solid var(--crimson);
             padding: 14px; margin-bottom: 16px; font-style: italic; font-family: var(--font-serif);
-            font-size: 0.92rem; color: #f1f5f9; border-radius: 0 6px 6px 0;
+            font-size: 0.92rem; color: #f1f5f9; border-radius: 0 6px 6px 0; position: relative; z-index: 1;
         }
 
         input, textarea, select {
@@ -464,9 +499,9 @@
         }
         input:focus, textarea:focus { outline: none; border-color: var(--crimson); }
         .btn-brand {
-            background: #fff; color: #000; border: none; padding: 10px 18px;
+            background: #fff; color: #000; border: none; padding: 8px 16px;
             border-radius: 8px; font-weight: 600; cursor: pointer; transition: var(--transition);
-            font-size: 0.85rem; white-space: nowrap;
+            font-size: 0.8rem; white-space: nowrap;
         }
         .btn-brand:hover { background: #e2e8f0; }
 
@@ -474,14 +509,14 @@
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         @media(max-width: 768px) {
-            header { padding: 14px 5%; padding-top: calc(12px + env(safe-area-inset-top)); }
-            .hero { padding: 0 5% 75px; }
+            header { padding: 12px 5%; padding-top: calc(10px + env(safe-area-inset-top)); }
+            .hero { padding: 0 5% 30px; }
             .showroom-section, .roster-section, .forum-section { padding-left: 5%; padding-right: 5%; }
-            .showroom-card { min-width: 270px; height: 320px; }
-            .char-grid { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 15px; }
+            .showroom-card { min-width: 260px; height: 320px; }
+            .char-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
             .replies-branch-container.level-1 { margin-left: 16px; }
             .replies-branch-container.level-clamped { margin-left: 12px; }
-            .credit-ticker-bar { font-size: 0.85rem; padding: 20px 5%; }
+            .credit-ticker-bar { font-size: 0.82rem; padding: 20px 5%; }
             .console-feed { padding: 16px; }
         }
     </style>
@@ -514,7 +549,7 @@
         </div>
     </div>
 
-    <!-- 2. HEADER -->
+    <!-- 2. HEADER KÍNH TRONG SUỐT -->
     <header>
         <button class="menu-btn" onclick="toggleSidebar()">
             <div class="menu-bars"><span></span><span></span></div>
@@ -530,16 +565,27 @@
         <div id="adminIndicator" class="admin-status">KẾT NỐI: ONLINE</div>
     </header>
 
-    <!-- THANH QUẢN TRỊ ADMIN -->
+    <!-- THANH QUẢN TRỊ ADMIN PHÂN 2 CHẾ ĐỘ RÕ RÀNG -->
     <div id="admin-strip">
-        <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap; width: 100%;">
-            <strong style="color:var(--crimson);">ADMIN:</strong>
-            <input type="text" id="adminNameInput" style="padding:4px 8px; width:120px; font-size:14px;" value="Ethera">
-            <button class="btn-brand" style="padding:4px 8px; font-size:0.75rem;" onclick="updateAdminNameAndSync()">LƯU TÊN</button>
-            <button class="btn-brand" style="background:#8b5cf6; color:#fff; padding:4px 8px; font-size:0.75rem;" onclick="openVideoManagerModal()">🎬 ĐỔI VIDEO</button>
-            <button class="btn-brand" style="background:#10b981; color:#fff; padding:4px 8px; font-size:0.75rem;" onclick="saveAllCmsTexts()">💾 LƯU CHỮ</button>
-            <button class="btn-brand" style="background:var(--crimson); color:#fff; padding:4px 10px; font-size:0.75rem;" onclick="openCharFormModal()">+ THÊM BOT</button>
-            <button class="btn-brand" style="background:#282b37; color:#cbd5e1; padding:4px 8px; font-size:0.75rem;" onclick="logoutAdmin()">THOÁT</button>
+        <div class="admin-mode-tabs">
+            <button class="admin-tab-btn active" id="tabInteractBtn" onclick="switchAdminTab('interact')">🎮 Chế độ: Tương Tác & Quản Lý</button>
+            <button class="admin-tab-btn" id="tabCmsBtn" onclick="switchAdminTab('cms')">✏️ Chế độ: Sửa Chữ Web (CMS)</button>
+        </div>
+
+        <!-- PANE 1: TƯƠNG TÁC & QUẢN LÝ (KHÔNG SỢ BẤM NHẦM CHỮ) -->
+        <div class="admin-pane" id="paneInteract">
+            <span style="color:#a78bfa; font-weight:700;">Admin: <strong id="adminNameDisplayLabel">Ethera</strong></span>
+            <button class="btn-brand" style="background:var(--crimson); color:#fff;" onclick="openCharFormModal()">+ Thêm Bot Mới</button>
+            <button class="btn-brand" style="background:#8b5cf6; color:#fff;" onclick="openVideoManagerModal()">🎬 Đổi Video Nền</button>
+            <button class="btn-brand" style="background:#282b37; color:#cbd5e1;" onclick="logoutAdmin()">Thoát Admin</button>
+        </div>
+
+        <!-- PANE 2: CHỈNH SỬA VĂN BẢN (CMS) -->
+        <div class="admin-pane" id="paneCms" style="display:none;">
+            <span>Đổi tên Admin:</span>
+            <input type="text" id="adminNameInput" style="padding:4px 8px; width:130px; font-size:13px;" value="Ethera">
+            <button class="btn-brand" onclick="updateAdminNameAndSync()">Lưu Tên</button>
+            <button class="btn-brand" style="background:#10b981; color:#fff;" onclick="saveAllCmsTexts()">💾 Lưu Mọi Chữ Đã Sửa</button>
         </div>
     </div>
 
@@ -551,10 +597,10 @@
                 <button onclick="toggleSidebar()" style="background:none; border:none; color:#fff; font-size:1.4rem; cursor:pointer;">✕</button>
             </div>
             <ul class="sidebar-links">
-                <li><a href="#hero" onclick="toggleSidebar()" data-cms="nav_hero">Khởi Đầu (Hero)</a></li>
-                <li><a href="#showroom" onclick="toggleSidebar()" data-cms="nav_showroom">Showroom (Matrix)</a></li>
-                <li><a href="#roster" onclick="toggleSidebar()" data-cms="nav_roster">Kho Nhân Vật (Roster)</a></li>
-                <li><a href="#forum" onclick="toggleSidebar()" data-cms="nav_forum">Diễn Đàn (Lounge)</a></li>
+                <li><a href="#hero" onclick="toggleSidebar()">Khởi Đầu (Hero)</a></li>
+                <li><a href="#showroom" onclick="toggleSidebar()">Showroom (Matrix)</a></li>
+                <li><a href="#roster" onclick="toggleSidebar()">Kho Nhân Vật (Roster)</a></li>
+                <li><a href="#forum" onclick="toggleSidebar()">Diễn Đàn (Lounge)</a></li>
             </ul>
         </div>
         <div>
@@ -565,7 +611,7 @@
         </div>
     </div>
 
-    <!-- 3. HERO SECTION -->
+    <!-- 3. HERO SECTION (CHỮ HẠ SÁT XUỐNG DƯỚI GẦN SHOWROOM) -->
     <div class="hero" id="hero">
         <video id="mainHeroVideo" class="hero-video" src="https://videotourl.com/videos/1791993553264-7736ed0d-bbc4-4d12-8d32-0a6c0c573d3b.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto">
             <source id="mainVideoSource" src="https://videotourl.com/videos/1791993553264-7736ed0d-bbc4-4d12-8d32-0a6c0c573d3b.mp4" type="video/mp4">
@@ -573,17 +619,17 @@
         <div class="hero-bottom-fade"></div>
 
         <div class="hero-content reveal">
-            <div style="color:var(--crimson); font-size:0.75rem; font-weight:700; letter-spacing:3px; text-transform:uppercase; margin-bottom:10px;" data-cms="hero_badge">Bespoke AI Engineering</div>
+            <div style="color:var(--crimson); font-size:0.75rem; font-weight:700; letter-spacing:3px; text-transform:uppercase; margin-bottom:8px;" data-cms="hero_badge">Bespoke AI Engineering</div>
             <h1 data-cms="hero_title">Điêu Khắc Tâm Hồn.<br>Không Giới Hạn.</h1>
-            <p style="max-width:580px; font-size:0.95rem; color:#94a3b8; font-weight:300;" data-cms="hero_desc">
+            <p class="hero-desc" data-cms="hero_desc">
                 Mỗi AI Chatbot tại xưởng của <strong>Ethera</strong> được chế tác với sự cẩn trọng tỉ mỉ như một khối động cơ siêu xe: phức tạp bên trong nhưng thuần khiết khi vận hành.
             </p>
         </div>
     </div>
 
-    <!-- 4. KHUNG GẦM / SHOWROOM CÓ THÊM MỤC "LƯU Ý NHỎ" -->
+    <!-- 4. KHUNG GẦM / SHOWROOM CÓ THẺ "NGOÀI LỀ" & "LƯU Ý NHỎ" -->
     <section class="showroom-section" id="showroom">
-        <div class="reveal" style="margin-bottom:20px;">
+        <div class="reveal" style="margin-bottom:18px;">
             <div style="color:var(--crimson); font-size:0.75rem; font-weight:700; letter-spacing:2px;" data-cms="showroom_tag">SHOWROOM MATRIX</div>
             <h2 style="font-family:var(--font-serif); font-size:clamp(1.6rem, 5vw, 2.2rem); font-weight:700;" data-cms="showroom_heading">Khung Gầm Phân Khúc</h2>
         </div>
@@ -606,16 +652,17 @@
                 <div class="showroom-btn" data-cms="btn_nsfw">Khám Phá →</div>
             </div>
 
-            <div class="showroom-card" onclick="filterByCat('Open World')">
+            <!-- THẺ ĐỔI TÊN THÀNH "NGOÀI LỀ" -->
+            <div class="showroom-card" onclick="filterByCat('Ngoài lề')">
                 <div>
-                    <span style="color:#4ade80; font-weight:700; font-size:0.75rem;" data-cms="op_code">SERIES: HORIZON</span>
-                    <h3 data-cms="op_title">OPEN WORLD</h3>
-                    <p style="color:#94a3b8; font-size:0.85rem;" data-cms="op_desc">Mô phỏng đa nhân vật. Tự do viết nên cốt truyện phiêu lưu trong không gian RPG sống động.</p>
+                    <span style="color:#a78bfa; font-weight:700; font-size:0.75rem;" data-cms="op_code">SERIES: EXTRA</span>
+                    <h3 data-cms="op_title">NGOÀI LỀ</h3>
+                    <p style="color:#94a3b8; font-size:0.85rem;" data-cms="op_desc">Các kịch bản tự do, góc thư giãn và những câu chuyện nhỏ thú vị bên lề.</p>
                 </div>
                 <div class="showroom-btn" data-cms="btn_op">Khám Phá →</div>
             </div>
 
-            <!-- THẺ LƯU Ý NHỎ (MỞ CỬA SỔ QUY TẮC) -->
+            <!-- THẺ LƯU Ý NHỎ -->
             <div class="showroom-card" style="border-color: rgba(245, 158, 11, 0.4);" onclick="openRulesModal()">
                 <div>
                     <span style="color:#f59e0b; font-weight:700; font-size:0.75rem;" data-cms="rules_code">HOUSE RULES</span>
@@ -679,10 +726,9 @@
                 </div>
             </div>
 
-            <!-- FEED KÉO DÀI TỰ NHIÊN KHÔNG BỊ GIỚI HẠN CHIỀU CAO -->
             <div class="console-feed" id="forumFeed"></div>
 
-            <form onsubmit="postGlobalForum(event)" style="padding:18px 24px; background:#141722; border-top:1px solid rgba(255,255,255,0.08); display:flex; flex-direction:column; gap:8px;">
+            <form onsubmit="postGlobalForum(event)" style="padding:18px 20px; background:#141722; border-top:1px solid rgba(255,255,255,0.08); display:flex; flex-direction:column; gap:8px;">
                 <div style="display:flex; gap:8px; flex-wrap:wrap;">
                     <input type="text" id="forumAuthor" placeholder="Tên của bạn..." style="flex:1; min-width:140px;" required>
                     <button type="submit" class="btn-brand" style="width: auto;">GỬI TIN</button>
@@ -716,21 +762,26 @@
         </div>
     </div>
 
-    <!-- MODAL 2: CHI TIẾT NHÂN VẬT & COMMENT (ĐÃ CĂN LẠI TIÊU ĐỀ KHÔNG BỊ DÍU CHỮ) -->
+    <!-- MODAL 2: CHI TIẾT NHÂN VẬT & COMMENT (CÓ ẢNH NỀN BANNER VÀ TIÊU ĐỀ RÕ RÀNG) -->
     <div id="charDetailModal" class="modal-wrap">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal('charDetailModal')">✕</button>
             
-            <div style="display:flex; gap:20px; flex-wrap:wrap; margin-bottom:16px;">
-                <div style="position:relative; width:100%; max-width:220px; height:240px; border-radius:12px; overflow:hidden; margin:0 auto; border:2px solid rgba(255,255,255,0.8); box-shadow:0 0 15px rgba(229,9,20,0.4);">
+            <!-- BANNER NỀN BÊN TRONG CỬA SỔ CHI TIẾT -->
+            <div class="modal-banner-bg" id="modalBannerBg">
+                <div class="modal-banner-overlay"></div>
+            </div>
+
+            <div style="position:relative; z-index:1; display:flex; gap:20px; flex-wrap:wrap; margin-bottom:16px;">
+                <div style="position:relative; width:100%; max-width:210px; height:230px; border-radius:12px; overflow:hidden; margin:0 auto; border:2px solid rgba(255,255,255,0.9); box-shadow:0 0 15px rgba(229,9,20,0.45);">
                     <img id="detailImg" src="" style="width:100%; height:100%; object-fit:cover;">
                 </div>
-                <div style="flex:1; min-width:240px; display:flex; flex-direction:column; justify-content:space-between;">
+                <div style="flex:1; min-width:230px; display:flex; flex-direction:column; justify-content:space-between;">
                     <div>
                         <div id="detailCat" style="color:var(--crimson); font-size:0.75rem; font-weight:700;">SERIES</div>
-                        <h2 id="detailTitle" style="font-family:var(--font-serif); font-size:1.5rem; margin:4px 0;">Tên Bot</h2>
-                        <div id="detailTags" style="color:#94a3b8; font-size:0.8rem; margin-bottom:10px;">#tags</div>
-                        <p id="detailDesc" style="color:#cbd5e1; font-size:0.88rem;"></p>
+                        <h2 id="detailTitle" style="font-family:var(--font-serif); font-size:1.5rem; margin:4px 0; text-shadow:0 2px 4px rgba(0,0,0,0.9);">Tên Bot</h2>
+                        <div id="detailTags" style="color:#cbd5e1; font-size:0.8rem; margin-bottom:10px;">#tags</div>
+                        <p id="detailDesc" style="color:#e2e8f0; font-size:0.88rem;"></p>
                     </div>
                     <a id="detailChatLink" href="#" target="_blank" class="btn-brand" style="text-align:center; text-decoration:none; margin-top:12px; display:block;">KẾT NỐI VỚI AI ↗</a>
                 </div>
@@ -738,7 +789,7 @@
 
             <div class="char-prologue-box" id="detailPrologue"></div>
 
-            <div style="border-top:1px solid rgba(255,255,255,0.1); padding-top:16px;">
+            <div style="border-top:1px solid rgba(255,255,255,0.1); padding-top:16px; position:relative; z-index:1;">
                 <div class="comment-sort-bar" style="margin-bottom:12px;">
                     <h3 style="font-family:var(--font-serif); font-size:1.05rem; color:#fff; white-space:nowrap;">CẢM NHẬN VỀ NHÂN VẬT</h3>
                     <select id="charCommentSortSelect" class="comment-sort-select" onchange="renderCharComments(currentCharId)">
@@ -760,7 +811,7 @@
         </div>
     </div>
 
-    <!-- MODAL 3: ADMIN THÊM / SỬA BOT (KHÔNG BẮT BUỘC NHẬP HẾT, CHỌN NHIỀU CATEGORY, CÓ ẢNH NỀN) -->
+    <!-- MODAL 3: ADMIN THÊM / SỬA BOT (CHỌN ĐƯỢC CẢ SFW LẪN NSFW, NGOÀI LỀ) -->
     <div id="adminFormModal" class="modal-wrap">
         <div class="modal-content" style="max-width:520px;">
             <button class="modal-close" onclick="closeModal('adminFormModal')">✕</button>
@@ -769,27 +820,24 @@
                 <input type="hidden" id="adminCharId">
                 <input type="text" id="formName" placeholder="Tên nhân vật (Bắt buộc)">
                 
-                <!-- CHỌN CÙNG LÚC NHIỀU PHÂN LOẠI (CẢ SFW LẪN NSFW) -->
                 <div>
-                    <div style="font-size:0.75rem; color:#cbd5e1; margin-bottom:4px;">Phân loại (có thể tick chọn nhiều loại):</div>
+                    <div style="font-size:0.75rem; color:#cbd5e1; margin-bottom:4px;">Phân loại (có thể chọn nhiều loại):</div>
                     <div style="display:flex; gap:15px; background:rgba(255,255,255,0.04); padding:8px 12px; border-radius:8px;">
                         <label style="font-size:0.8rem; cursor:pointer;"><input type="checkbox" id="cat_sfw" value="SFW" style="width:auto; margin-right:4px;"> SFW</label>
                         <label style="font-size:0.8rem; cursor:pointer;"><input type="checkbox" id="cat_nsfw" value="NSFW" style="width:auto; margin-right:4px;"> NSFW</label>
-                        <label style="font-size:0.8rem; cursor:pointer;"><input type="checkbox" id="cat_openworld" value="Open World" style="width:auto; margin-right:4px;"> Open World</label>
+                        <label style="font-size:0.8rem; cursor:pointer;"><input type="checkbox" id="cat_openworld" value="Ngoài lề" style="width:auto; margin-right:4px;"> Ngoài lề</label>
                     </div>
                 </div>
 
                 <input type="text" id="formTags" placeholder="Tags (VD: Học đường, Lạnh lùng)">
                 
-                <!-- ẢNH AVATAR CHÂN DUNG -->
-                <input type="text" id="formImg" placeholder="Link ảnh chân dung (URL)">
+                <input type="text" id="formImg" placeholder="Link ảnh chân dung Avatar (URL)">
                 <div style="background:rgba(255,255,255,0.04); padding:8px; border-radius:8px; border:1px dashed rgba(255,255,255,0.2);">
                     <div style="font-size:0.72rem; color:#94a3b8;">Hoặc tải ảnh chân dung từ máy/điện thoại:</div>
                     <input type="file" id="formImgFile" accept="image/*" style="border:none; padding:2px 0; font-size:0.75rem;">
                 </div>
 
-                <!-- ẢNH NỀN TÙY CHỌN DƯỚI ẢNH NHÂN VẬT -->
-                <input type="text" id="formBgImg" placeholder="Link ảnh nền thẻ (URL tùy chọn)">
+                <input type="text" id="formBgImg" placeholder="Link ảnh nền banner (URL tùy chọn)">
                 <div style="background:rgba(255,255,255,0.04); padding:8px; border-radius:8px; border:1px dashed rgba(255,255,255,0.2);">
                     <div style="font-size:0.72rem; color:#94a3b8;">Hoặc tải ảnh nền từ máy/điện thoại:</div>
                     <input type="file" id="formBgImgFile" accept="image/*" style="border:none; padding:2px 0; font-size:0.75rem;">
@@ -803,7 +851,7 @@
         </div>
     </div>
 
-    <!-- MODAL 4: QUẢN LÝ VIDEO NỀN (LƯU TRỰC TIẾP LÊN DATABASE FIREBASE) -->
+    <!-- MODAL 4: QUẢN LÝ VIDEO NỀN -->
     <div id="adminVideoModal" class="modal-wrap">
         <div class="modal-content" style="max-width:500px;">
             <button class="modal-close" onclick="closeModal('adminVideoModal')">✕</button>
@@ -811,19 +859,16 @@
             
             <div style="display:flex; flex-direction:column; gap:12px;">
                 <div>
-                    <label style="font-size:0.75rem; color:#cbd5e1; display:block; margin-bottom:3px;">Dán link video trực tiếp (đầu https, đuôi .mp4):</label>
+                    <label style="font-size:0.75rem; color:#cbd5e1; display:block; margin-bottom:3px;">Dán link video trực tiếp (.mp4):</label>
                     <input type="text" id="inputVideoUrl" placeholder="https://...mp4">
                 </div>
 
                 <button class="btn-brand" style="background:#8b5cf6; color:#fff;" onclick="applyCustomVideo()">ÁP DỤNG VIDEO TOÀN CẦU</button>
-                <div style="font-size:0.75rem; color:#94a3b8;">
-                    * Lưu ý: Khi bấm áp dụng, link video sẽ được lưu thẳng lên Database Firebase. Toàn bộ người xem mở web ở mọi nơi đều sẽ thấy video mới này mà bạn không cần phải sửa code!
-                </div>
             </div>
         </div>
     </div>
 
-    <!-- MODAL 5: CỬA SỔ LƯU Ý NHỎ / HOUSE RULES (ADMIN CÓ THỂ CLICK VÀO SỬA TRỰC TIẾP) -->
+    <!-- MODAL 5: CỬA SỔ LƯU Ý NHỎ / RULES -->
     <div id="rulesModal" class="modal-wrap">
         <div class="modal-content" style="max-width:600px;">
             <button class="modal-close" onclick="closeModal('rulesModal')">✕</button>
@@ -843,7 +888,6 @@
         </div>
     </div>
 
-    <!-- SCRIPT CHÍNH -->
     <script>
         let isAdmin = false;
         let adminCustomName = localStorage.getItem('ethera_admin_custom_name') || "Ethera";
@@ -860,7 +904,7 @@
 
         let selectedTags = [];
         let currentCharId = null;
-        const DEFAULT_TAGS = ['Trợ lý', 'Lạnh lùng', 'Yandere', 'Học đường', 'Cyberpunk', 'Fantasy', '18+'];
+        const DEFAULT_TAGS = ['Trợ lý', 'Lạnh lùng', 'Yandere', 'Học đường', 'Cyberpunk', 'Fantasy', '18+', 'Ngoài lề'];
         let presetTags = DEFAULT_TAGS;
 
         let bots = [];
@@ -868,21 +912,18 @@
 
         // 1. KẾT NỐI REALTIME FIREBASE
         function syncDatabase() {
-            // Lắng nghe Roster Realtime
             db.ref('roster').on('value', (snapshot) => {
                 const data = snapshot.val();
                 bots = data ? Object.values(data) : [];
                 renderBots();
             });
 
-            // Lắng nghe Diễn đàn Realtime
             db.ref('forum').on('value', (snapshot) => {
                 const data = snapshot.val();
                 globalThreads = data ? Object.values(data) : [];
                 renderGlobalForum();
             });
 
-            // Lắng nghe Video nền Realtime
             db.ref('custom_video').on('value', (snapshot) => {
                 const vidUrl = snapshot.val();
                 if (vidUrl) {
@@ -897,7 +938,6 @@
                 }
             });
 
-            // Lắng nghe Văn bản CMS Realtime
             db.ref('cms_texts').on('value', (snapshot) => {
                 const savedTexts = snapshot.val() || {};
                 document.querySelectorAll('[data-cms]').forEach(el => {
@@ -906,7 +946,6 @@
                 });
             });
 
-            // Lắng nghe Tags Realtime
             db.ref('preset_tags').on('value', (snapshot) => {
                 presetTags = snapshot.val() || DEFAULT_TAGS;
                 renderTagTray();
@@ -928,24 +967,27 @@
             });
         }
 
-        // SAO NHẤP NHÁY HỒNG PASTEL KHI CHẠM
-        window.addEventListener('click', (e) => {
-            const stars = ['✦', '✧', '★', '·'];
-            for (let i = 0; i < 6; i++) {
-                const span = document.createElement('span');
-                span.className = 'sparkle-particle';
-                span.innerText = stars[Math.floor(Math.random() * stars.length)];
-                const angle = Math.random() * 2 * Math.PI;
-                const distance = 20 + Math.random() * 45;
-                span.style.left = e.clientX + 'px';
-                span.style.top = e.clientY + 'px';
-                span.style.setProperty('--dx', Math.cos(angle) * distance + 'px');
-                span.style.setProperty('--dy', Math.sin(angle) * distance + 'px');
-                span.style.setProperty('--rot', (Math.random() * 360) + 'deg');
-                document.body.appendChild(span);
-                setTimeout(() => span.remove(), 600);
+        // CHUYỂN ĐỔI TAB ADMIN (TƯƠNG TÁC VS SỬA CHỮ CMS)
+        function switchAdminTab(mode) {
+            const tabInteractBtn = document.getElementById('tabInteractBtn');
+            const tabCmsBtn = document.getElementById('tabCmsBtn');
+            const paneInteract = document.getElementById('paneInteract');
+            const paneCms = document.getElementById('paneCms');
+
+            if (mode === 'interact') {
+                tabInteractBtn.classList.add('active');
+                tabCmsBtn.classList.remove('active');
+                paneInteract.style.display = 'flex';
+                paneCms.style.display = 'none';
+                setCmsEditable(false); // Tắt viền đỏ sửa chữ để tránh bấm nhầm
+            } else {
+                tabCmsBtn.classList.add('active');
+                tabInteractBtn.classList.remove('active');
+                paneCms.style.display = 'flex';
+                paneInteract.style.display = 'none';
+                setCmsEditable(true); // Bật viền đỏ sửa chữ
             }
-        });
+        }
 
         // NẠP VIDEO NỀN
         function initBackgroundVideo() {
@@ -977,13 +1019,16 @@
                 if (progressBar) progressBar.style.width = percent + '%';
                 if (percent >= 100) {
                     clearInterval(interval);
-                    setTimeout(() => { document.getElementById('intro-loader').classList.add('fade-out'); }, 400);
+                    setTimeout(() => { 
+                        document.getElementById('intro-loader').classList.add('fade-out');
+                        window.scrollTo(0, 0); // Ép giữ đầu trang
+                    }, 400);
                 }
             }, 30);
 
             document.getElementById('adminNameInput').value = adminCustomName;
+            document.getElementById('adminNameDisplayLabel').innerText = adminCustomName;
             
-            // Ghi nhớ tên người dùng
             const rememberedName = localStorage.getItem('ethera_username');
             if (rememberedName) {
                 document.getElementById('forumAuthor').value = rememberedName;
@@ -1010,9 +1055,8 @@
             document.getElementById('adminIndicator').innerText = `ADMIN: ${adminCustomName}`;
             document.getElementById('adminIndicator').classList.add('active');
             document.getElementById('admin-strip').classList.add('open');
-            setCmsEditable(true);
+            switchAdminTab('interact'); // Mặc định mở tab tương tác cho dễ dùng
 
-            // Tự động điền tên Admin và khóa không bắt buộc nhập lại
             document.getElementById('forumAuthor').value = adminCustomName;
             document.getElementById('forumAuthor').readOnly = true;
             document.getElementById('charCommentAuthor').value = adminCustomName;
@@ -1043,19 +1087,18 @@
             if (currentCharId) renderCharComments(currentCharId);
         }
 
-        // LƯU TÊN ADMIN VÀ CẬP NHẬT HÀNG LOẠT TIN NHẮN CŨ LÊN FIREBASE
+        // LƯU TÊN ADMIN & CẬP NHẬT HÀNG LOẠT TIN NHẮN CŨ LÊN FIREBASE
         function updateAdminNameAndSync() {
             const newName = document.getElementById('adminNameInput').value.trim();
             if (!newName) return;
-            const oldName = adminCustomName;
             adminCustomName = newName;
             localStorage.setItem('ethera_admin_custom_name', newName);
             document.getElementById('adminIndicator').innerText = `ADMIN: ${adminCustomName}`;
+            document.getElementById('adminNameDisplayLabel').innerText = adminCustomName;
 
             document.getElementById('forumAuthor').value = newName;
             document.getElementById('charCommentAuthor').value = newName;
 
-            // Cập nhật tất cả bình luận Admin trên Diễn đàn
             db.ref('forum').once('value', (snap) => {
                 const data = snap.val();
                 if (data) {
@@ -1067,7 +1110,6 @@
                 }
             });
 
-            // Cập nhật tất cả bình luận Admin trong từng Bot
             db.ref('char_comments').once('value', (snap) => {
                 const allCharComments = snap.val();
                 if (allCharComments) {
@@ -1095,7 +1137,7 @@
             });
         }
 
-        // BỘ ĐIỀU KHIỂN VIDEO (LƯU TRỰC TIẾP LÊN DATABASE CLOUD)
+        // BỘ ĐIỀU KHIỂN VIDEO NỀN
         function openVideoManagerModal() {
             const videoEl = document.getElementById('mainHeroVideo');
             document.getElementById('inputVideoUrl').value = videoEl ? videoEl.src : '';
@@ -1203,10 +1245,9 @@
             document.getElementById('roster').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // CỬA SỔ QUY TẮC "LƯU Ý NHỎ"
         function openRulesModal() { document.getElementById('rulesModal').classList.add('open'); }
 
-        // RENDER DANH SÁCH BOTS
+        // RENDER BOT
         function renderBots() {
             const container = document.getElementById('charContainer');
             const searchVal = botSearchInput.value.toLowerCase().trim();
@@ -1232,7 +1273,6 @@
 
             container.innerHTML = '';
             
-            // KHO TRỐNG KHÔNG CÒN GỢI Ý MẬT MÃ ADMIN
             if (filtered.length === 0) {
                 container.innerHTML = `
                     <div class="empty-roster-box">
@@ -1253,7 +1293,6 @@
                     <div class="char-card reveal active ${bot.pinned ? 'is-pinned' : ''}">
                         ${bot.pinned ? `<div class="pin-badge">📌 ĐÃ GHIM</div>` : ''}
                         
-                        <!-- BANNER NỀN VÀ KHUNG AVATAR VIỀN PHÁT SÁNG NỔI BẬT -->
                         <div class="char-header-banner" onclick="handleCardClick('${bot.id}')">
                             ${bot.bgImage ? `<img src="${bot.bgImage}" class="char-bg-cover">` : ''}
                             <div class="char-bg-gradient"></div>
@@ -1296,7 +1335,7 @@
             db.ref('roster/' + bot.id).set(bot);
         }
 
-        // LIKE BOT GIỚI HẠN 1 LẦN / THIẾT BỊ (CHỐNG SPAM)
+        // LIKE BOT 1 LẦN / THIẾT BỊ
         function toggleLikeBot(e, id) {
             e.stopPropagation();
             const bot = bots.find(b => String(b.id) === String(id));
@@ -1333,10 +1372,21 @@
             showDetailModalDirectly(id);
         }
 
+        // MỞ CHI TIẾT BOT (CÓ ẢNH NỀN BANNER BÊN TRONG CỬA SỔ)
         function showDetailModalDirectly(id) {
             currentCharId = id;
             const bot = bots.find(b => String(b.id) === String(id));
             if (!bot) return;
+
+            // Xử lý ảnh nền banner trong Modal
+            const modalBannerBg = document.getElementById('modalBannerBg');
+            if (bot.bgImage) {
+                modalBannerBg.style.backgroundImage = `url('${bot.bgImage}')`;
+                modalBannerBg.style.display = 'block';
+            } else {
+                modalBannerBg.style.display = 'none';
+            }
+
             document.getElementById('detailImg').src = bot.image || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80';
             const bCats = bot.categories || (bot.category ? [bot.category] : ['SFW']);
             document.getElementById('detailCat').innerText = `SERIES // ${bCats.join(', ')}`;
@@ -1378,7 +1428,7 @@
             const bCats = b.categories || (b.category ? [b.category] : []);
             document.getElementById('cat_sfw').checked = bCats.includes('SFW');
             document.getElementById('cat_nsfw').checked = bCats.includes('NSFW');
-            document.getElementById('cat_openworld').checked = bCats.includes('Open World');
+            document.getElementById('cat_openworld').checked = bCats.includes('Ngoài lề');
 
             document.getElementById('formTags').value = b.tags ? b.tags.join(', ') : '';
             document.getElementById('formImg').value = b.image && b.image.startsWith('data:') ? '' : (b.image || '');
@@ -1397,17 +1447,16 @@
             }
         }
 
-        // TẠO NHÂN VẬT KHÔNG BẮT BUỘC ĐIỀN HẾT, CHỌN ĐƯỢC CẢ SFW LẪN NSFW
+        // LƯU BOT (HỖ TRỢ ĐA DANH MỤC, CÓ ẢNH NỀN)
         async function saveCharacter(e) {
             e.preventDefault();
             const editId = document.getElementById('adminCharId').value;
             const name = document.getElementById('formName').value.trim() || 'Satoru Nguyên Mẫu';
             
-            // Lấy nhiều categories
             const selectedCats = [];
             if (document.getElementById('cat_sfw').checked) selectedCats.push('SFW');
             if (document.getElementById('cat_nsfw').checked) selectedCats.push('NSFW');
-            if (document.getElementById('cat_openworld').checked) selectedCats.push('Open World');
+            if (document.getElementById('cat_openworld').checked) selectedCats.push('Ngoài lề');
             if (selectedCats.length === 0) selectedCats.push('SFW');
 
             const tags = document.getElementById('formTags').value.split(',').map(t => t.trim()).filter(Boolean);
@@ -1467,7 +1516,7 @@
             });
         }
 
-        // BÌNH LUẬN & SẮP XẾP BUMPING THỜI GIAN THỰC
+        // BÌNH LUẬN & SẮP XẾP BUMPING
         function getRealTime() {
             const now = new Date();
             const time = now.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
@@ -1511,7 +1560,6 @@
             return total;
         }
 
-        // SẮP XẾP BUMPING
         function sortCommentThreads(list, sortOrder) {
             let sorted = [...list];
             sorted.sort((a, b) => {
@@ -1656,7 +1704,6 @@
             if (box) box.classList.toggle('open'); 
         }
 
-        // GỬI PHẢN HỒI (HỖ TRỢ CẢ DIỄN ĐÀN VÀ NHÂN VẬT ĐỒNG BỘ LÊN FIREBASE)
         function submitNestedReply(contextKey, parentId) {
             const input = document.getElementById(`replyInput_${parentId}`);
             const text = input.value.trim();
