@@ -2,7 +2,9 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- KHÓA CO GIÃN & CHỈNH SIZE CHUẨN ĐỂ KHÔNG BỊ TRẮNG ĐÁY HAY GIẬT PHÓNG TO BÀN PHÍM -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content">
+<meta name="theme-color" content="#070706">
 <title>TERMINAL // ES-003 : GOJO SATORU</title>
 
 <!-- GOOGLE FONTS -->
@@ -30,13 +32,32 @@
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
+
+/* KHÓA NỀN CỐ ĐỊNH TRÁNH MẢNG TRẮNG KHI CUỘN BÀN PHÍM */
+html{
+  background-color: #070706 !important;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
 body{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  background: #070706;
   background: radial-gradient(ellipse at 50% 15%, #180d0d 0%, #060605 75%, #020202 100%) fixed;
   color: var(--paper);
   font-family: var(--font-sans);
-  height: 100vh;
-  height: 100dvh;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
@@ -48,9 +69,10 @@ body{
   position: relative;
   z-index: 50;
   box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+  flex-shrink: 0;
 }
 .header-main{
-  height: 58px;
+  height: 56px;
   padding: 0 16px;
   display: flex;
   align-items: center;
@@ -90,8 +112,8 @@ body{
   background: #141311;
   border: 1px solid #4a4037;
   color: var(--paper);
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -143,6 +165,7 @@ body{
   display: flex;
   position: relative;
   overflow: hidden;
+  height: 100%;
 }
 .chat-section{
   flex: 1;
@@ -150,6 +173,8 @@ body{
   flex-direction: column;
   background: rgba(8, 8, 7, 0.85);
   position: relative;
+  height: 100%;
+  overflow: hidden;
 }
 .chat-logs{
   flex: 1;
@@ -159,6 +184,7 @@ body{
   flex-direction: column;
   gap: 16px;
   scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 .chat-logs::-webkit-scrollbar{ width: 4px; }
 .chat-logs::-webkit-scrollbar-thumb{ background: #541616; }
@@ -175,7 +201,7 @@ body{
   width: min(440px, 90%);
   padding: 24px 20px;
   border: 1px dashed #4a4037;
-  background: rgba(14, 13, 12, 0.88);
+  background: rgba(14, 13, 12, 0.9);
   box-shadow: 0 10px 30px rgba(0,0,0,0.85);
   pointer-events: none;
   z-index: 10;
@@ -298,6 +324,7 @@ body{
   background: #0d0c0b;
   border-top: 1px solid var(--line);
   padding: 8px 14px 12px;
+  flex-shrink: 0;
 }
 .quick-helpers{
   display: flex;
@@ -310,7 +337,7 @@ body{
   color: var(--paper-dim);
   font-family: var(--font-hud);
   font-size: 10.5px;
-  padding: 3px 10px;
+  padding: 4px 10px;
   cursor: pointer;
   transition: .15s;
 }
@@ -325,6 +352,8 @@ body{
   gap: 8px;
   align-items: flex-end;
 }
+
+/* KHÓA PHÓNG TO BẰNG FONT 16PX TRÊN MOBILE */
 .chat-textarea{
   flex: 1;
   background: #141311;
@@ -333,14 +362,21 @@ body{
   padding: 9px 12px;
   font-family: var(--font-sans);
   font-size: 14px;
-  line-height: 1.5;
+  line-height: 1.4;
   resize: none;
   min-height: 42px;
-  max-height: 98px; /* Tối đa ~4 dòng */
+  max-height: 98px;
   overflow-y: hidden;
   outline: none;
 }
 .chat-textarea:focus{ border-color: var(--red-bright); box-shadow: 0 0 8px rgba(157,23,23,0.3); }
+
+@media (max-width: 900px) {
+  .chat-textarea, .form-control {
+    font-size: 16px !important; /* Điểm cốt lõi: Ngăn Safari/Chrome mobile tự phóng to gây giật */
+  }
+}
+
 .send-btn{
   height: 42px;
   padding: 0 20px;
@@ -349,7 +385,7 @@ body{
   color: #f0ded9;
   font-family: var(--font-hud);
   font-weight: 700;
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 1px;
   cursor: pointer;
   transition: .2s;
@@ -440,7 +476,6 @@ body{
   letter-spacing: 0.5px;
 }
 
-/* Khôi phục hoàn toàn thiết kế tối, loại bỏ nền trắng mặc định của trình duyệt */
 .form-control{
   width: 100% !important;
   background: #141311 !important;
@@ -461,7 +496,6 @@ body{
   box-shadow: 0 0 10px rgba(180, 25, 25, 0.4), inset 0 1px 3px rgba(0,0,0,0.6) !important;
 }
 
-/* Mũi tên tùy chỉnh cho Select */
 select.form-control{
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23aaa596'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e") !important;
   background-repeat: no-repeat !important;
@@ -884,7 +918,7 @@ select.form-control option{
   <aside class="sidebar" id="sidebar">
     <div class="side-header">
       <span>TERMINAL PANEL // TAPE-003</span>
-      <span class="status-pill" id="authBadge">GUEST</span>
+      <span class="status-pill" id="authBadge">ONLINE</span>
     </div>
 
     <!-- 1. HỒ SƠ USER -->
@@ -983,7 +1017,7 @@ select.form-control option{
       </div>
     </div>
 
-    <!-- 4. CẤU HÌNH AI & API KEYS (DANH SÁCH TỪNG KEY) -->
+    <!-- 4. CẤU HÌNH AI & API KEYS -->
     <details class="hud-folder">
       <summary class="folder-header">
         <div class="folder-title-left">04 // KẾT NỐI GOOGLE AI STUDIO</div>
@@ -1113,6 +1147,18 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+/* KHÓA MẢNG TRẮNG BÀN PHÍM ĐIỆN THOẠI BẰNG VISUAL VIEWPORT API */
+if (window.visualViewport) {
+  const onViewportChange = () => {
+    document.body.style.height = `${window.visualViewport.height}px`;
+    window.scrollTo(0, 0);
+    const chatLogs = document.getElementById("chatLogs");
+    if (chatLogs) chatLogs.scrollTop = chatLogs.scrollHeight;
+  };
+  window.visualViewport.addEventListener('resize', onViewportChange);
+  window.visualViewport.addEventListener('scroll', () => window.scrollTo(0, 0));
+}
+
 /* KHO VẬT PHẨM THEO TỪNG ĐỊA ĐIỂM */
 const LOCATION_ITEM_POOLS = {
   "bệnh viện": [
@@ -1152,8 +1198,8 @@ HIỆN TRẠNG CỦA GOJO:
 - Cả hai đang trốn chạy sự truy đuổi của giới chú thuật.
 `;
 
-/* STATE */
-let currentUserId = localStorage.getItem("es_user_id") || "guest_003";
+/* ================= QUẢN LÝ PHIÊN & TRẠNG THÁI BỀN VỮNG ================= */
+let currentUserId = localStorage.getItem("es_current_user_id") || "guest_003";
 let currentUserName = localStorage.getItem("es_user_name") || "Em";
 let currentUserAvatar = localStorage.getItem("es_user_avatar") || "https://img.sanishtech.com/u/38bb2890e4468142f61fc9dd0de72c6b.jpeg";
 let apiKeys = JSON.parse(localStorage.getItem("es_api_keys") || '[]');
@@ -1165,16 +1211,13 @@ let bankBalance = 120000;
 let currentLocationLabel = "NGOẠI Ô HẺO LÁNH";
 let activeEditMsgId = null;
 
-// QUẢN LÝ VẬT PHẨM
 let scavengedItems = [];
 let storyItems = [];
 let usedItemNames = new Set();
-let pendingUseItem = null; // Vật phẩm đang chờ gửi tin nhắn mới chính thức trừ (ngầm hiểu)
+let pendingUseItem = null;
 
-// QUẢN LÝ KEY LỖI
 const exhaustedKeysSet = new Set();
 const exhaustedKeysPendingHighlight = new Set();
-
 const innerThoughtsCache = {};
 
 /* DOM ELEMENTS */
@@ -1209,12 +1252,13 @@ const authBadge = document.getElementById("authBadge");
 const invSummaryBadge = document.getElementById("invSummaryBadge");
 const systemToast = document.getElementById("systemToast");
 const btnScavenge = document.getElementById("btnScavenge");
+const authUserId = document.getElementById("authUserId");
+const authUserPass = document.getElementById("authUserPass");
 
 const btnHelpSpeech = document.getElementById("btnHelpSpeech");
 const btnHelpAction = document.getElementById("btnHelpAction");
 const btnHelpThought = document.getElementById("btnHelpThought");
 
-// MODAL TẠO TÀI KHOẢN
 const confirmRegisterModal = document.getElementById("confirmRegisterModal");
 const closeRegisterModalBtn = document.getElementById("closeRegisterModalBtn");
 const btnCancelRegister = document.getElementById("btnCancelRegister");
@@ -1228,7 +1272,6 @@ function notify(msg, dur = 3200) {
   toastTimer = setTimeout(() => systemToast.classList.remove("show"), dur);
 }
 
-// BẬT / TẮT MENU & XÓA CẢNH BÁO ĐỎ KEY SAU 1 LẦN XEM
 menuToggle.addEventListener("click", () => {
   const isOpen = sidebar.classList.toggle("open");
   if (isOpen) {
@@ -1300,12 +1343,11 @@ function updateRadarLocation(name, isMajor) {
   }
 }
 
-/* ================= 2. QUẢN LÝ VẬT PHẨM & DÙNG ĐỒ HOÀN TOÀN NGẦM HIỂU ================= */
+/* ================= QUẢN LÝ VẬT PHẨM & DÙNG ĐỒ HOÀN TOÀN NGẦM HIỂU ================= */
 function renderInventory() {
   scavengedItems = scavengedItems.filter(i => i && i.name);
   storyItems = storyItems.filter(i => i && i.name);
 
-  // Render mục Lục Lọi (Max 3)
   scavengedListContainer.innerHTML = "";
   if (scavengedItems.length === 0) {
     scavengedListContainer.innerHTML = `<div style="font-size:10.5px;color:#7a7266;text-align:center;padding:8px 0;">[Túi rỗng // Nhặt tối đa 3 món]</div>`;
@@ -1316,7 +1358,6 @@ function renderInventory() {
   }
   scavengeCountBadge.textContent = `${scavengedItems.length}/3`;
 
-  // Render mục Cốt Truyện (Vô hạn)
   storyListContainer.innerHTML = "";
   if (storyItems.length === 0) {
     storyListContainer.innerHTML = `<div style="font-size:10.5px;color:#7a7266;text-align:center;padding:8px 0;">[Chưa có vật phẩm cốt truyện]</div>`;
@@ -1349,10 +1390,10 @@ function createItemCard(item, onUse, onDrop) {
   return div;
 }
 
-/* CHUẨN BỊ DÙNG ĐỒ HOÀN TOÀN NGẦM HIỂU (TUYỆT ĐỐI KHÔNG ĐIỀN TEXT-ACTION VÀO Ô CHAT) */
+/* CHUẨN BỊ DÙNG ĐỒ HOÀN TOÀN NGẦM HIỂU (TUYỆT ĐỐI KHÔNG ĐIỀN TEXT VÀO Ô CHAT) */
 function prepareUseItemImplicitly(item, category) {
   pendingUseItem = { ...item, category };
-  notify(`Đã kích hoạt ngầm <strong>"${item.name}"</strong>. Hãy gửi tin nhắn bình thường để Gojo cảm nhận!`);
+  notify(`Đã kích hoạt ngầm <strong>"${item.name}"</strong>. Khi gửi tin nhắn, Gojo sẽ tự cảm nhận.`);
 }
 
 /* VỨT BỎ VẬT PHẨM */
@@ -1366,7 +1407,7 @@ function dropItemAction(category, index) {
     storyItems.splice(index, 1);
   }
   renderInventory();
-  syncInventoryToFirestore();
+  saveStateToStorageAndFirestore();
   notify(`Đã vứt bỏ <em>"${droppedName}"</em> khỏi túi đồ.`);
 }
 
@@ -1375,7 +1416,6 @@ function processItemDeductionOnMessageSent(sentText) {
   const lowerText = sentText.toLowerCase();
   let itemConsumed = null;
 
-  // Trường hợp 1: Đã bấm DÙNG ngầm trước đó
   if (pendingUseItem) {
     let sIdx = scavengedItems.findIndex(i => i.name === pendingUseItem.name);
     if (sIdx !== -1) {
@@ -1388,7 +1428,6 @@ function processItemDeductionOnMessageSent(sentText) {
     }
   }
 
-  // Trường hợp 2: Không bấm Dùng nhưng trong tin nhắn có gõ dùng/đưa món đồ đang có
   if (!itemConsumed) {
     const actionWords = ["dùng", "lấy", "đưa", "uống", "ăn", "bôi", "đeo", "mặc", "quấn", "cho", "xịt", "cầm", "nhai"];
     const hasIntent = actionWords.some(w => lowerText.includes(w));
@@ -1409,7 +1448,7 @@ function processItemDeductionOnMessageSent(sentText) {
   if (itemConsumed) {
     usedItemNames.add(itemConsumed.name);
     renderInventory();
-    syncInventoryToFirestore();
+    saveStateToStorageAndFirestore();
     notify(`<strong>HỆ THỐNG:</strong> <em>"${itemConsumed.name}"</em> đã được dùng.`);
   }
 
@@ -1458,17 +1497,9 @@ btnScavenge.onclick = () => {
 
   scavengedItems.push(newItem);
   renderInventory();
-  syncInventoryToFirestore();
+  saveStateToStorageAndFirestore();
   notify(`<strong>LỤC LỌI TẠI ${currentZone.toUpperCase()}:</strong> Nhặt được <em>"${newItem.name}"</em>!`);
 };
-
-function syncInventoryToFirestore() {
-  updateDoc(getUserDocRef(), {
-    scavenged_items: scavengedItems,
-    story_items: storyItems,
-    used_item_names: Array.from(usedItemNames)
-  }).catch(()=>{});
-}
 
 function modifyMoney(cashDelta, bankDelta) {
   const cD = Number(cashDelta) || 0;
@@ -1480,9 +1511,9 @@ function modifyMoney(cashDelta, bankDelta) {
   const total = scavengedItems.length + storyItems.length;
   invSummaryBadge.textContent = `${total} MÓN | ¥${(cashBalance/1000).toFixed(0)}K`;
 
-  // Thông báo biến động tài chính ngầm, tuyệt đối không chèn text-action vào chat
   if (cD !== 0) notify(`<strong>BIẾN ĐỘNG TIỀN MẶT:</strong> ${cD > 0 ? '+' : ''}¥${cD.toLocaleString()}`);
   if (bD !== 0) notify(`<strong>BIẾN ĐỘNG THẺ:</strong> ${bD > 0 ? '+' : ''}¥${bD.toLocaleString()}`);
+  saveStateToStorageAndFirestore();
 }
 
 /* ================= 3. QUẢN LÝ API KEYS ================= */
@@ -1540,7 +1571,7 @@ modelSelect.onchange = () => {
   notify(`Đã đổi sang model: <strong>${modelSelect.value}</strong>. Các Key đã được kích hoạt lại.`);
 };
 
-/* ================= 4. GỌI AI & KHÓA TEXT-ACTION TIÊU TIỀN/DÙNG ĐỒ ================= */
+/* ================= 4. GỌI AI & KHÓA TEXT-ACTION ================= */
 function getUserDocRef() { return doc(db, "user", "003", "users", currentUserId); }
 function getChatsColRef() { return collection(db, "user", "003", "users", currentUserId, "chats"); }
 function getMemoryColRef() { return collection(db, "user", "003", "users", currentUserId, "memory_summary"); }
@@ -1670,7 +1701,6 @@ async function handleSend() {
   chatInput.value = "";
   autoResizeInput();
 
-  // Trừ đồ ngầm hiểu khi gửi tin
   const consumedItem = processItemDeductionOnMessageSent(text);
 
   const localId = "msg_" + Date.now();
@@ -1698,7 +1728,7 @@ async function triggerCharResponse(consumedItem = null) {
   tempWrap.className = "msg-wrap char";
   tempWrap.id = `msg-${tempId}`;
   tempWrap.innerHTML = `
-    <div class="msg-avatar"><img src="https://img.sanishtech.com/u/27a3f06422259abb9aab56b4dbb2c578.jpeg"></div>
+    <div class="msg-avatar"><img src="https://i.postimg.cc/hjDwgbyL/IMG-4687.jpg"></div>
     <div class="msg-content-box">
       <div class="msg-sender">Gojo Satoru - ES003</div>
       <div class="typing-bubble">
@@ -1737,12 +1767,10 @@ async function triggerCharResponse(consumedItem = null) {
     if (typeof aiRes.ego_ratio === "number") updateConsciousnessBar(aiRes.ego_ratio);
     if (aiRes.location_label) updateRadarLocation(aiRes.location_label, aiRes.is_major_landmark);
     
-    // Xử lý tiêu tiền / nhận tiền hoàn toàn ngầm qua HUD
     if (aiRes.cash_change || aiRes.bank_change) {
       modifyMoney(aiRes.cash_change || 0, aiRes.bank_change || 0);
     }
 
-    // Nhận đồ cốt truyện mới
     if (Array.isArray(aiRes.new_items) && aiRes.new_items.length > 0) {
       aiRes.new_items.forEach(newItem => {
         if (newItem && newItem.name) {
@@ -1755,19 +1783,9 @@ async function triggerCharResponse(consumedItem = null) {
         }
       });
       renderInventory();
-      syncInventoryToFirestore();
     }
 
-    updateDoc(getUserDocRef(), {
-      egoRatio: currentEgoRatio,
-      cash: cashBalance,
-      bank: bankBalance,
-      scavenged_items: scavengedItems,
-      story_items: storyItems,
-      used_item_names: Array.from(usedItemNames),
-      lastLocation: aiRes.location_label || ""
-    }).catch(()=>{});
-
+    saveStateToStorageAndFirestore();
     checkMsgCountAndEmpty();
   } catch (err) {
     tempWrap.remove();
@@ -1912,30 +1930,74 @@ async function performMemoryPurgeAndSummarize() {
   } catch (e) {}
 }
 
-/* ================= 6. XÁC THỰC: POPUP CẢNH BÁO TẠO MỚI ================= */
+/* ================= 6. AUTO-SAVE & AUTO-LOGIN BỀN VỮNG ================= */
+function saveStateToStorageAndFirestore() {
+  const stateSnapshot = {
+    user_name: currentUserName,
+    personality: personalityInput.value,
+    cash: cashBalance,
+    bank: bankBalance,
+    egoRatio: currentEgoRatio,
+    scavenged_items: scavengedItems,
+    story_items: storyItems,
+    used_item_names: Array.from(usedItemNames),
+    lastLocation: currentLocationLabel
+  };
+
+  // Lưu đệm localStorage để F5 không bao giờ bị mất
+  localStorage.setItem(`es_cache_${currentUserId}`, JSON.stringify(stateSnapshot));
+  localStorage.setItem("es_current_user_id", currentUserId);
+
+  // Đồng bộ lên Firestore
+  updateDoc(getUserDocRef(), stateSnapshot).catch(()=>{});
+}
+
+function restoreFromLocalCache(uid) {
+  const cached = localStorage.getItem(`es_cache_${uid}`);
+  if (!cached) return false;
+  try {
+    const data = JSON.parse(cached);
+    if (data.user_name) {
+      currentUserName = data.user_name;
+      userNameInput.value = currentUserName;
+    }
+    if (data.personality) personalityInput.value = data.personality;
+    if (typeof data.cash === "number") cashBalance = data.cash;
+    if (typeof data.bank === "number") bankBalance = data.bank;
+    if (typeof data.egoRatio === "number") updateConsciousnessBar(data.egoRatio);
+    if (Array.isArray(data.scavenged_items)) scavengedItems = data.scavenged_items;
+    if (Array.isArray(data.story_items)) storyItems = data.story_items;
+    if (Array.isArray(data.used_item_names)) usedItemNames = new Set(data.used_item_names);
+    if (data.lastLocation) updateRadarLocation(data.lastLocation, false);
+    modifyMoney(0, 0);
+    renderInventory();
+    return true;
+  } catch(e) { return false; }
+}
+
+/* POPUP XÁC NHẬN TẠO MỚI */
 document.getElementById("registerBtn").onclick = () => {
-  const uid = document.getElementById("authUserId").value.trim();
-  const pass = document.getElementById("authUserPass").value.trim();
+  const uid = authUserId.value.trim();
+  const pass = authUserPass.value.trim();
   if (!uid || !pass) return alert("Vui lòng điền đủ ID và Mật khẩu!");
-  
-  // Mở popup cảnh báo trước khi tạo
   confirmRegisterModal.classList.add("open");
 };
 
 closeRegisterModalBtn.onclick = () => confirmRegisterModal.classList.remove("open");
 btnCancelRegister.onclick = () => confirmRegisterModal.classList.remove("open");
 
+/* CHỈ RESET KHI XÁC NHẬN TẠO MỚI */
 btnConfirmRegister.onclick = async () => {
   confirmRegisterModal.classList.remove("open");
-  const uid = document.getElementById("authUserId").value.trim();
-  const pass = document.getElementById("authUserPass").value.trim();
+  const uid = authUserId.value.trim();
+  const pass = authUserPass.value.trim();
 
   const uRef = doc(db, "user", "003", "users", uid);
   try {
     const snap = await getDoc(uRef);
     if (snap.exists()) return alert(`ID [${uid}] đã tồn tại. Hãy chọn ID khác!`);
 
-    // Reset sạch dữ liệu về mặc định mới
+    // Reset sạch dữ liệu khi tạo tài khoản mới
     currentUserId = uid;
     currentUserName = "Em";
     currentUserAvatar = "https://img.sanishtech.com/u/38bb2890e4468142f61fc9dd0de72c6b.jpeg";
@@ -1957,7 +2019,8 @@ btnConfirmRegister.onclick = async () => {
     userNameInput.value = "Em";
     userAvatarPreview.src = currentUserAvatar;
 
-    localStorage.setItem("es_user_id", uid);
+    localStorage.setItem("es_current_user_id", uid);
+    localStorage.setItem("es_current_user_pass", pass);
     localStorage.setItem("es_user_name", "Em");
     localStorage.setItem("es_user_avatar", currentUserAvatar);
     localStorage.setItem("es_api_keys", JSON.stringify([]));
@@ -1984,6 +2047,7 @@ btnConfirmRegister.onclick = async () => {
     renderInventory();
     renderApiKeyRows();
     updateRadarLocation("NGOẠI Ô HẺO LÁNH", false);
+    saveStateToStorageAndFirestore();
 
     alert(`Đã khởi tạo tài khoản mới [${uid}] thành công!`);
   } catch (err) {
@@ -1993,8 +2057,8 @@ btnConfirmRegister.onclick = async () => {
 
 /* ĐĂNG NHẬP */
 document.getElementById("loginBtn").onclick = async () => {
-  const uid = document.getElementById("authUserId").value.trim();
-  const pass = document.getElementById("authUserPass").value.trim();
+  const uid = authUserId.value.trim();
+  const pass = authUserPass.value.trim();
   if (!uid || !pass) return alert("Vui lòng điền đủ ID và Mật khẩu!");
 
   const uRef = doc(db, "user", "003", "users", uid);
@@ -2004,7 +2068,8 @@ document.getElementById("loginBtn").onclick = async () => {
     if (snap.data().password !== pass) return alert("Sai mật khẩu truy cập!");
 
     currentUserId = uid;
-    localStorage.setItem("es_user_id", uid);
+    localStorage.setItem("es_current_user_id", uid);
+    localStorage.setItem("es_current_user_pass", pass);
     authBadge.textContent = uid.toUpperCase();
 
     const data = snap.data();
@@ -2026,6 +2091,7 @@ document.getElementById("loginBtn").onclick = async () => {
     renderInventory();
     updateRadarLocation(data.lastLocation || "NGOẠI Ô HẺO LÁNH", false);
 
+    saveStateToStorageAndFirestore();
     loadChatHistory();
     alert(`Đăng nhập thành công! Đã nạp lại dữ liệu của [${uid}].`);
   } catch (err) {
@@ -2033,7 +2099,7 @@ document.getElementById("loginBtn").onclick = async () => {
   }
 };
 
-/* LƯU PERSONALITY & ĐỒNG BỘ TÊN TOÀN BỘ CHAT */
+/* LƯU PERSONALITY */
 document.getElementById("savePersonalityBtn").onclick = async () => {
   const val = personalityInput.value.trim();
   const nameVal = userNameInput.value.trim() || "Em";
@@ -2044,15 +2110,8 @@ document.getElementById("savePersonalityBtn").onclick = async () => {
     el.textContent = currentUserName;
   });
 
-  try {
-    await setDoc(getUserDocRef(), { 
-      personality: val,
-      user_name: currentUserName
-    }, { merge: true });
-    notify(`Đã lưu và áp dụng tên <strong>"${currentUserName}"</strong> cho toàn bộ đoạn chat!`);
-  } catch(e) {
-    notify(`Lỗi Firestore (${e.message}). Đã lưu tạm bộ nhớ.`);
-  }
+  saveStateToStorageAndFirestore();
+  notify(`Đã lưu và áp dụng tên <strong>"${currentUserName}"</strong> cho toàn bộ đoạn chat!`);
 };
 
 userAvatarInput.onchange = (e) => {
@@ -2077,7 +2136,7 @@ function renderMessageUI(msg) {
   wrap.id = `msg-${msg.id}`;
 
   const avatarSrc = msg.sender === "char" 
-    ? "https://img.sanishtech.com/u/27a3f06422259abb9aab56b4dbb2c578.jpeg" 
+    ? "https://i.postimg.cc/hjDwgbyL/IMG-4687.jpg" 
     : currentUserAvatar;
 
   const senderName = msg.sender === "char" 
@@ -2144,6 +2203,48 @@ function checkMsgCountAndEmpty() {
   if (count >= 1020) performMemoryPurgeAndSummarize();
 }
 
+/* ================= 7. TỰ ĐỘNG ĐĂNG NHẬP KHI TẢI LẠI TRANG ================= */
+async function autoLoginAndRestore() {
+  const savedUid = localStorage.getItem("es_current_user_id");
+  const savedPass = localStorage.getItem("es_current_user_pass");
+
+  if (savedUid) {
+    currentUserId = savedUid;
+    authBadge.textContent = savedUid.toUpperCase();
+    if (authUserId) authUserId.value = savedUid;
+    if (savedPass && authUserPass) authUserPass.value = savedPass;
+  }
+
+  // Khôi phục bộ nhớ đệm ngay lập tức để không có độ trễ
+  restoreFromLocalCache(currentUserId);
+  renderApiKeyRows();
+
+  // Kéo dữ liệu mới nhất từ Firestore
+  try {
+    const userSnap = await getDoc(getUserDocRef());
+    if (userSnap.exists()) {
+      const data = userSnap.data();
+      if (data.personality) personalityInput.value = data.personality;
+      if (data.user_name) {
+        currentUserName = data.user_name;
+        userNameInput.value = currentUserName;
+      }
+      if (typeof data.cash === "number") cashBalance = data.cash;
+      if (typeof data.bank === "number") bankBalance = data.bank;
+      if (typeof data.egoRatio === "number") updateConsciousnessBar(data.egoRatio);
+      if (Array.isArray(data.scavenged_items)) scavengedItems = data.scavenged_items;
+      if (Array.isArray(data.story_items)) storyItems = data.story_items;
+      if (Array.isArray(data.used_item_names)) usedItemNames = new Set(data.used_item_names);
+      if (data.lastLocation) updateRadarLocation(data.lastLocation, false);
+
+      modifyMoney(0, 0);
+      renderInventory();
+    }
+  } catch (err) {}
+
+  loadChatHistory();
+}
+
 document.getElementById("closeThoughtModal").onclick = () => document.getElementById("thoughtModal").classList.remove("open");
 document.getElementById("closeEditModal").onclick = () => document.getElementById("editModal").classList.remove("open");
 
@@ -2157,11 +2258,8 @@ chatInput.onkeydown = (e) => {
 
 /* KHỞI ĐỘNG */
 (() => {
-  renderApiKeyRows();
   userAvatarPreview.src = currentUserAvatar;
-  userNameInput.value = currentUserName;
-  renderInventory();
-  loadUserData();
+  autoLoginAndRestore();
 })();
 </script>
 </body>
