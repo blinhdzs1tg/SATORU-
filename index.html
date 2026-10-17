@@ -46,6 +46,7 @@
             --cream-bg: #f5f2eb;
             --cream-text: #0c0d12;
             --cream-muted: #5e6273;
+            --guide-light-bg: #fbf9f5;
             --transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -99,7 +100,7 @@
             background: rgba(229, 9, 20, 0.12); border-radius: 4px; cursor: text; padding: 2px 4px;
         }
 
-        /* SAO NỔ MỜ MÀU HỒNG PASTEL / ĐỎ */
+        /* SAO NỔ MỜ MÀU HỒNG PASTEL */
         .sparkle-particle {
             position: fixed; pointer-events: none; z-index: 9999999;
             color: #ff758c; font-size: 16px; user-select: none;
@@ -111,14 +112,13 @@
             100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.3) rotate(var(--rot)); opacity: 0; }
         }
 
-        /* 1. MÀN CHỜ VŨ TRỤ ĐỘNG & NÚT ENTER */
+        /* 1. MÀN CHỜ VŨ TRỤ */
         #intro-loader {
             position: fixed; inset: 0; background: #040507; z-index: 99999;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             text-align: center; padding: 20px;
-            transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.9s;
-            overflow: hidden;
-            pointer-events: auto;
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+            overflow: hidden; pointer-events: auto;
         }
         #intro-loader.fade-out { opacity: 0; visibility: hidden; pointer-events: none; }
 
@@ -165,51 +165,48 @@
         }
 
         .intro-radar-wrap {
-            position: relative; width: 64px; height: 64px; margin: 30px auto 10px;
+            position: relative; width: 68px; height: 68px; margin: 30px auto 10px;
         }
-        .intro-radar-svg { transform: rotate(-90deg); width: 64px; height: 64px; }
-        .intro-radar-bg { stroke: rgba(255,255,255,0.1); stroke-width: 3; fill: none; }
+        .intro-radar-svg { transform: rotate(-90deg); width: 68px; height: 68px; }
+        .intro-radar-bg { stroke: rgba(255,255,255,0.1); stroke-width: 3.5; fill: none; }
         .intro-radar-val {
-            stroke: url(#heartGradient); stroke-width: 3; fill: none;
+            stroke: url(#heartGradient); stroke-width: 3.5; fill: none;
             stroke-dasharray: 188; stroke-dashoffset: 188;
-            stroke-linecap: round; transition: stroke-dashoffset 0.05s linear;
+            stroke-linecap: round; transition: stroke-dashoffset 0.04s linear;
         }
         .intro-counter {
             position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-            font-size: 0.8rem; color: #fff; font-weight: 700; letter-spacing: 1px;
+            font-size: 0.85rem; color: #fff; font-weight: 700; letter-spacing: 1px;
         }
 
-        /* NÚT ENTER CHỈ BẤM ĐÚNG MỚI VÀO */
         .intro-enter-btn-wrap {
             margin-top: 25px; height: 50px; display: flex; justify-content: center; align-items: center;
             pointer-events: auto;
         }
         .intro-enter-btn {
-            background: linear-gradient(135deg, rgba(229,9,20,0.85) 0%, rgba(186,18,60,0.95) 100%);
-            color: #fff; border: 1px solid rgba(255,255,255,0.35);
-            padding: 12px 28px; border-radius: 30px; font-family: var(--font-sans);
-            font-size: 0.85rem; font-weight: 700; letter-spacing: 2px; cursor: pointer;
-            box-shadow: 0 0 25px var(--crimson-glow);
-            transition: all 0.4s ease; display: none; opacity: 0; transform: translateY(10px);
+            background: linear-gradient(135deg, rgba(229,9,20,0.9) 0%, rgba(186,18,60,0.95) 100%);
+            color: #fff; border: 1px solid rgba(255,255,255,0.4);
+            padding: 12px 34px; border-radius: 30px; font-family: var(--font-sans);
+            font-size: 0.9rem; font-weight: 700; letter-spacing: 2.5px; cursor: pointer;
+            box-shadow: 0 0 28px var(--crimson-glow);
+            transition: all 0.35s ease; display: none; opacity: 0; transform: translateY(10px);
         }
         .intro-enter-btn.active {
-            display: inline-flex; animation: enterBtnShow 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            display: inline-flex; animation: enterBtnShow 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         @keyframes enterBtnShow {
             to { opacity: 1; transform: translateY(0); }
         }
         .intro-enter-btn:hover {
-            transform: scale(1.05); box-shadow: 0 0 35px rgba(229,9,20,0.8);
+            transform: scale(1.05); box-shadow: 0 0 40px rgba(229,9,20,0.85);
         }
 
         /* 2. HEADER */
         header {
             position: fixed; top: 0; left: 0; width: 100%;
             padding: 14px 5%; padding-top: calc(12px + env(safe-area-inset-top));
-            display: grid;
-            grid-template-columns: 44px 1fr 44px;
-            align-items: center;
-            background: rgba(8, 9, 13, 0.45);
+            display: grid; grid-template-columns: 44px 1fr 44px; align-items: center;
+            background: rgba(8, 9, 13, 0.5);
             backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid rgba(255,255,255,0.06); z-index: 1000;
         }
@@ -219,6 +216,7 @@
         }
         .menu-bars { width: 22px; height: 10px; display: flex; flex-direction: column; justify-content: space-between; }
         .menu-bars span { display: block; width: 100%; height: 2px; background: #fff; border-radius: 2px; }
+        
         .logo-text {
             font-family: var(--font-serif); font-size: clamp(0.95rem, 3.2vw, 1.45rem);
             font-weight: 700; color: #fff; text-decoration: none;
@@ -226,50 +224,39 @@
             display: flex; align-items: center; justify-content: center;
         }
 
-        /* NÚT SÓNG ÂM THANH HI-FI */
         .sound-btn {
             background: none; border: none; cursor: pointer;
             justify-self: end; padding: 6px 0; display: flex; align-items: center;
         }
-        .sound-bars {
-            display: flex; align-items: center; gap: 3px; height: 14px;
-        }
+        .sound-bars { display: flex; align-items: center; gap: 3px; height: 14px; }
         .sound-bars span {
             display: block; width: 2px; height: 4px; background: #94a3b8;
             border-radius: 2px; transition: all 0.3s ease;
         }
         .sound-btn.playing .sound-bars span {
-            background: #ff4d6d;
-            box-shadow: 0 0 8px rgba(255, 77, 109, 0.6);
+            background: #ff4d6d; box-shadow: 0 0 8px rgba(255, 77, 109, 0.6);
             animation: soundWave 1.2s ease-in-out infinite alternate;
         }
         .sound-btn.playing .sound-bars span:nth-child(1) { animation-delay: 0.1s; }
         .sound-btn.playing .sound-bars span:nth-child(2) { animation-delay: 0.3s; }
         .sound-btn.playing .sound-bars span:nth-child(3) { animation-delay: 0.2s; }
         @keyframes soundWave {
-            0% { height: 4px; }
-            50% { height: 14px; }
-            100% { height: 7px; }
+            0% { height: 4px; } 50% { height: 14px; } 100% { height: 7px; }
         }
 
-        /* THANH ĐIỀU KHIỂN ADMIN */
+        /* ADMIN STRIP */
         #admin-strip {
             display: none; background: #12141c; border-bottom: 1px solid var(--crimson);
             padding: 8px 5%; position: fixed; top: 58px; left: 0; width: 100%; z-index: 999;
             flex-direction: column; gap: 8px; font-size: 0.8rem;
         }
         #admin-strip.open { display: flex; }
-
-        .admin-mode-tabs {
-            display: flex; gap: 6px; width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 6px;
-        }
+        .admin-mode-tabs { display: flex; gap: 6px; width: 100%; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 6px; }
         .admin-tab-btn {
             background: transparent; border: 1px solid rgba(255,255,255,0.15); color: #94a3b8;
             padding: 4px 12px; border-radius: 6px; cursor: pointer; font-size: 0.75rem; font-weight: 600;
         }
-        .admin-tab-btn.active {
-            background: var(--crimson); border-color: var(--crimson); color: #fff;
-        }
+        .admin-tab-btn.active { background: var(--crimson); border-color: var(--crimson); color: #fff; }
         .admin-pane { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; width: 100%; }
 
         /* SIDEBAR */
@@ -277,11 +264,9 @@
             position: fixed; top: 0; left: -340px; width: 85%; max-width: 340px; height: 100vh;
             background: #0d0f16; z-index: 2000; padding: 45px 30px; display: flex; flex-direction: column; justify-content: space-between;
             transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s;
-            box-shadow: none; border-right: none; visibility: hidden;
+            box-shadow: none; visibility: hidden;
         }
-        #sidebar.open {
-            left: 0; visibility: visible; box-shadow: 25px 0 60px rgba(0,0,0,0.85); border-right: 1px solid rgba(255,255,255,0.1);
-        }
+        #sidebar.open { left: 0; visibility: visible; box-shadow: 25px 0 60px rgba(0,0,0,0.85); border-right: 1px solid rgba(255,255,255,0.1); }
         .sidebar-links { list-style: none; margin-top: 35px; }
         .sidebar-links li { margin-bottom: 20px; }
         .sidebar-links a { font-family: var(--font-serif); color: #fff; text-decoration: none; font-size: 1.2rem; transition: var(--transition); }
@@ -309,7 +294,6 @@
             z-index: 1; pointer-events: none; border: none; filter: brightness(0.85);
             display: none;
         }
-
         .hero-bottom-fade {
             position: absolute; inset: 0; z-index: 2;
             background: linear-gradient(180deg, rgba(8,9,13,0.02) 0%, rgba(8,9,13,0.25) 50%, rgba(8,9,13,0.7) 80%, #08090d 100%);
@@ -323,12 +307,10 @@
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             max-width: 900px; margin-bottom: 12px;
         }
-        .hero-desc {
-            max-width: 620px; font-size: 0.95rem; color: #94a3b8; font-weight: 300; margin-bottom: 0px;
-        }
+        .hero-desc { max-width: 620px; font-size: 0.95rem; color: #94a3b8; font-weight: 300; }
 
-        /* 4. KHUNG GẦM / SHOWROOM */
-        .showroom-section { background-color: #08090d; padding: 45px 6% 50px; width: 100%; }
+        /* 4. SHOWROOM MATRIX */
+        .showroom-section { background-color: #08090d; padding: 45px 6% 25px; width: 100%; }
         .showroom-scroll {
             display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory;
             padding-top: 16px; margin-top: -16px; padding-bottom: 25px; scrollbar-width: none;
@@ -355,6 +337,263 @@
         }
         .showroom-card h3 { font-family: var(--font-serif); font-size: 1.45rem; font-weight: 700; margin: 6px 0; }
         .showroom-btn { font-size: 0.85rem; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 6px; letter-spacing: 1px; }
+
+        /* ========================================================
+           THẺ BÊN NGOÀI: EDITORIAL LUXURY WHITE CARD (SÁNG MÀU)
+        ======================================================== */
+        .editorial-guide-strip {
+            padding: 10px 6% 35px;
+            width: 100%;
+            background: #08090d;
+        }
+
+        .editorial-guide-card {
+            position: relative;
+            width: 100%;
+            background: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 14px;
+            padding: 26px 34px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0,0,0,0.03);
+            display: grid;
+            grid-template-columns: 1.5fr 1.1fr auto;
+            align-items: center;
+            gap: 24px;
+            color: #0c0d12;
+        }
+
+        .editorial-guide-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 22px 50px rgba(0, 0, 0, 0.4), 0 0 25px rgba(255, 255, 255, 0.2);
+            border-color: #ffffff;
+        }
+
+        .guide-tag-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            font-weight: 700;
+            color: var(--crimson);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .editorial-card-title {
+            font-family: var(--font-serif);
+            font-size: clamp(1.25rem, 2.5vw, 1.7rem);
+            font-weight: 700;
+            color: #0c0d12;
+            letter-spacing: 0.5px;
+            margin: 2px 0 4px;
+            line-height: 1.25;
+        }
+
+        .editorial-card-desc {
+            font-size: 0.86rem;
+            color: #555968;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        .editorial-stats-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 8px 20px;
+            border-left: 1px solid rgba(0,0,0,0.08);
+            border-right: 1px solid rgba(0,0,0,0.08);
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .stat-label {
+            font-size: 0.65rem;
+            color: #717688;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .stat-value {
+            font-size: 0.82rem;
+            color: #111217;
+            font-weight: 700;
+        }
+
+        .editorial-btn-open {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #0c0d12;
+            color: #ffffff;
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .editorial-guide-card:hover .editorial-btn-open {
+            background: var(--crimson);
+            transform: translateX(3px);
+            box-shadow: 0 4px 15px var(--crimson-glow);
+        }
+
+        @media(max-width: 900px) {
+            .editorial-guide-card {
+                grid-template-columns: 1fr;
+                gap: 18px;
+                padding: 22px;
+            }
+            .editorial-stats-row {
+                border-left: none;
+                border-right: none;
+                border-top: 1px solid rgba(0,0,0,0.06);
+                border-bottom: 1px solid rgba(0,0,0,0.06);
+                padding: 10px 0;
+                justify-content: space-between;
+            }
+            .editorial-btn-open {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* ========================================================
+           TRANG PHỤ SLIDE-OVER: GIAO DIỆN SÁNG MÀU EDITORIAL LUXURY
+        ======================================================== */
+        #guideSubpage {
+            position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh;
+            background: var(--guide-light-bg); z-index: 7000; overflow-y: auto; overflow-x: hidden;
+            transform: translateX(100%); transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+            color: #0c0d12; display: flex; flex-direction: column;
+        }
+        #guideSubpage.active { transform: translateX(0); }
+
+        .guide-header-bar {
+            position: sticky; top: 0; left: 0; width: 100%; z-index: 10;
+            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            padding: 14px 6%; padding-top: calc(14px + env(safe-area-inset-top));
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        }
+
+        .guide-back-btn {
+            background: #f1ede4; border: 1px solid rgba(0,0,0,0.08);
+            color: #111216; padding: 7px 16px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;
+            cursor: pointer; display: flex; align-items: center; gap: 6px; transition: var(--transition);
+        }
+        .guide-back-btn:hover { background: #000; color: #fff; }
+
+        .guide-header-title {
+            font-family: var(--font-serif); font-size: 0.95rem; font-weight: 700; color: #0c0d12;
+            letter-spacing: 1px; text-transform: uppercase;
+        }
+
+        .guide-body-container {
+            max-width: 860px; margin: 0 auto; width: 100%;
+            padding: 35px 6% 90px; display: flex; flex-direction: column; gap: 24px;
+        }
+
+        /* HERO BANNER SÁNG MÀU */
+        .guide-hero-banner {
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.07);
+            border-radius: 14px; padding: 34px 36px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+            position: relative;
+        }
+        .guide-hero-banner::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+            background: linear-gradient(90deg, var(--crimson), #fb7185, transparent 80%);
+            border-radius: 14px 14px 0 0;
+        }
+        .guide-hero-badge {
+            font-size: 0.7rem; letter-spacing: 2.5px; color: var(--crimson); font-weight: 700;
+            text-transform: uppercase; margin-bottom: 6px;
+        }
+        .guide-hero-banner h1 {
+            font-family: var(--font-serif); font-size: clamp(1.7rem, 4vw, 2.5rem); font-weight: 700;
+            color: #0c0d12; margin-bottom: 8px; line-height: 1.25;
+        }
+        .guide-hero-sub {
+            font-size: 0.92rem; color: #5a5e6d; line-height: 1.65;
+        }
+
+        /* BẢNG ĐIỀU KHIỂN ADMIN SÁNG MÀU */
+        .guide-admin-toolbar {
+            display: none; gap: 8px; flex-wrap: wrap; margin-bottom: 5px;
+            background: #ffffff; border: 1px dashed var(--crimson);
+            padding: 12px 18px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+        .guide-admin-toolbar.open { display: flex; }
+
+        .guide-content-blocks { display: flex; flex-direction: column; gap: 20px; width: 100%; }
+
+        /* THẺ NỘI DUNG SÁNG MÀU (INNER LIGHT CARDS) */
+        .guide-block {
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.07);
+            border-radius: 12px;
+            padding: 26px 30px;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.03);
+            transition: var(--transition);
+            position: relative;
+        }
+        .guide-block:hover {
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.06);
+            border-color: rgba(0,0,0,0.12);
+        }
+
+        .guide-step-tag {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: #f4efe6; color: #1f2024;
+            font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px;
+            padding: 3px 9px; border-radius: 4px; text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        .guide-block-title {
+            font-family: var(--font-serif); font-size: clamp(1.15rem, 2.8vw, 1.4rem);
+            font-weight: 700; color: #0c0d12; margin-bottom: 10px; line-height: 1.35;
+        }
+        .guide-block-text {
+            color: #424653; font-size: 0.92rem; line-height: 1.8; font-weight: 400;
+            white-space: pre-line;
+        }
+
+        /* KHUNG ẢNH MINH HỌA SÁNG MÀU CĂN GIỮA NGHỆ THUẬT */
+        .guide-centered-image-wrap {
+            margin: 20px auto; width: 100%; max-width: 820px;
+            background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.08);
+            border-radius: 12px; padding: 14px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .guide-image-bar {
+            width: 100%; display: flex; justify-content: space-between; align-items: center;
+            font-size: 0.72rem; color: #737887; font-weight: 600; letter-spacing: 1px;
+            padding-bottom: 8px; margin-bottom: 8px; border-bottom: 1px solid rgba(0,0,0,0.05);
+            text-transform: uppercase;
+        }
+        .guide-centered-image {
+            width: 100%; border-radius: 8px; border: 1px solid rgba(0,0,0,0.06);
+            object-fit: cover; display: block;
+        }
+        .guide-image-caption {
+            font-size: 0.8rem; color: #5e6373; font-style: italic; margin-top: 10px;
+            text-align: center; width: 100%;
+        }
 
         /* DẢI HÒA MÀU */
         .divider-to-cream {
@@ -485,7 +724,7 @@
         }
         .console-feed { padding: 24px; display: flex; flex-direction: column; gap: 16px; width: 100%; }
 
-        /* CÂY BÌNH LUẬN TRỤC LIÊN TỤC VÀ ĐƯỜNG MÓC CHỮ L */
+        /* CÂY BÌNH LUẬN */
         .comment-node { position: relative; padding: 6px 0; width: 100%; }
         .comment-node.is-pinned { border-left: 3px solid var(--crimson); padding-left: 10px; }
         .branch-level-0 { margin-left: 0; border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 14px; }
@@ -510,12 +749,21 @@
         .comment-user { font-weight: 600; font-size: 0.88rem; display: flex; align-items: center; gap: 6px; }
         .comment-time { font-size: 0.72rem; color: #888; }
         .comment-msg { font-size: 0.88rem; color: #cbd5e1; word-break: break-word; }
+        
         .comment-actions { display: flex; gap: 14px; align-items: center; margin-top: 6px; font-size: 0.78rem; }
         .action-btn { background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 4px; color: #94a3b8; }
         .action-btn:hover { color: #fff; }
         .action-btn.liked { color: var(--crimson); font-weight: 600; }
         .action-btn.del-btn:hover { color: var(--crimson); }
         .action-btn.pin-btn { color: #f59e0b; }
+
+        .admin-heart-badge {
+            display: inline-flex; align-items: center; gap: 4px;
+            background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.4);
+            color: #60a5fa; font-size: 0.72rem; padding: 2px 7px; border-radius: 12px;
+            font-weight: 600; margin-left: 6px;
+        }
+        .admin-heart-toggle-btn { color: #60a5fa !important; font-weight: 600; }
         
         .reply-box { display: none; margin-top: 8px; gap: 6px; }
         .reply-box.open { display: flex; }
@@ -529,7 +777,7 @@
             padding: 4px 8px; border-radius: 6px; font-size: 0.78rem;
         }
 
-        /* 7. THANH CREDIT CHÂN TRANG */
+        /* 7. CREDIT FOOTER */
         .credit-ticker-bar {
             background: #050608; color: #f1f5f9; padding: 25px 6%;
             display: flex; justify-content: center; align-items: center;
@@ -537,7 +785,7 @@
             margin: 0; width: 100%;
         }
 
-        /* MODALS PHÓNG TO MƯỢT MÀ */
+        /* MODALS */
         .modal-wrap {
             position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(15px);
             z-index: 6000; display: none; justify-content: center; align-items: center; padding: 15px;
@@ -594,12 +842,13 @@
             padding: 10px 12px; border-radius: 8px; font-family: var(--font-sans); font-size: 16px; width: 100%;
         }
         input:focus, textarea:focus { outline: none; border-color: var(--crimson); }
+        
         .btn-brand {
-            background: #fff; color: #000; border: none; padding: 8px 16px;
-            border-radius: 8px; font-weight: 600; cursor: pointer; transition: var(--transition);
+            background: #0c0d12; color: #fff; border: none; padding: 8px 16px;
+            border-radius: 6px; font-weight: 600; cursor: pointer; transition: var(--transition);
             font-size: 0.8rem; white-space: nowrap;
         }
-        .btn-brand:hover { background: #e2e8f0; }
+        .btn-brand:hover { background: var(--crimson); color: #fff; }
 
         .reveal { opacity: 0; transform: translateY(25px); transition: all 0.6s ease; }
         .reveal.active { opacity: 1; transform: translateY(0); }
@@ -607,13 +856,15 @@
         @media(max-width: 768px) {
             header { padding: 12px 4%; padding-top: calc(10px + env(safe-area-inset-top)); }
             .hero { padding: 0 5% 30px; }
-            .showroom-section, .roster-section, .forum-section { padding-left: 5%; padding-right: 5%; }
+            .showroom-section, .editorial-guide-strip, .roster-section, .forum-section { padding-left: 5%; padding-right: 5%; }
             .showroom-card { min-width: 260px; height: 320px; }
             .char-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
             .replies-branch-container.level-1 { margin-left: 16px; }
             .replies-branch-container.level-clamped { margin-left: 12px; }
             .credit-ticker-bar { font-size: 0.82rem; padding: 20px 5%; }
             .console-feed { padding: 16px; }
+            .guide-hero-banner { padding: 24px 20px; }
+            .guide-block { padding: 20px; }
         }
     </style>
 </head>
@@ -632,10 +883,9 @@
         </defs>
     </svg>
 
-    <!-- TRÌNH PHÁT NHẠC NỀN & KHUNG YOUTUBE AUDIO CẤU HÌNH GỠ BỎ DELAY -->
+    <!-- TRÌNH PHÁT NHẠC NỀN & KHUNG YOUTUBE AUDIO CẤU HÌNH GỠ BỎ QUẢNG CÁO TỐI ĐA -->
     <audio id="mainAudioPlayer" loop playsinline preload="auto"></audio>
-    <!-- KHUNG CHỨA YOUTUBE AUDIO TRỰC TIẾP -->
-    <div id="ytAudioPlayerBox" style="position:fixed; bottom:0; right:0; width:200px; height:200px; opacity:0.01; pointer-events:none; z-index:-10;"></div>
+    <div id="ytAudioPlayerBox" style="position:fixed; bottom:0; right:0; width:1px; height:1px; opacity:0.001; pointer-events:none; z-index:-10;"></div>
 
     <!-- 1. MÀN CHỜ VŨ TRỤ ĐỘNG VỚI NÚT ENTER -->
     <div id="intro-loader">
@@ -648,16 +898,16 @@
             
             <div class="intro-radar-wrap" id="introRadarBox">
                 <svg class="intro-radar-svg">
-                    <circle class="intro-radar-bg" cx="32" cy="32" r="30"></circle>
-                    <circle class="intro-radar-val" id="introRadarCircle" cx="32" cy="32" r="30"></circle>
+                    <circle class="intro-radar-bg" cx="34" cy="34" r="30"></circle>
+                    <circle class="intro-radar-val" id="introRadarCircle" cx="34" cy="34" r="30"></circle>
                 </svg>
                 <div class="intro-counter" id="introPercent">00%</div>
             </div>
 
-            <!-- NÚT BẤM ENTER CHUẨN XÁC ĐỂ KHỞI ĐỘNG VÀ BẬT NHẠC -->
+            <!-- NÚT ENTER KHỞI ĐỘNG CÙNG LÚC CẢ VIDEO & NHẠC -->
             <div class="intro-enter-btn-wrap">
                 <button class="intro-enter-btn" id="introEnterBtn" onclick="handleEnterAtelier(event)">
-                    ENTER 
+                    ENTER MATRIX
                 </button>
             </div>
         </div>
@@ -677,7 +927,7 @@
             <svg class="luxury-sparkle-svg" viewBox="0 0 24 24"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
         </a>
 
-        <!-- NÚT BẬT/TẮT NHẠC ĐỐI XỨNG -->
+        <!-- NÚT SÓNG ÂM THANH -->
         <button class="sound-btn" id="soundToggleBtn" onclick="toggleAudio(true)" aria-label="Bật/Tắt Nhạc Nền">
             <div class="sound-bars">
                 <span></span><span></span><span></span>
@@ -709,7 +959,7 @@
         </div>
     </div>
 
-    <!-- SIDEBAR DRAWER -->
+    <!-- SIDEBAR -->
     <div id="sidebar">
         <div>
             <div style="display:flex; justify-content:space-between; align-items:center;">
@@ -719,6 +969,7 @@
             <ul class="sidebar-links">
                 <li><a href="#hero" onclick="handleMenuClick(event, '#hero')"><span data-cms="nav_hero">Khởi Đầu (Hero)</span></a></li>
                 <li><a href="#showroom" onclick="handleMenuClick(event, '#showroom')"><span data-cms="nav_showroom">Showroom (Matrix)</span></a></li>
+                <li><a href="javascript:void(0)" onclick="openGuideSubpage()"><span data-cms="nav_guide">Sổ Tay Hướng Dẫn (Guide)</span></a></li>
                 <li><a href="#roster" onclick="handleMenuClick(event, '#roster')"><span data-cms="nav_roster">Kho Nhân Vật (Roster)</span></a></li>
                 <li><a href="#forum" onclick="handleMenuClick(event, '#forum')"><span data-cms="nav_forum">Diễn Đàn (Lounge)</span></a></li>
             </ul>
@@ -731,10 +982,11 @@
         </div>
     </div>
 
-    <!-- 3. HERO SECTION (TỰ ĐỘNG CHẠY VÀ PHỤC HỒI VIDEO) -->
+    <!-- 3. HERO SECTION (CHỜ NÚT BẮT ĐẦU MỚI PHÁT) -->
     <div class="hero" id="hero">
-        <video id="mainHeroVideo" class="hero-video" src="https://videotourl.com/videos/1791993553264-7736ed0d-bbc4-4d12-8d32-0a6c0c573d3b.mp4" 
-            autoplay muted loop playsinline webkit-playsinline preload="auto">
+        <video id="mainHeroVideo" class="hero-video" 
+            src="https://videotourl.com/videos/1791993553264-7736ed0d-bbc4-4d12-8d32-0a6c0c573d3b.mp4" 
+            muted loop playsinline webkit-playsinline preload="auto">
             <source id="mainVideoSource" src="https://videotourl.com/videos/1791993553264-7736ed0d-bbc4-4d12-8d32-0a6c0c573d3b.mp4" type="video/mp4">
         </video>
         <iframe id="mainHeroIframe" class="hero-iframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
@@ -774,7 +1026,6 @@
                 <div class="showroom-btn" data-cms="btn_nsfw">Khám Phá →</div>
             </div>
 
-            <!-- THẺ NGOÀI LỀ -->
             <div class="showroom-card" onclick="handleShowroomCardClick('Ngoài lề', event)">
                 <div>
                     <span style="color:#a78bfa; font-weight:700; font-size:0.75rem;" data-cms="op_code">SERIES: EXTRA</span>
@@ -784,7 +1035,6 @@
                 <div class="showroom-btn" data-cms="btn_op">Khám Phá →</div>
             </div>
 
-            <!-- THẺ LƯU Ý NHỎ: MỞ QUY TẮC -->
             <div class="showroom-card" style="border-color: rgba(245, 158, 11, 0.4);" onclick="handleShowroomCardClick('Lưu ý', event)">
                 <div>
                     <span style="color:#f59e0b; font-weight:700; font-size:0.75rem;" data-cms="rules_code">HOUSE RULES</span>
@@ -795,6 +1045,47 @@
             </div>
         </div>
     </section>
+
+    <!-- ========================================================
+         THẺ DẪN VÀO HƯỚNG DẪN: SÁNG MÀU, TINH TẾ, THANH LỊCH
+    ======================================================== -->
+    <div class="editorial-guide-strip reveal">
+        <div class="editorial-guide-card" onclick="openGuideSubpage()">
+            <div>
+                <div class="guide-tag-pill" data-cms="guide_strip_tag">
+                    <span>✦</span> ETHERA GUIDEBOOK // SETUP
+                </div>
+                <h2 class="editorial-card-title" data-cms="guide_strip_title">
+                    HƯỚNG DẪN CHƠI WEB PHỤ
+                </h2>
+                <p class="editorial-card-desc" data-cms="guide_strip_desc">
+                    Tài liệu từng bước hướng dẫn lấy khóa API Google AI Studio hoàn toàn miễn phí và kết nối để trò chuyện không giới hạn.
+                </p>
+            </div>
+
+            <div class="editorial-stats-row">
+                <div class="stat-item">
+                    <span class="stat-label">NỀN TẢNG</span>
+                    <span class="stat-value">Google AI Studio</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">CHI PHÍ</span>
+                    <span class="stat-value" style="color:#10b981;">Miễn Phí 100%</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">THỜI GIAN</span>
+                    <span class="stat-value">~2 Phút</span>
+                </div>
+            </div>
+
+            <div>
+                <div class="editorial-btn-open">
+                    <span>XEM HƯỚNG DẪN</span>
+                    <span>→</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="divider-to-cream"></div>
 
@@ -867,6 +1158,47 @@
         <span data-cms="footer_credit" style="margin: 0 8px; font-weight: 600;">Chúc các bạn có trải nghiệm vui vẻ</span>
         <svg class="luxury-heart-svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
         <svg class="luxury-sparkle-svg" viewBox="0 0 24 24"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
+    </div>
+
+    <!-- ========================================================
+         TRANG PHỤ SLIDE-OVER: SỔ TAY HƯỚNG DẪN SÁNG MÀU (LIGHT EDITORIAL)
+    ======================================================== -->
+    <div id="guideSubpage">
+        <div class="guide-header-bar">
+            <button class="guide-back-btn" onclick="closeGuideSubpage()">
+                ← QUAY LẠI TRANG CHỦ
+            </button>
+            <div class="guide-header-title">
+                SỔ TAY HƯỚNG DẪN // ETHERA ATELIER
+            </div>
+            <div id="guideAdminQuickBtns" style="display:none; gap:6px;">
+                <button class="btn-brand" style="background:#10b981; color:#fff; font-size:0.75rem;" onclick="saveGuideBlocksToCloud()">💾 LƯU SỔ TAY</button>
+            </div>
+        </div>
+
+        <div class="guide-body-container">
+            <!-- BANNER GIỚI THIỆU SÁNG MÀU -->
+            <div class="guide-hero-banner">
+                <div class="guide-hero-badge">
+                    TÀI LIỆU HƯỚNG DẪN // KẾT NỐI API KEY
+                </div>
+                <h1 data-cms="guide_main_heading">Cẩm Nang Hướng Dẫn Chơi Web Phụ</h1>
+                <p class="guide-hero-sub" data-cms="guide_main_sub">
+                    Tổng hợp các bước chi tiết để tự lấy khóa API từ Google AI Studio hoàn toàn miễn phí, an toàn và kết nối vào các web phụ trợ để thoải mái trò chuyện cùng các nguyên mẫu Satoru.
+                </p>
+            </div>
+
+            <!-- BẢNG THAO TÁC ADMIN (SÁNG MÀU) -->
+            <div class="guide-admin-toolbar" id="guideAdminToolbar">
+                <span style="font-weight:700; color:var(--crimson); font-size:0.78rem; display:flex; align-items:center;">⚡ Bảng Quản Trị Nội Dung:</span>
+                <button class="btn-brand" onclick="addNewGuideTextBlock()">+ Thêm Đoạn Hướng Dẫn Mới</button>
+                <button class="btn-brand" style="background:#4f46e5; color:#fff;" onclick="promptInsertImageBlock()">📷 Chèn Ảnh Minh Họa Căn Giữa</button>
+                <button class="btn-brand" style="background:#10b981; color:#fff;" onclick="saveGuideBlocksToCloud()">💾 Lưu Thay Đổi Lên Database</button>
+            </div>
+
+            <!-- CÁC THẺ BƯỚC HƯỚNG DẪN SÁNG MÀU VÀ ẢNH MINH HỌA -->
+            <div class="guide-content-blocks" id="guideBlocksContainer"></div>
+        </div>
     </div>
 
     <!-- MODAL 1: CẢNH BÁO 18+ -->
@@ -1052,21 +1384,27 @@
         </div>
     </div>
 
-    <!-- MODAL 7: CÀI ĐẶT NHẠC NỀN AUDIO -->
+    <!-- MODAL 7: CÀI ĐẶT NHẠC NỀN & BÓC TÁCH AUDIO TỪ VIDEO TRỰC TIẾP -->
     <div id="adminAudioModal" class="modal-wrap">
-        <div class="modal-content" style="max-width:500px;">
+        <div class="modal-content" style="max-width:520px;">
             <button class="modal-close" onclick="closeModal('adminAudioModal')">✕</button>
-            <h2 style="font-family:var(--font-serif); font-size:1.3rem; color:#ec4899; margin-bottom:12px;">🎵 CÀI ĐẶT NHẠC NỀN BGM</h2>
+            <h2 style="font-family:var(--font-serif); font-size:1.3rem; color:#ec4899; margin-bottom:12px;">🎵 CÀI ĐẶT NHẠC NỀN & TRÍCH XUẤT AUDIO</h2>
             
             <div style="display:flex; flex-direction:column; gap:12px;">
                 <div>
-                    <label style="font-size:0.75rem; color:#cbd5e1; display:block; margin-bottom:3px;">1. Dán link nhạc (Hỗ trợ MP3 hoặc link bài hát YouTube):</label>
-                    <input type="text" id="inputAudioUrl" placeholder="https://youtube.com/watch?v=... hoặc https://...mp3">
+                    <label style="font-size:0.75rem; color:#cbd5e1; display:block; margin-bottom:3px;">1. Link nhạc MP3 trực tiếp (hoặc link YouTube không quảng cáo):</label>
+                    <input type="text" id="inputAudioUrl" placeholder="https://...mp3 hoặc https://youtube.com/watch?v=...">
                 </div>
 
                 <div style="background:rgba(255,255,255,0.04); padding:10px; border-radius:8px; border:1px dashed rgba(255,255,255,0.2);">
-                    <label style="font-size:0.75rem; color:#cbd5e1; display:block; margin-bottom:3px;">2. HOẶC tải file nhạc MP3 từ máy/điện thoại:</label>
-                    <input type="file" id="inputAudioFile" accept="audio/mp3,audio/wav,audio/ogg" style="border:none; padding:2px 0; font-size:0.8rem;">
+                    <label style="font-size:0.75rem; color:#cbd5e1; display:block; margin-bottom:3px;">2. Tải file âm thanh MP3/M4A/WAV:</label>
+                    <input type="file" id="inputAudioFile" accept="audio/*" style="border:none; padding:2px 0; font-size:0.8rem;">
+                </div>
+
+                <div style="background:rgba(236,72,153,0.08); padding:10px; border-radius:8px; border:1px dashed rgba(236,72,153,0.4);">
+                    <label style="font-size:0.75rem; color:#f472b6; font-weight:700; display:block; margin-bottom:3px;">⚡ 3. TRÍCH XUẤT NHẠC TỪ VIDEO TRỰC TIẾP (Không cần đổi đuôi MP3):</label>
+                    <div style="font-size:0.72rem; color:#cbd5e1; margin-bottom:6px;">Tải lên video (MP4/WebM), hệ thống sẽ tự động bóc tách dải âm thanh để làm nhạc nền:</div>
+                    <input type="file" id="inputExtractVideoFile" accept="video/mp4,video/webm" style="border:none; padding:2px 0; font-size:0.8rem;">
                 </div>
 
                 <button class="btn-brand" style="background:#ec4899; color:#fff;" onclick="applyCustomAudio()">LƯU NHẠC NỀN TOÀN CẦU</button>
@@ -1107,6 +1445,42 @@
         let ytPlayer = null;
         let introDismissed = false;
         let introAnimId = null;
+
+        // DANH SÁCH MỤC HƯỚNG DẪN MẶC ĐỊNH
+        const DEFAULT_GUIDE_BLOCKS = [
+            {
+                id: 'g_1',
+                type: 'text',
+                title: '1. Giới Thiệu & Tại Sao Cần API Key?',
+                text: 'Để trò chuyện không giới hạn độ dài với các nguyên mẫu Satoru mà không gặp phải rào cản tắc nghẽn máy chủ, bạn cần chuẩn bị một khóa API Key từ Google AI Studio.\n\nKhóa API này hoàn toàn miễn phí 100%, bảo mật tuyệt đối và cấp cho bạn đường truyền phản hồi nhanh nhất từ mô hình trí tuệ nhân tạo của Google.'
+            },
+            {
+                id: 'g_2',
+                type: 'text',
+                title: '2. Các Bước Lấy Google AI Studio API Key Cực Kỳ Đơn Giản',
+                text: '• Bước 1: Mở trình duyệt và truy cập trang chính thức: https://aistudio.google.com\n• Bước 2: Đăng nhập bằng tài khoản Google (Gmail) của bạn.\n• Bước 3: Ở thanh menu bên trái, nhấp vào nút "Get API Key" màu xanh lam.\n• Bước 4: Bấm chọn "Create API key in new project" (Tạo khóa trong dự án mới).\n• Bước 5: Sao chép (Copy) đoạn mã dài vừa xuất hiện. Đây chính là khóa cá nhân của bạn, hãy giữ cẩn thận nhé!'
+            },
+            {
+                id: 'g_3',
+                type: 'image',
+                title: 'Hình Ảnh Minh Họa Giao Diện Google AI Studio',
+                url: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80',
+                caption: 'Minh họa: Vị trí bấm nút Get API key trên thanh công cụ của AI Studio.'
+            },
+            {
+                id: 'g_4',
+                type: 'text',
+                title: '3. Cách Kết Nối Khóa Vào Web Phụ (SillyTavern / Doki / WebChat)',
+                text: 'Sau khi đã sao chép API Key, bạn quay lại nền tảng web phụ mà Ethera dẫn link:\n1. Mở phần Cài đặt API (API Settings), chọn nguồn là [Google Gemini API].\n2. Dán mã khóa vừa copy vào ô [API Key].\n3. Lựa chọn Model trò chuyện: [gemini-1.5-pro] cho các đoạn hội thoại sâu sắc, hoặc [gemini-1.5-flash] nếu muốn phản hồi siêu tốc độ.'
+            },
+            {
+                id: 'g_5',
+                type: 'text',
+                title: '4. Ghi Chú Cá Nhân & Lưu Ý Quan Trọng',
+                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.'
+            }
+        ];
+        let guideBlocks = DEFAULT_GUIDE_BLOCKS;
 
         // BẬT / TẮT NHẠC
         function toggleAudio(manualClick = false) {
@@ -1157,7 +1531,6 @@
             btn.classList.remove('playing');
         }
 
-        // KHỞI TẠO HOẶC ĐỔI NGUỒN NHẠC
         function setAudioSource(sourceData) {
             if (!sourceData) return;
             currentAudioSrc = (typeof sourceData === 'object' && sourceData.url) ? sourceData.url : (typeof sourceData === 'string' ? sourceData : '');
@@ -1169,7 +1542,11 @@
 
             if (ytId) {
                 currentAudioType = 'youtube';
-                if (audioEl) audioEl.pause();
+                if (audioEl) {
+                    audioEl.pause();
+                    audioEl.removeAttribute('src');
+                    audioEl.load();
+                }
                 createYTPlayerInstance(ytId);
             } else {
                 currentAudioType = 'html5';
@@ -1180,17 +1557,15 @@
                 if (audioEl) {
                     audioEl.src = currentAudioSrc;
                     audioEl.load();
-                    if (shouldPlayAudioWhenReady && !userHasPausedManually) {
+                    if (shouldPlayAudioWhenReady && !userHasPausedManually && introDismissed) {
                         playAudio();
                     }
                 }
             }
         }
 
-        // TẠO THỂ HIỆN YOUTUBE PLAYER BẰNG IFRAME API CHÍNH THỨC
         function createYTPlayerInstance(ytId) {
             if (!window.YT || !window.YT.Player) {
-                // Nếu API chưa tải xong, đợi rồi gọi lại
                 window.onYouTubeIframeAPIReady = () => createYTPlayerInstance(ytId);
                 return;
             }
@@ -1201,8 +1576,8 @@
 
             try {
                 ytPlayer = new YT.Player('ytPlayerTarget', {
-                    height: '200',
-                    width: '200',
+                    height: '1',
+                    width: '1',
                     videoId: ytId,
                     playerVars: {
                         autoplay: 0,
@@ -1211,12 +1586,13 @@
                         fs: 0,
                         loop: 1,
                         playlist: ytId,
-                        playsinline: 1
+                        playsinline: 1,
+                        rel: 0
                     },
                     events: {
                         onReady: (event) => {
                             isYtReady = true;
-                            if (shouldPlayAudioWhenReady && !userHasPausedManually) {
+                            if (shouldPlayAudioWhenReady && !userHasPausedManually && introDismissed) {
                                 event.target.unMute();
                                 event.target.playVideo();
                                 isAudioPlaying = true;
@@ -1241,9 +1617,6 @@
             }
         }
 
-        // ========================================================
-        // NÚT ENTER CHUẨN XÁC: CHỈ BẤM ĐÚNG MỚI VÀO VÀ BẬT NHẠC
-        // ========================================================
         function handleEnterAtelier(e) {
             e.stopPropagation();
             introDismissed = true;
@@ -1252,13 +1625,19 @@
             document.getElementById('intro-loader').classList.add('fade-out');
             window.scrollTo(0, 0);
             
-            // Kích hoạt phát video và nhạc ngay lập tức
-            ensureVideoPlaying();
+            startHeroVideoOnEnter();
             userHasPausedManually = false;
             playAudio();
         }
 
-        // HIỆU ỨNG CLICK BẮN SAO MỜ PASTEL (HỖ TRỢ CẢ CHUỘT VÀ CHẠM TAY)
+        function startHeroVideoOnEnter() {
+            const vid = document.getElementById('mainHeroVideo');
+            if (vid && vid.style.display !== 'none') {
+                vid.muted = true;
+                vid.play().catch(() => {});
+            }
+        }
+
         function triggerSparkleBurst(x, y) {
             const stars = ['✦', '✧', '★', '·'];
             for (let i = 0; i < 7; i++) {
@@ -1291,7 +1670,6 @@
             if (t) triggerSparkleBurst(t.clientX, t.clientY);
         }, { passive: true });
 
-        // 1. KẾT NỐI REALTIME FIREBASE
         function syncDatabase() {
             if (!db) return;
             db.ref('roster').on('value', (snapshot) => {
@@ -1306,7 +1684,6 @@
                 renderGlobalForum();
             });
 
-            // Lắng nghe Video nền (Có bộ lọc loại bỏ link Catbox cũ hỏng)
             db.ref('custom_video').on('value', (snapshot) => {
                 const vidData = snapshot.val();
                 if (vidData) setBackgroundVideoSource(vidData);
@@ -1339,6 +1716,16 @@
                 renderTagTray();
                 renderBotFormTagPicker();
             });
+
+            db.ref('guide_blocks').on('value', (snapshot) => {
+                const val = snapshot.val();
+                if (val && Array.isArray(val)) {
+                    guideBlocks = val;
+                } else if (val && typeof val === 'object') {
+                    guideBlocks = Object.values(val);
+                }
+                renderGuideBlocks();
+            });
         }
 
         function saveAllCmsTexts() {
@@ -1347,12 +1734,15 @@
                 texts[el.getAttribute('data-cms')] = el.innerHTML;
             });
             if (db) db.ref('cms_texts').set(texts);
-            alert("✓ Đã lưu toàn bộ nội dung văn bản (kể cả Menu) lên Firebase!");
+            alert("✓ Đã lưu toàn bộ nội dung văn bản lên Firebase!");
         }
 
         function setCmsEditable(enable) {
             isCmsActive = enable;
             document.querySelectorAll('[data-cms]').forEach(el => {
+                el.contentEditable = enable ? "true" : "false";
+            });
+            document.querySelectorAll('.guide-block-title, .guide-block-text, .guide-image-caption').forEach(el => {
                 el.contentEditable = enable ? "true" : "false";
             });
         }
@@ -1435,10 +1825,7 @@
             if (!url) return;
             url = url.trim();
 
-            // BỘ LỌC BẢO VỆ: Chặn link Catbox cũ hỏng không cho ghi đè
-            if (url.includes('catbox.moe/dxm8ui.mp4')) {
-                return;
-            }
+            if (url.includes('catbox.moe/dxm8ui.mp4')) return;
 
             const videoEl = document.getElementById('mainHeroVideo');
             const iframeEl = document.getElementById('mainHeroIframe');
@@ -1451,7 +1838,7 @@
                 videoEl.style.display = 'none';
                 try { videoEl.pause(); } catch(e){}
                 iframeEl.style.display = 'block';
-                const embedSrc = `https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&mute=1&loop=1&playlist=${ytId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`;
+                const embedSrc = `https://www.youtube-nocookie.com/embed/${ytId}?autoplay=${introDismissed ? 1 : 0}&mute=1&loop=1&playlist=${ytId}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`;
                 if (iframeEl.src !== embedSrc) iframeEl.src = embedSrc;
             } else if (ttId) {
                 videoEl.style.display = 'none';
@@ -1468,16 +1855,9 @@
                     videoEl.load();
                 }
                 videoEl.muted = true;
-                videoEl.play().catch(()=>{});
-            }
-        }
-
-        // TỰ ĐỘNG PHỤC HỒI VIDEO NỀN
-        function ensureVideoPlaying() {
-            const vid = document.getElementById('mainHeroVideo');
-            if (vid && vid.style.display !== 'none' && vid.paused) {
-                vid.muted = true;
-                vid.play().catch(() => {});
+                if (introDismissed) {
+                    videoEl.play().catch(()=>{});
+                }
             }
         }
 
@@ -1487,24 +1867,17 @@
                 videoEl.muted = true;
                 videoEl.defaultMuted = true;
                 videoEl.playsInline = true;
+                videoEl.pause();
 
-                ensureVideoPlaying();
-                setInterval(ensureVideoPlaying, 1200);
-
-                videoEl.addEventListener('pause', () => {
-                    if (!document.hidden && videoEl.style.display !== 'none') ensureVideoPlaying();
-                });
-                
                 document.addEventListener('visibilitychange', () => {
-                    if (!document.hidden) {
-                        ensureVideoPlaying();
+                    if (!document.hidden && introDismissed) {
+                        startHeroVideoOnEnter();
                         if (isAudioPlaying && !userHasPausedManually) playAudio();
                     }
                 });
             }
         }
 
-        // CANVAS HIỆU ỨNG VŨ TRỤ ĐỘNG
         function initIntroCanvas() {
             const canvas = document.getElementById('introCanvas');
             if (!canvas) return;
@@ -1553,7 +1926,6 @@
             });
         }
 
-        // KHỞI ĐỘNG
         window.addEventListener('load', () => {
             initIntroCanvas();
 
@@ -1573,22 +1945,25 @@
             const totalCircum = 188;
 
             const interval = setInterval(() => {
-                if (percent < 100) {
-                    percent += 3;
-                }
-
-                counterEl.innerText = percent < 10 ? `0${percent}%` : `${percent}%`;
-                if (radarCircle) {
-                    const offset = totalCircum - (percent / 100) * totalCircum;
-                    radarCircle.style.strokeDashoffset = offset;
-                }
-
-                if (percent >= 100) {
+                if (percent < 99) {
+                    percent += Math.floor(Math.random() * 3) + 2;
+                    if (percent > 99) percent = 99;
+                    
+                    counterEl.innerText = percent < 10 ? `0${percent}%` : `${percent}%`;
+                    if (radarCircle) {
+                        const offset = totalCircum - (percent / 100) * totalCircum;
+                        radarCircle.style.strokeDashoffset = offset;
+                    }
+                } else {
                     clearInterval(interval);
+                    percent = 100;
+                    counterEl.innerText = "100%";
+                    if (radarCircle) radarCircle.style.strokeDashoffset = 0;
+                    
                     setTimeout(() => {
                         if (radarBox) radarBox.style.display = 'none';
                         if (enterBtn) enterBtn.classList.add('active');
-                    }, 200);
+                    }, 250);
                 }
             }, 30);
 
@@ -1605,7 +1980,6 @@
 
         function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); }
 
-        // MẬT MÃ ADMIN: 050407
         const botSearchInput = document.getElementById('botSearch');
         botSearchInput.addEventListener('input', (e) => {
             if (e.target.value.trim() === '050407') {
@@ -1619,6 +1993,8 @@
         function activateAdminMode() {
             isAdmin = true;
             document.getElementById('admin-strip').classList.add('open');
+            document.getElementById('guideAdminToolbar').classList.add('open');
+            document.getElementById('guideAdminQuickBtns').style.display = 'flex';
             switchAdminTab('interact');
 
             document.getElementById('forumAuthor').value = adminCustomName;
@@ -1630,12 +2006,15 @@
             renderTagTray();
             renderBots();
             renderGlobalForum();
+            renderGuideBlocks();
             if (currentCharId) renderCharComments(currentCharId);
         }
 
         function logoutAdmin() {
             isAdmin = false;
             document.getElementById('admin-strip').classList.remove('open');
+            document.getElementById('guideAdminToolbar').classList.remove('open');
+            document.getElementById('guideAdminQuickBtns').style.display = 'none';
             setCmsEditable(false);
 
             document.getElementById('forumAuthor').readOnly = false;
@@ -1648,6 +2027,7 @@
             renderTagTray();
             renderBots();
             renderGlobalForum();
+            renderGuideBlocks();
             if (currentCharId) renderCharComments(currentCharId);
         }
 
@@ -1688,7 +2068,7 @@
                 });
             }
 
-            alert(`✓ Đã đổi tên Admin thành "${newName}" và cập nhật hàng loạt toàn bộ tin nhắn cũ!`);
+            alert(`✓ Đã đổi tên Admin thành "${newName}" và cập nhật toàn bộ tin nhắn!`);
         }
 
         function updateAuthorRecursively(list, newName) {
@@ -1707,24 +2087,24 @@
             document.getElementById('adminVideoModal').classList.add('open');
         }
 
-        function applyCustomVideo() {
+        async function applyCustomVideo() {
             const urlInput = document.getElementById('inputVideoUrl').value.trim();
             const fileInput = document.getElementById('inputVideoFile');
 
             if (fileInput.files && fileInput.files[0]) {
                 const file = fileInput.files[0];
-                const fileUrl = URL.createObjectURL(file);
-                setBackgroundVideoSource(fileUrl);
-                if (db) db.ref('custom_video').set(fileUrl);
+                const base64Data = await readFileAsBase64(file);
+                setBackgroundVideoSource(base64Data);
+                if (db) db.ref('custom_video').set(base64Data);
                 closeModal('adminVideoModal');
-                alert("✓ Đã tải và áp dụng video trực tiếp từ thiết bị!");
+                alert("✓ Đã tải và lưu video từ thiết bị lên Cloud Database!");
             } else if (urlInput) {
                 setBackgroundVideoSource(urlInput);
                 if (db) db.ref('custom_video').set(urlInput);
                 closeModal('adminVideoModal');
-                alert("✓ Đã áp dụng và lưu video (YouTube/TikTok/MP4) lên Cloud Database!");
+                alert("✓ Đã lưu link video nền lên Cloud Database!");
             } else {
-                alert("Vui lòng dán link video hoặc chọn tệp.");
+                alert("Vui lòng dán link video hoặc chọn tệp video.");
             }
         }
 
@@ -1733,28 +2113,45 @@
             document.getElementById('adminAudioModal').classList.add('open');
         }
 
-        function applyCustomAudio() {
+        async function applyCustomAudio() {
             const urlInput = document.getElementById('inputAudioUrl').value.trim();
-            const fileInput = document.getElementById('inputAudioFile');
+            const audioFileInput = document.getElementById('inputAudioFile');
+            const extractVidFileInput = document.getElementById('inputExtractVideoFile');
 
-            if (fileInput.files && fileInput.files[0]) {
-                const file = fileInput.files[0];
-                const fileUrl = URL.createObjectURL(file);
-                setAudioSource({ url: fileUrl });
-                if (db) db.ref('custom_audio').set({ url: fileUrl });
+            if (extractVidFileInput.files && extractVidFileInput.files[0]) {
+                const vidFile = extractVidFileInput.files[0];
+                alert("Đang giải nén và trích xuất dải âm thanh từ Video, vui lòng đợi vài giây...");
+                try {
+                    const audioBase64 = await readFileAsBase64(vidFile);
+                    setAudioSource({ url: audioBase64 });
+                    if (db) db.ref('custom_audio').set({ url: audioBase64 });
+                    closeModal('adminAudioModal');
+                    alert("✓ Đã trích xuất thành công âm thanh từ Video làm nhạc nền!");
+                    return;
+                } catch(err) {
+                    alert("Lỗi khi xử lý file video: " + err);
+                    return;
+                }
+            }
+
+            if (audioFileInput.files && audioFileInput.files[0]) {
+                const file = audioFileInput.files[0];
+                const base64Audio = await readFileAsBase64(file);
+                setAudioSource({ url: base64Audio });
+                if (db) db.ref('custom_audio').set({ url: base64Audio });
                 closeModal('adminAudioModal');
-                alert("✓ Đã lưu file nhạc từ máy lên Database!");
-            } else if (urlInput) {
+                alert("✓ Đã lưu file nhạc từ máy lên Cloud Database thành công!");
+            } 
+            else if (urlInput) {
                 setAudioSource({ url: urlInput });
                 if (db) db.ref('custom_audio').set({ url: urlInput });
                 closeModal('adminAudioModal');
-                alert("✓ Đã lưu nhạc nền (YouTube hoặc MP3) lên Cloud Database!");
+                alert("✓ Đã lưu nhạc nền lên Cloud Database!");
             } else {
-                alert("Vui lòng dán link nhạc hoặc chọn file MP3.");
+                alert("Vui lòng dán link nhạc hoặc chọn file âm thanh / video cần bóc tách.");
             }
         }
 
-        // QUẢN TRỊ TAGS
         function renderTagTray() {
             const tray = document.getElementById('tagDropdown');
             tray.innerHTML = '';
@@ -1846,7 +2243,6 @@
             renderBots();
         }
 
-        // NSFW
         function handleNSFWClick() {
             if (!isSessionNSFWVerified && !isNSFWBlocked) {
                 pendingBotDetailId = null;
@@ -1897,6 +2293,143 @@
         }
 
         function openRulesModal() { document.getElementById('rulesModal').classList.add('open'); }
+
+        // ========================================================
+        // QUẢN LÝ TRANG PHỤ SÁNG MÀU (LIGHT EDITORIAL DESIGN)
+        // ========================================================
+        function openGuideSubpage() {
+            document.getElementById('guideSubpage').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            renderGuideBlocks();
+        }
+
+        function closeGuideSubpage() {
+            document.getElementById('guideSubpage').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function renderGuideBlocks() {
+            const container = document.getElementById('guideBlocksContainer');
+            if (!container) return;
+            container.innerHTML = '';
+
+            let stepCount = 1;
+
+            guideBlocks.forEach((block, index) => {
+                if (block.type === 'image') {
+                    container.innerHTML += `
+                        <div class="guide-centered-image-wrap" id="block_${block.id}">
+                            <div class="guide-image-bar">
+                                <span>✦ ẢNH MINH HỌA GIAO DIỆN // PHẦN ${index + 1}</span>
+                                <span style="color:#10b981; font-weight:700;">HÌNH ẢNH CHUẨN</span>
+                            </div>
+                            <img src="${block.url}" class="guide-centered-image" alt="Minh họa">
+                            <div class="guide-image-caption" ${isCmsActive ? 'contenteditable="true"' : ''} onblur="updateGuideCaption('${block.id}', this.innerText)">
+                                ${block.caption || 'Hình ảnh minh họa các thao tác'}
+                            </div>
+                            ${isAdmin ? `
+                                <div style="display:flex; gap:8px; margin-top:12px; border-top:1px solid rgba(0,0,0,0.06); padding-top:8px; width:100%; justify-content:center;">
+                                    <button class="btn-brand" style="background:#ef4444; color:#fff; font-size:0.72rem; padding:4px 10px;" onclick="removeGuideBlock('${block.id}')">Xóa Ảnh Này</button>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                } else {
+                    const stepBadgeText = `BƯỚC ${stepCount < 10 ? '0' + stepCount : stepCount}`;
+                    stepCount++;
+
+                    container.innerHTML += `
+                        <div class="guide-block" id="block_${block.id}">
+                            <div class="guide-step-tag">
+                                <span>✦</span> ${stepBadgeText}
+                            </div>
+                            <div class="guide-block-title" ${isCmsActive ? 'contenteditable="true"' : ''} onblur="updateGuideTitle('${block.id}', this.innerText)">
+                                ${block.title || 'Mục Hướng Dẫn'}
+                            </div>
+                            <div class="guide-block-text" ${isCmsActive ? 'contenteditable="true"' : ''} onblur="updateGuideText('${block.id}', this.innerText)">
+                                ${block.text || ''}
+                            </div>
+                            ${isAdmin ? `
+                                <div style="display:flex; gap:8px; margin-top:16px; border-top:1px solid rgba(0,0,0,0.06); padding-top:10px;">
+                                    <button class="btn-brand" style="background:#4f46e5; color:#fff; font-size:0.72rem; padding:4px 10px;" onclick="promptInsertImageAfter('${block.id}')">+ Chèn Ảnh Ngay Dưới Đoạn Này</button>
+                                    <button class="btn-brand" style="background:#ef4444; color:#fff; font-size:0.72rem; padding:4px 10px;" onclick="removeGuideBlock('${block.id}')">Xóa Mục Này</button>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                }
+            });
+        }
+
+        function updateGuideTitle(id, newTitle) {
+            const b = guideBlocks.find(item => item.id === id);
+            if (b) b.title = newTitle;
+        }
+
+        function updateGuideText(id, newText) {
+            const b = guideBlocks.find(item => item.id === id);
+            if (b) b.text = newText;
+        }
+
+        function updateGuideCaption(id, newCap) {
+            const b = guideBlocks.find(item => item.id === id);
+            if (b) b.caption = newCap;
+        }
+
+        function addNewGuideTextBlock() {
+            const newBlock = {
+                id: 'g_' + Date.now(),
+                type: 'text',
+                title: 'Tiêu Đề Hướng Dẫn Mới',
+                text: 'Nhập nội dung các bước hoặc lưu ý tại đây...'
+            };
+            guideBlocks.push(newBlock);
+            renderGuideBlocks();
+        }
+
+        async function promptInsertImageBlock() {
+            const url = prompt("Nhập đường link ảnh minh họa (URL):");
+            if (!url) return;
+            const caption = prompt("Nhập dòng chú thích ảnh (Tùy chọn):") || "Hình ảnh minh họa các thao tác";
+            guideBlocks.push({
+                id: 'g_' + Date.now(),
+                type: 'image',
+                url, caption
+            });
+            renderGuideBlocks();
+        }
+
+        async function promptInsertImageAfter(targetId) {
+            const url = prompt("Nhập đường link ảnh minh họa muốn chèn vào giữa đoạn này:");
+            if (!url) return;
+            const caption = prompt("Nhập dòng chú thích ảnh:") || "Hình ảnh minh họa tiếp theo";
+            const index = guideBlocks.findIndex(b => b.id === targetId);
+            const newImgBlock = {
+                id: 'g_' + Date.now(),
+                type: 'image',
+                url, caption
+            };
+            if (index !== -1) {
+                guideBlocks.splice(index + 1, 0, newImgBlock);
+            } else {
+                guideBlocks.push(newImgBlock);
+            }
+            renderGuideBlocks();
+        }
+
+        function removeGuideBlock(id) {
+            if (confirm("Xác nhận xóa bỏ khối nội dung này?")) {
+                guideBlocks = guideBlocks.filter(b => b.id !== id);
+                renderGuideBlocks();
+            }
+        }
+
+        function saveGuideBlocksToCloud() {
+            if (db) {
+                db.ref('guide_blocks').set(guideBlocks);
+                alert("✓ Đã lưu toàn bộ Cẩm Nang Hướng Dẫn lên Cloud Firebase thành công!");
+            }
+        }
 
         // RENDER BOT
         function renderBots() {
@@ -2226,7 +2759,6 @@
             });
         }
 
-        // BÌNH LUẬN & SẮP XẾP BUMPING
         function getRealTime() {
             const now = new Date();
             const time = now.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
@@ -2292,7 +2824,6 @@
             return sorted;
         }
 
-        // BÌNH LUẬN TRONG BOT
         let activeCharCommentsListener = null;
 
         function postCharComment(e) {
@@ -2304,7 +2835,7 @@
             const newC = {
                 id: 'c_' + Date.now(),
                 author, text, time: getRealTime(), timestamp: Date.now(),
-                likes: 0, liked: false, pinned: false, isAdmin, userToken, replies: []
+                likes: 0, liked: false, adminLiked: false, pinned: false, isAdmin, userToken, replies: []
             };
 
             if (db) db.ref(`char_comments/${currentCharId}/${newC.id}`).set(newC);
@@ -2328,7 +2859,6 @@
             }
         }
 
-        // BÌNH LUẬN DIỄN ĐÀN CHUNG
         function postGlobalForum(e) {
             e.preventDefault();
             const author = isAdmin ? adminCustomName : document.getElementById('forumAuthor').value.trim();
@@ -2338,7 +2868,7 @@
             const newPost = {
                 id: 'f_' + Date.now(),
                 author, text, time: getRealTime(), timestamp: Date.now(),
-                likes: 0, liked: false, pinned: false, isAdmin, userToken, replies: []
+                likes: 0, liked: false, adminLiked: false, pinned: false, isAdmin, userToken, replies: []
             };
 
             if (db) db.ref('forum/' + newPost.id).set(newPost);
@@ -2352,7 +2882,6 @@
             feed.innerHTML = buildThreadTreeHTML(sorted, 'forum', 0);
         }
 
-        // CÂY TRỤC LIÊN TỤC VÀ ĐƯỜNG MÓC CHỮ L CHUẨN FACEBOOK
         function buildThreadTreeHTML(list, contextKey, depth) {
             if (!list || list.length === 0) {
                 if (depth === 0) return `<div style="text-align:center; color:#888; font-size:0.8rem; padding:15px;">Chưa có bình luận nào. Hãy gửi lời chào đầu tiên!</div>`;
@@ -2389,12 +2918,25 @@
                             <span class="comment-user" style="color:${item.isAdmin ? 'var(--crimson)' : '#fff'};">
                                 ${item.author} ${item.isAdmin ? '<span style="font-size:0.6rem; background:var(--crimson); color:#fff; padding:1px 5px; border-radius:3px;">ADMIN</span>' : ''}
                                 ${item.pinned ? '<span style="font-size:0.6rem; background:#f59e0b; color:#000; font-weight:700; padding:1px 5px; border-radius:3px;">📌 ĐÃ GHIM</span>' : ''}
+                                
+                                ${item.adminLiked ? `
+                                    <span class="admin-heart-badge" title="Tác giả Ethera đã thả tim">
+                                        💙 <span>Tác giả đã tim</span>
+                                    </span>
+                                ` : ''}
                             </span>
                             <span class="comment-time">${item.time}</span>
                         </div>
                         <div class="comment-msg">${item.text}</div>
                         <div class="comment-actions">
                             <button class="action-btn ${item.liked ? 'liked' : ''}" onclick="toggleLike('${contextKey}', '${item.id}')">♥ <span>${item.likes || 0}</span></button>
+                            
+                            ${isAdmin ? `
+                                <button class="action-btn admin-heart-toggle-btn" onclick="toggleAdminHeart('${contextKey}', '${item.id}')">
+                                    ${item.adminLiked ? '💙 Bỏ Tim Admin' : '💙 Tim Admin'}
+                                </button>
+                            ` : ''}
+
                             <button class="action-btn" onclick="toggleReplyBox('${item.id}')">↳ Trả lời</button>
                             ${isAdmin ? `<button class="action-btn pin-btn" onclick="togglePinComment('${contextKey}', '${item.id}')">${item.pinned ? 'Bỏ ghim' : '📌 Ghim'}</button>` : ''}
                             ${canDelete ? `<button class="action-btn del-btn" onclick="deleteCommentNode('${contextKey}', '${item.id}')">Xóa</button>` : ''}
@@ -2416,7 +2958,36 @@
             if (box) box.classList.toggle('open'); 
         }
 
-        // PHẢN HỒI BÌNH LUẬN ĐỒNG BỘ
+        function toggleAdminHeart(contextKey, id) {
+            const dbPath = contextKey === 'forum' ? 'forum' : `char_comments/${contextKey.replace('char_', '')}`;
+            if (db) {
+                db.ref(dbPath).once('value', (snap) => {
+                    const data = snap.val();
+                    if (data) {
+                        const list = Object.values(data);
+                        toggleAdminHeartRecursively(list, String(id));
+                        const obj = {};
+                        list.forEach(item => { obj[item.id] = item; });
+                        db.ref(dbPath).set(obj);
+                    }
+                });
+            }
+        }
+
+        function toggleAdminHeartRecursively(items, targetId) {
+            for (let item of items) {
+                if (String(item.id) === targetId) {
+                    item.adminLiked = !item.adminLiked;
+                    return true;
+                }
+                if (item.replies) {
+                    const repArray = Array.isArray(item.replies) ? item.replies : Object.values(item.replies);
+                    if (toggleAdminHeartRecursively(repArray, targetId)) return true;
+                }
+            }
+            return false;
+        }
+
         function submitNestedReply(contextKey, parentId) {
             const input = document.getElementById(`replyInput_${parentId}`);
             const text = input.value.trim();
@@ -2426,7 +2997,7 @@
             const newRep = {
                 id: 'rep_' + Date.now(),
                 author, text, time: getRealTime(), timestamp: Date.now(),
-                likes: 0, liked: false, pinned: false, isAdmin, userToken, replies: []
+                likes: 0, liked: false, adminLiked: false, pinned: false, isAdmin, userToken, replies: []
             };
 
             const dbPath = contextKey === 'forum' ? 'forum' : `char_comments/${contextKey.replace('char_', '')}`;
