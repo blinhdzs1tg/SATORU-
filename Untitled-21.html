@@ -2,7 +2,6 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<!-- KHÓA CO GIÃN & CHỈNH SIZE CHUẨN ĐỂ KHÔNG BỊ TRẮNG ĐÁY HAY GIẬT PHÓNG TO BÀN PHÍM -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content">
 <meta name="theme-color" content="#070706">
 <title>TERMINAL // ES-003 : GOJO SATORU</title>
@@ -10,7 +9,10 @@
 <!-- GOOGLE FONTS -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Xanh+Mono:ital@0;1&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Xanh+Mono:ital@0;1&family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+
+<!-- THƯ VIỆN ĐỌC FILE DOCX/DOC SIÊU TỐC TRÊN TRÌNH DUYỆT -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.21/mammoth.browser.min.js"></script>
 
 <style>
 :root{
@@ -33,7 +35,7 @@
 
 *{box-sizing:border-box;margin:0;padding:0}
 
-/* KHÓA NỀN CỐ ĐỊNH TRÁNH MẢNG TRẮNG KHI CUỘN BÀN PHÍM */
+/* KHÓA NỀN CỐ ĐỊNH TRÁNH MẢNG TRẮNG KHI CUỘN BÀN PHÍM DI ĐỘNG */
 html{
   background-color: #070706 !important;
   height: 100%;
@@ -270,8 +272,16 @@ body{
   font-size: 12px;
 }
 
-.text-action{ font-style: italic; color: #bfa993; }
-.text-speech{ color: #ffffff; font-weight: 600; text-shadow: 0 0 3px rgba(255,255,255,0.25); }
+/* ĐỊNH DẠNG CHỮ IN NGHIÊNG SẠCH SẼ */
+.msg-bubble em{
+  font-style: italic !important;
+  color: #c4b19d !important;
+}
+.text-speech{ 
+  color: #ffffff; 
+  font-weight: 600; 
+  text-shadow: 0 0 3px rgba(255,255,255,0.25); 
+}
 
 .msg-actions{
   display: flex;
@@ -352,8 +362,6 @@ body{
   gap: 8px;
   align-items: flex-end;
 }
-
-/* KHÓA PHÓNG TO BẰNG FONT 16PX TRÊN MOBILE */
 .chat-textarea{
   flex: 1;
   background: #141311;
@@ -373,7 +381,7 @@ body{
 
 @media (max-width: 900px) {
   .chat-textarea, .form-control {
-    font-size: 16px !important; /* Điểm cốt lõi: Ngăn Safari/Chrome mobile tự phóng to gây giật */
+    font-size: 16px !important;
   }
 }
 
@@ -465,7 +473,7 @@ body{
   font-size: 12px;
 }
 
-/* ================= 5. FORM CONTROLS (TAPE 003 DARK TACTICAL) ================= */
+/* ================= 5. FORM CONTROLS ================= */
 .form-group{ margin-bottom: 10px; }
 .form-group label{
   display: block;
@@ -775,6 +783,37 @@ select.form-control option{
 }
 .add-key-btn:hover{ border-color: var(--cyan); color: #fff; }
 
+/* TIẾN TRÌNH XỬ LÝ (PROGRESS BAR) */
+.doc-progress-box{
+  margin-top: 10px;
+  padding: 8px;
+  background: #141210;
+  border: 1px solid #37352f;
+  display: none;
+}
+.doc-progress-box.active{ display: block; }
+.doc-progress-label{
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-hud);
+  font-size: 10px;
+  color: var(--paper-dim);
+  margin-bottom: 5px;
+}
+.doc-progress-track{
+  height: 5px;
+  background: #090908;
+  border: 1px solid #4a4037;
+  overflow: hidden;
+  position: relative;
+}
+.doc-progress-fill{
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--cyan), var(--red-bright));
+  transition: width 0.3s ease;
+}
+
 /* MODALS */
 .modal-overlay{
   display: none;
@@ -867,7 +906,7 @@ select.form-control option{
   <div class="header-main">
     <div class="char-meta">
       <div class="char-avatar-box">
-        <img class="char-avatar" id="topAvatar" src="https://i.postimg.cc/hjDwgbyL/IMG-4687.jpg" alt="Gojo Satoru">
+        <img class="char-avatar" id="topAvatar" src="https://img.sanishtech.com/u/27a3f06422259abb9aab56b4dbb2c578.jpeg" alt="Gojo Satoru">
       </div>
       <div class="char-info">
         <div class="char-name">Gojo Satoru - ES003</div>
@@ -914,11 +953,11 @@ select.form-control option{
     </div>
   </main>
 
-  <!-- SIDEBAR MENU -->
+  <!-- SIDEBAR MENU (TỔNG CỘNG 6 MỤC) -->
   <aside class="sidebar" id="sidebar">
     <div class="side-header">
       <span>TERMINAL PANEL // TAPE-003</span>
-      <span class="status-pill" id="authBadge">ONLINE</span>
+      <span class="status-pill" id="authBadge">CHẾ ĐỘ KHÁCH</span>
     </div>
 
     <!-- 1. HỒ SƠ USER -->
@@ -971,7 +1010,6 @@ select.form-control option{
           </div>
         </div>
 
-        <!-- MỤC 1: VẬT TƯ LỤC LỌI (MAX 3) -->
         <div class="sub-inv-title">
           <span>VẬT TƯ LỤC LỌI</span>
           <span id="scavengeCountBadge" style="color:var(--cyan)">0/3</span>
@@ -979,7 +1017,6 @@ select.form-control option{
         <div class="inv-list" id="scavengedListContainer"></div>
         <button class="search-item-btn" id="btnScavenge" type="button">+ LỤC LỌI VẬT TƯ (TỐI ĐA 3 MÓN)</button>
 
-        <!-- MỤC 2: VẬT PHẨM CỐT TRUYỆN (VÔ HẠN) -->
         <div class="sub-inv-title" style="margin-top:14px;">
           <span>VẬT PHẨM CỐT TRUYỆN</span>
           <span id="storyCountBadge" style="color:var(--red-bright)">0 MÓN</span>
@@ -997,7 +1034,6 @@ select.form-control option{
       <div class="gps-box">
         <div class="radar-grid"></div>
 
-        <!-- CỨ ĐIỂM CỐ ĐỊNH -->
         <div class="radar-landmark" style="top:25%; left:28%;">
           <span class="lm-dot"></span><span class="lm-name">Bệnh viện</span>
         </div>
@@ -1011,7 +1047,6 @@ select.form-control option{
           <span class="lm-dot"></span><span class="lm-name">Ngoại ô</span>
         </div>
 
-        <!-- CHẤM ĐỎ ĐỊNH VỊ NHẤP NHÁY -->
         <div class="radar-blip" id="radarBlip" style="top: 50%; left: 50%;"></div>
         <div class="gps-caption" id="gpsCaption">VỊ TRÍ: NGOẠI Ô HẺO LÁNH // ĐANG TRỐN CHẠY</div>
       </div>
@@ -1027,12 +1062,11 @@ select.form-control option{
         <div class="form-group">
           <label>CHỌN MODEL GOOGLE AI STUDIO</label>
           <select class="form-control" id="modelSelect">
-            <option value="gemini-3.8-flash" selected>3.8 Flash (Tối ưu tốc độ & roleplay)</option>
-            <option value="gemini-4-argon">4 Argon (Siêu trí tuệ, suy luận sâu)</option>
-            <option value="gemini-3.5-flash-lite">3.5 Flash Lite (Phản hồi tức thì, nhẹ)</option>
-            <option value="gemini-3.1-pro-preview">3.1 Pro Preview (Bối cảnh lớn, phân tích)</option>
-            <option value="gemini-3.1-flash-lite">3.1 Flash Lite (Tiết kiệm hạn mức)</option>
-            <option value="gemini-3-flash-preview">3 Flash Preview (Thế hệ Flash v3)</option>
+            <option value="gemini-2.5-flash" selected>2.5 Flash (Tối ưu tốc độ & roleplay)</option>
+            <option value="gemini-2.5-pro">2.5 Pro (Siêu suy luận sâu, văn phong đỉnh)</option>
+            <option value="gemini-2.0-flash-exp">2.0 Flash (Thế hệ Flash tốc độ cao)</option>
+            <option value="gemini-1.5-pro">1.5 Pro (Context cửa sổ cực lớn)</option>
+            <option value="gemini-1.5-flash">1.5 Flash (Nhẹ & tiết kiệm token)</option>
           </select>
         </div>
 
@@ -1046,10 +1080,53 @@ select.form-control option{
       </div>
     </details>
 
-    <!-- 5. TÀI KHOẢN HỆ THỐNG -->
+    <!-- 5. CHUYỂN SINH DỮ LIỆU & BỘ NHỚ FILE DOC (MỤC MỚI) -->
+    <details class="hud-folder" id="folderDocBridge" open>
+      <summary class="folder-header">
+        <div class="folder-title-left">05 // CHUYỂN SINH BỘ NHỚ [DOC]</div>
+        <span class="folder-badge" style="color:var(--cyan)">MIGRATE</span>
+      </summary>
+      <div class="folder-body">
+        <p style="font-size:11px;color:var(--paper-dim);margin-bottom:10px;line-height:1.6">
+          Chuyển đổi dữ liệu giữa Web Terminal và Google AI Studio. Tóm tắt biên niên sử từ 15k - 50k token hoặc nhập tóm tắt để tiếp tục cuộc hành trình.
+        </p>
+
+        <!-- NÚT 1: XUẤT FILE DOC -->
+        <button class="save-btn" id="btnExportDoc" type="button" style="border-color:#3ca2c8;color:#b2e2f3;margin-top:0">
+          ▼ XUẤT TOÀN BỘ BỘ NHỚ RA FILE DOC
+        </button>
+
+        <!-- THANH TIẾN TRÌNH XUẤT FILE -->
+        <div class="doc-progress-box" id="exportProgressBox">
+          <div class="doc-progress-label">
+            <span id="exportProgressText">Đang truy xuất dữ liệu...</span>
+            <span id="exportProgressPercent">0%</span>
+          </div>
+          <div class="doc-progress-track">
+            <div class="doc-progress-fill" id="exportProgressFill"></div>
+          </div>
+        </div>
+
+        <!-- NÚT TẢI FILE SAU KHI XONG -->
+        <button class="save-btn" id="btnDownloadDoc" type="button" style="display:none;background:#153028;border-color:#2fa86d;color:#71e5a5;margin-top:8px">
+          💾 TẢI FILE MEMORY [.DOC] VỀ THIẾT BỊ
+        </button>
+
+        <!-- NÚT 2: NẠP FILE DOC VÀO WEB -->
+        <div style="margin-top:14px;border-top:1px dashed #37352f;padding-top:12px">
+          <input type="file" id="importDocFileInput" accept=".doc,.docx,.txt" style="display:none">
+          <button class="save-btn" id="btnTriggerImportDoc" type="button" style="border-color:var(--red-bright);color:#ff9e9e;margin-top:0">
+            ▲ NẠP FILE DOC (CHUYỂN SINH VÀO WEB)
+          </button>
+          <div id="importStatusText" style="font-family:var(--font-hud);font-size:10px;color:var(--paper-dim);margin-top:6px;min-height:16px;"></div>
+        </div>
+      </div>
+    </details>
+
+    <!-- 6. TÀI KHOẢN HỆ THỐNG -->
     <details class="hud-folder">
       <summary class="folder-header">
-        <div class="folder-title-left">05 // TÀI KHOẢN HỆ THỐNG</div>
+        <div class="folder-title-left">06 // TÀI KHOẢN HỆ THỐNG</div>
         <span class="folder-badge">FIRESTORE</span>
       </summary>
       <div class="folder-body">
@@ -1147,7 +1224,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-/* KHÓA MẢNG TRẮNG BÀN PHÍM ĐIỆN THOẠI BẰNG VISUAL VIEWPORT API */
+/* KHÓA MẢNG TRẮNG BÀN PHÍM DI ĐỘNG */
 if (window.visualViewport) {
   const onViewportChange = () => {
     document.body.style.height = `${window.visualViewport.height}px`;
@@ -1198,8 +1275,19 @@ HIỆN TRẠNG CỦA GOJO:
 - Cả hai đang trốn chạy sự truy đuổi của giới chú thuật.
 `;
 
-/* ================= QUẢN LÝ PHIÊN & TRẠNG THÁI BỀN VỮNG ================= */
-let currentUserId = localStorage.getItem("es_current_user_id") || "guest_003";
+/* ================= QUẢN LÝ PHIÊN: TÁCH RIÊNG KHÁCH MỚI HOÀN TOÀN ================= */
+let currentUserId = localStorage.getItem("es_current_user_id");
+let isGuest = false;
+
+if (!currentUserId || currentUserId === "guest_003" || currentUserId.startsWith("guest_")) {
+  if (!currentUserId || currentUserId === "guest_003") {
+    currentUserId = "guest_" + Math.random().toString(36).substring(2, 9);
+    localStorage.setItem("es_current_user_id", currentUserId);
+    localStorage.removeItem("es_cache_guest_003");
+  }
+  isGuest = true;
+}
+
 let currentUserName = localStorage.getItem("es_user_name") || "Em";
 let currentUserAvatar = localStorage.getItem("es_user_avatar") || "https://img.sanishtech.com/u/38bb2890e4468142f61fc9dd0de72c6b.jpeg";
 let apiKeys = JSON.parse(localStorage.getItem("es_api_keys") || '[]');
@@ -1219,6 +1307,10 @@ let pendingUseItem = null;
 const exhaustedKeysSet = new Set();
 const exhaustedKeysPendingHighlight = new Set();
 const innerThoughtsCache = {};
+
+/* BIẾN LƯU TÀI LIỆU DOC VỪA TẠO */
+let generatedDocBlobUrl = null;
+let generatedDocFileName = "";
 
 /* DOM ELEMENTS */
 const chatLogs = document.getElementById("chatLogs");
@@ -1263,6 +1355,18 @@ const confirmRegisterModal = document.getElementById("confirmRegisterModal");
 const closeRegisterModalBtn = document.getElementById("closeRegisterModalBtn");
 const btnCancelRegister = document.getElementById("btnCancelRegister");
 const btnConfirmRegister = document.getElementById("btnConfirmRegister");
+
+/* CÁC PHẦN TỬ MỤC 05 CHUYỂN SINH DOC */
+const btnExportDoc = document.getElementById("btnExportDoc");
+const exportProgressBox = document.getElementById("exportProgressBox");
+const exportProgressText = document.getElementById("exportProgressText");
+const exportProgressPercent = document.getElementById("exportProgressPercent");
+const exportProgressFill = document.getElementById("exportProgressFill");
+const btnDownloadDoc = document.getElementById("btnDownloadDoc");
+
+const btnTriggerImportDoc = document.getElementById("btnTriggerImportDoc");
+const importDocFileInput = document.getElementById("importDocFileInput");
+const importStatusText = document.getElementById("importStatusText");
 
 let toastTimer;
 function notify(msg, dur = 3200) {
@@ -1315,11 +1419,11 @@ btnHelpSpeech.onclick = () => insertHelperTags("“", "”");
 btnHelpAction.onclick = () => insertHelperTags("*", "*");
 btnHelpThought.onclick = () => insertHelperTags("(", ")");
 
-/* FORMAT VĂN BẢN ROLEPLAY */
+/* SỬA LỖI MARKDOWN: CHỮ TRONG DẤU SAO IN NGHIÊNG SẠCH SẼ */
 function formatMessageContent(rawText) {
   let text = escapeHTML(rawText);
-  text = text.replace(/\*\*(.+?)\*\*/g, '<span class="text-action">* $1 *</span>');
-  text = text.replace(/\*([^*\n]+?)\*/g, '<span class="text-action">* $1 *</span>');
+  text = text.replace(/\*\*(.+?)\*\*/g, '<em>$1</em>');
+  text = text.replace(/\*([^*\n]+?)\*/g, '<em>$1</em>');
   text = text.replace(/(“[^”]+?”|"[^"]+?")/g, '<span class="text-speech">$1</span>');
   return text;
 }
@@ -1343,7 +1447,7 @@ function updateRadarLocation(name, isMajor) {
   }
 }
 
-/* ================= QUẢN LÝ VẬT PHẨM & DÙNG ĐỒ HOÀN TOÀN NGẦM HIỂU ================= */
+/* ================= QUẢN LÝ VẬT PHẨM ================= */
 function renderInventory() {
   scavengedItems = scavengedItems.filter(i => i && i.name);
   storyItems = storyItems.filter(i => i && i.name);
@@ -1390,13 +1494,11 @@ function createItemCard(item, onUse, onDrop) {
   return div;
 }
 
-/* CHUẨN BỊ DÙNG ĐỒ HOÀN TOÀN NGẦM HIỂU (TUYỆT ĐỐI KHÔNG ĐIỀN TEXT VÀO Ô CHAT) */
 function prepareUseItemImplicitly(item, category) {
   pendingUseItem = { ...item, category };
   notify(`Đã kích hoạt ngầm <strong>"${item.name}"</strong>. Khi gửi tin nhắn, Gojo sẽ tự cảm nhận.`);
 }
 
-/* VỨT BỎ VẬT PHẨM */
 function dropItemAction(category, index) {
   let droppedName = "";
   if (category === 'scavenged') {
@@ -1411,7 +1513,6 @@ function dropItemAction(category, index) {
   notify(`Đã vứt bỏ <em>"${droppedName}"</em> khỏi túi đồ.`);
 }
 
-/* TRỪ ĐỒ KHI TIN NHẮN ĐƯỢC GỬI ĐI THẬT SỰ */
 function processItemDeductionOnMessageSent(sentText) {
   const lowerText = sentText.toLowerCase();
   let itemConsumed = null;
@@ -1457,7 +1558,6 @@ function processItemDeductionOnMessageSent(sentText) {
   return consumedItemRef;
 }
 
-/* LỤC LỌI ĐỒ THEO VỊ TRÍ */
 btnScavenge.onclick = () => {
   if (scavengedItems.length >= 3) {
     return alert("Túi vật tư lục lọi đã đầy (Tối đa 3 món)! Hãy Dùng hoặc Bỏ bớt đồ trước.");
@@ -1470,7 +1570,6 @@ btnScavenge.onclick = () => {
   else if (loc.includes("shibuya") || loc.includes("shinjuku")) currentZone = "shibuya";
 
   const zonePool = LOCATION_ITEM_POOLS[currentZone] || LOCATION_ITEM_POOLS["ngoại ô"];
-
   const heldNames = new Set([
     ...scavengedItems.map(i => i.name),
     ...storyItems.map(i => i.name),
@@ -1571,7 +1670,7 @@ modelSelect.onchange = () => {
   notify(`Đã đổi sang model: <strong>${modelSelect.value}</strong>. Các Key đã được kích hoạt lại.`);
 };
 
-/* ================= 4. GỌI AI & KHÓA TEXT-ACTION ================= */
+/* ================= 4. GỌI GEMINI API & FIRESTORE ================= */
 function getUserDocRef() { return doc(db, "user", "003", "users", currentUserId); }
 function getChatsColRef() { return collection(db, "user", "003", "users", currentUserId, "chats"); }
 function getMemoryColRef() { return collection(db, "user", "003", "users", currentUserId, "memory_summary"); }
@@ -1579,6 +1678,7 @@ function getMemoryColRef() { return collection(db, "user", "003", "users", curre
 async function getFullSystemPrompt(consumedItem = null) {
   let charInstruction = "";
   let respondRule = "";
+  let lengthRule = "";
   let moneyRule = "";
 
   try {
@@ -1589,6 +1689,13 @@ async function getFullSystemPrompt(consumedItem = null) {
   try {
     const ruleSnap = await getDoc(doc(db, "respond_rule", "sfw1"));
     if (ruleSnap.exists()) respondRule = ruleSnap.data().system_instruction || "";
+  } catch(e) {}
+
+  try {
+    const lengthSnap = await getDoc(doc(db, "respond_rule", "length"));
+    if (lengthSnap.exists()) {
+      lengthRule = lengthSnap.data().system_instruction || lengthSnap.data().prompt_instruction || "";
+    }
   } catch(e) {}
 
   try {
@@ -1604,11 +1711,14 @@ ${charInstruction || FALLBACK_CHAR_INSTRUCTION}
 [LUẬT PHẢN HỒI]:
 ${respondRule || "Nhập vai tự nhiên sâu sắc, chú ý diễn biến tâm lý và bản năng chú linh."}
 
+[QUY ĐỊNH ĐỘ DÀI PHẢN HỒI (TỪ FIRESTORE)]:
+${lengthRule || "Độ dài phản hồi linh hoạt, mô tả sâu sắc và phù hợp nhịp độ hội thoại."}
+
 [QUY TẮC DÒNG TIỀN VÀ TÀI NGUYÊN]:
 ${moneyRule || "Xử lý cộng trừ tiền hợp lý khi mua sắm, nhận tiền, hoặc dùng đồ."}
 
-[NGHIÊM CẤM TẠO TEXT-ACTION VỀ HỆ THỐNG]:
-TUYỆT ĐỐI KHÔNG sinh ra các đoạn miêu tả hành động hệ thống như *[Đã trừ tiền]*, *[Tiêu ¥...]* hay *[Dùng đồ]* trong nội dung 'reply'. Mọi thay đổi về tiền bạc hoặc vật phẩm chỉ thể hiện ngầm qua các trường JSON bên dưới. Lời thoại và hành vi của Gojo phải hoàn toàn hòa nhập tự nhiên vào câu chuyện.
+[NGHIÊM CẤM TẠO THÔNG BÁO HỆ THỐNG]:
+TUYỆT ĐỐI KHÔNG tự viết các thông báo hệ thống (như thông báo trừ tiền, nhặt đồ hay các thẻ lệnh) vào nội dung câu thoại 'reply'. Mọi biến động về tiền bạc hoặc vật phẩm chỉ xuất ngầm qua trường JSON bên dưới. Lời thoại và hành vi của Gojo phải hoàn toàn hòa nhập tự nhiên vào câu chuyện.
 
 [THÔNG TIN NGƯỜI YÊU (USER PERSONALITY)]:
 - Tên gọi duy nhất trong hội thoại: "${currentUserName}"
@@ -1626,7 +1736,7 @@ Nếu trong câu chuyện Gojo trao cho ${currentUserName} một món đồ, ho�
 
 [QUY ĐỊNH ĐỊNH DẠNG JSON DUY NHẤT]:
 {
-  "reply": "Lời thoại và hành vi của Gojo đối với ${currentUserName} (KHÔNG kèm text-action hệ thống trừ tiền)",
+  "reply": "Lời thoại và hành vi của Gojo đối với ${currentUserName}",
   "ego_ratio": 50,
   "location_label": "Địa điểm hiện tại",
   "is_major_landmark": false,
@@ -1637,31 +1747,36 @@ Nếu trong câu chuyện Gojo trao cho ${currentUserName} một món đồ, ho�
 `;
 }
 
-async function callGemini(promptContent, consumedItem = null) {
+async function callGemini(promptContent, consumedItem = null, customSys = null, isJson = true) {
   if (apiKeys.length === 0) {
     throw new Error("Chưa có API Key nào. Hãy mở mục [04 // KẾT NỐI GOOGLE AI STUDIO] và bấm '+ THÊM API KEY MỚI'.");
   }
 
-  const model = modelSelect.value || "gemini-3.8-flash";
-  const systemInstructionText = await getFullSystemPrompt(consumedItem);
+  const model = modelSelect.value || "gemini-2.5-flash";
+  const systemInstructionText = customSys || (await getFullSystemPrompt(consumedItem));
   let attempts = 0;
 
   while (attempts < apiKeys.length) {
     const key = apiKeys[currentKeyIdx];
     const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`;
 
+    const reqBody = {
+      contents: promptContent,
+      systemInstruction: { parts: [{ text: systemInstructionText }] },
+      generationConfig: {
+        temperature: 0.95
+      }
+    };
+
+    if (isJson) {
+      reqBody.generationConfig.responseMimeType = "application/json";
+    }
+
     try {
       const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          contents: promptContent,
-          systemInstruction: { parts: [{ text: systemInstructionText }] },
-          generationConfig: {
-            temperature: 0.95,
-            responseMimeType: "application/json"
-          }
-        })
+        body: JSON.stringify(reqBody)
       });
 
       if (response.status === 429 || response.status === 403) {
@@ -1680,7 +1795,12 @@ async function callGemini(promptContent, consumedItem = null) {
       const resData = await response.json();
       const rawText = resData.candidates?.[0]?.content?.parts?.[0]?.text;
       if (!rawText) throw new Error("AI không phản hồi nội dung.");
-      return JSON.parse(rawText);
+      
+      if (isJson) {
+        return JSON.parse(rawText);
+      } else {
+        return rawText;
+      }
     } catch (err) {
       exhaustedKeysSet.add(currentKeyIdx);
       exhaustedKeysPendingHighlight.add(currentKeyIdx);
@@ -1690,7 +1810,7 @@ async function callGemini(promptContent, consumedItem = null) {
     }
   }
 
-  throw new Error("Tất cả API Key đều đã hết hạn mức cho model này! Hãy thử đổi sang model khác trong danh sách (như 3.5 Flash Lite hoặc 4 Argon) hoặc thêm API Key mới.");
+  throw new Error("Tất cả API Key đều đã hết hạn mức cho model này! Hãy thử đổi sang model khác trong danh sách hoặc thêm API Key mới.");
 }
 
 /* ================= 5. GỬI TIN NHẮN ================= */
@@ -1715,9 +1835,11 @@ async function handleSend() {
   renderMessageUI(userMsg);
   checkMsgCountAndEmpty();
 
-  addDoc(getChatsColRef(), { sender: "user", text: text, timestamp: Date.now() })
-    .then(docRef => { userMsg.id = docRef.id; })
-    .catch(()=>{});
+  if (!isGuest) {
+    addDoc(getChatsColRef(), { sender: "user", text: text, timestamp: Date.now() })
+      .then(docRef => { userMsg.id = docRef.id; })
+      .catch(()=>{});
+  }
 
   triggerCharResponse(consumedItem);
 }
@@ -1728,7 +1850,7 @@ async function triggerCharResponse(consumedItem = null) {
   tempWrap.className = "msg-wrap char";
   tempWrap.id = `msg-${tempId}`;
   tempWrap.innerHTML = `
-    <div class="msg-avatar"><img src="https://i.postimg.cc/hjDwgbyL/IMG-4687.jpg"></div>
+    <div class="msg-avatar"><img src="https://img.sanishtech.com/u/27a3f06422259abb9aab56b4dbb2c578.jpeg"></div>
     <div class="msg-content-box">
       <div class="msg-sender">Gojo Satoru - ES003</div>
       <div class="typing-bubble">
@@ -1760,9 +1882,11 @@ async function triggerCharResponse(consumedItem = null) {
     chatMessages.push(charMsg);
     renderMessageUI(charMsg);
 
-    addDoc(getChatsColRef(), { sender: "char", text: charMsg.text, timestamp: Date.now() })
-      .then(dRef => { charMsg.id = dRef.id; })
-      .catch(()=>{});
+    if (!isGuest) {
+      addDoc(getChatsColRef(), { sender: "char", text: charMsg.text, timestamp: Date.now() })
+        .then(dRef => { charMsg.id = dRef.id; })
+        .catch(()=>{});
+    }
 
     if (typeof aiRes.ego_ratio === "number") updateConsciousnessBar(aiRes.ego_ratio);
     if (aiRes.location_label) updateRadarLocation(aiRes.location_label, aiRes.is_major_landmark);
@@ -1817,7 +1941,7 @@ async function regenerateCharMessage(msgId) {
     chatMessages[idx].text = aiRes.reply;
     if (bubble) bubble.innerHTML = formatMessageContent(aiRes.reply);
 
-    if (!msgId.startsWith("char_")) {
+    if (!isGuest && !msgId.startsWith("char_")) {
       updateDoc(doc(getChatsColRef(), msgId), { text: aiRes.reply }).catch(()=>{});
     }
     if (typeof aiRes.ego_ratio === "number") updateConsciousnessBar(aiRes.ego_ratio);
@@ -1841,7 +1965,7 @@ document.getElementById("confirmEditBtn").onclick = async () => {
   const bubble = document.querySelector(`#msg-${activeEditMsgId} .msg-bubble`);
   if (bubble) bubble.innerHTML = formatMessageContent(newText);
 
-  if (!activeEditMsgId.startsWith("msg_") && !activeEditMsgId.startsWith("char_")) {
+  if (!isGuest && !activeEditMsgId.startsWith("msg_") && !activeEditMsgId.startsWith("char_")) {
     updateDoc(doc(getChatsColRef(), activeEditMsgId), { text: newText }).catch(()=>{});
   }
   document.getElementById("editModal").classList.remove("open");
@@ -1854,7 +1978,7 @@ async function deleteMessage(msgId) {
   document.getElementById(`msg-${msgId}`)?.remove();
   checkMsgCountAndEmpty();
 
-  if (!msgId.startsWith("msg_") && !msgId.startsWith("char_")) {
+  if (!isGuest && !msgId.startsWith("msg_") && !msgId.startsWith("char_")) {
     deleteDoc(doc(getChatsColRef(), msgId)).catch(()=>{});
   }
 }
@@ -1914,15 +2038,16 @@ async function performMemoryPurgeAndSummarize() {
     const res = await callGemini(prompt);
     const summaryText = res.reply || res.summary || JSON.stringify(res);
 
-    addDoc(getMemoryColRef(), { summary_text: summaryText, created_at: Date.now() }).catch(()=>{});
-
-    const batch = writeBatch(db);
-    targetPurge.forEach(m => {
-      if (!m.id.startsWith("msg_") && !m.id.startsWith("char_")) {
-        batch.delete(doc(getChatsColRef(), m.id));
-      }
-    });
-    batch.commit().catch(()=>{});
+    if (!isGuest) {
+      addDoc(getMemoryColRef(), { summary_text: summaryText, created_at: Date.now() }).catch(()=>{});
+      const batch = writeBatch(db);
+      targetPurge.forEach(m => {
+        if (!m.id.startsWith("msg_") && !m.id.startsWith("char_")) {
+          batch.delete(doc(getChatsColRef(), m.id));
+        }
+      });
+      batch.commit().catch(()=>{});
+    }
 
     chatMessages = chatMessages.slice(20);
     summaryPreview.textContent = "Ký ức nén: " + summaryText;
@@ -1930,7 +2055,273 @@ async function performMemoryPurgeAndSummarize() {
   } catch (e) {}
 }
 
-/* ================= 6. AUTO-SAVE & AUTO-LOGIN BỀN VỮNG ================= */
+/* ================= 6. HỆ THỐNG XUẤT & NẠP FILE DOC (MỤC 05) ================= */
+
+/* HÀM HỖ TRỢ UPDATE TIẾN ĐỘ */
+function updateExportProgress(percent, text) {
+  exportProgressBox.classList.add("active");
+  exportProgressPercent.textContent = `${percent}%`;
+  exportProgressText.textContent = text;
+  exportProgressFill.style.width = `${percent}%`;
+}
+
+/* NÚT 1: XUẤT TOÀN BỘ BỘ NHỚ RA FILE DOC */
+btnExportDoc.onclick = async () => {
+  if (chatMessages.length === 0) {
+    return alert("Chưa có tin nhắn nào trong lịch sử để xuất tài liệu!");
+  }
+
+  btnExportDoc.disabled = true;
+  btnDownloadDoc.style.display = "none";
+  updateExportProgress(10, "Đang gom toàn bộ dữ liệu lịch sử và ký ức...");
+
+  try {
+    // 1. Gom ký ức tóm tắt từ Firestore
+    let pastSummaries = [];
+    if (!isGuest) {
+      try {
+        const memSnap = await getDocs(query(getMemoryColRef(), orderBy("created_at", "asc")));
+        memSnap.forEach(d => {
+          if (d.data().summary_text) pastSummaries.push(d.data().summary_text);
+        });
+      } catch (e) {}
+    }
+
+    updateExportProgress(30, "AI đang tổng hợp và phân tích toàn bộ diễn biến...");
+
+    // 2. Gom toàn bộ tin nhắn hiện tại
+    const fullTranscript = chatMessages.map(m => {
+      const sender = m.sender === "user" ? currentUserName : "Gojo Satoru";
+      return `[${sender}]: ${m.text}`;
+    }).join("\n\n");
+
+    const inventorySnapshot = {
+      scavenged: scavengedItems,
+      story: storyItems,
+      used: Array.from(usedItemNames)
+    };
+
+    updateExportProgress(50, "Đang khởi tạo Siêu Biên Niên Sử (15.000 - 50.000 tokens)...");
+
+    const exportSysPrompt = `
+Bạn là một AI Biên Soạn Sử Ký Cao Cấp. Nhiệm vụ của bạn là tổng hợp TOÀN BỘ dữ liệu tương tác, biến cố, đối thoại, tâm lý, các trạng thái cấm thuật và vật phẩm giữa Gojo Satoru (ES003) và người yêu của anh ấy thành một bộ TÀI LIỆU KÝ ỨC VĨNH CỬU SIÊU DÀI, CỰC KỲ CHI TIẾT VÀ SÂU SẮC (tương đương dung lượng lớn để làm System Memory cho Google AI Studio từ 15k - 50k tokens).
+
+Tài liệu PHẢI tuân thủ chặt chẽ cấu trúc văn bản sau:
+# BIÊN NIÊN SỬ KÝ ỨC ĐÀO TẨU // GOJO SATORU & ${currentUserName}
+
+## I. MA TRẬN NHÂN SỰ & TRẠNG THÁI HIỆN TẠI
+- Đối tượng (User): ${currentUserName}
+- Hồ sơ chi tiết: ${personalityInput.value}
+- Thể trạng Gojo Satoru:
+  + Tỷ lệ Ý Thức Gốc (Satoru): ${currentEgoRatio}%
+  + Tỷ lệ Bản Năng Chú Linh: ${100 - currentEgoRatio}%
+  + Vết khâu, 6 con mắt, phản ứng cấm thuật
+- Vị trí Radar hiện tại: ${currentLocationLabel}
+- Tài chính: Tiền mặt ¥${cashBalance.toLocaleString()} | Thẻ trắng ¥${bankBalance.toLocaleString()}
+- Danh mục vật phẩm đang sở hữu:
+  + Đồ lục lọi: ${JSON.stringify(scavengedItems)}
+  + Đồ cốt truyện: ${JSON.stringify(storyItems)}
+  + Đồ đã tiêu hao: ${JSON.stringify(Array.from(usedItemNames))}
+
+## II. KÝ ỨC NÉN TIỀN ĐỀ (PAST ARCHIVE SUMMARY)
+${pastSummaries.length > 0 ? pastSummaries.join("\n---\n") : "Không có ký ức nén trước đó."}
+
+## III. BIÊN BẢN DIỄN BIẾN TOÀN TẬP (CHRONOLOGICAL NARRATIVE LOG)
+Hãy diễn giải, miêu tả lại từng cột mốc, cảm xúc, lời thoại đắt giá, từng va chạm cơ thể, nỗi đau đớn giằng xé giữa nhân tính và nguyền rủa của Gojo, cùng lòng tận tụy tuyệt vọng của ${currentUserName}.
+TẤT CẢ PHẢI ĐƯỢC MÔ TẢ ĐẦY ĐỦ, KHÔNG CẮT NGẮN, GIỮ NGUYÊN CHIỀU SÂU VĂN PHONG VÀ KHÔNG KHÍ U TỐI CỦA CỐT TRUYỆN.
+
+## IV. BẢN HƯỚNG DẪN KẾ THỪA CHO GOOGLE AI STUDIO (INSTRUCTION PROMPT)
+Chỉ thị cụ thể cho AI ở phiên làm việc tiếp theo: cách xưng hô, tính chiếm hữu của Chú Linh, sự dịu dàng của Satoru, và nhịp độ đào tẩu.
+`;
+
+    const userPromptContent = [{
+      role: "user",
+      parts: [{
+        text: `Dưới đây là toàn bộ bản ghi trò chuyện trực tiếp từ trước đến nay:\n\n${fullTranscript}\n\nHãy tổng hợp bản tài liệu bộ nhớ hoàn chỉnh siêu chi tiết theo đúng cấu trúc chỉ thị.`
+      }]
+    }];
+
+    updateExportProgress(75, "AI đang xuất tài liệu văn bản Word hoàn chỉnh...");
+    const rawDocumentText = await callGemini(userPromptContent, null, exportSysPrompt, false);
+
+    updateExportProgress(90, "Đang đóng gói file định dạng Microsoft Word (.doc)...");
+
+    // Đóng gói thành file HTML chuẩn Microsoft Word (.doc)
+    const wordHtml = `
+      <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+      <head>
+        <meta charset='utf-8'>
+        <title>Memory Archive - Gojo Satoru ES003</title>
+        <style>
+          body { font-family: 'Times New Roman', serif; font-size: 12pt; line-height: 1.6; color: #111; }
+          h1 { color: #941717; font-size: 20pt; border-bottom: 2px solid #941717; padding-bottom: 6px; }
+          h2 { color: #222; font-size: 14pt; margin-top: 20px; border-bottom: 1px dashed #777; padding-bottom: 3px; }
+          p { margin: 6px 0; text-align: justify; }
+          blockquote { background: #f4f1ea; border-left: 4px solid #941717; padding: 8px 12px; margin: 10px 0; }
+        </style>
+      </head>
+      <body>
+        ${rawDocumentText.replace(/\n/g, '<br/>')}
+      </body>
+      </html>
+    `;
+
+    const blob = new Blob(['\ufeff' + wordHtml], { type: 'application/msword;charset=utf-8' });
+    generatedDocBlobUrl = URL.createObjectURL(blob);
+    generatedDocFileName = `Gojo_ES003_Memory_${currentUserName}_${new Date().toISOString().slice(0,10)}.doc`;
+
+    updateExportProgress(100, "Tổng hợp thành công!");
+    btnDownloadDoc.style.display = "block";
+    btnDownloadDoc.scrollIntoView({ behavior: 'smooth' });
+    notify("<strong>XUẤT BỘ NHỚ THÀNH CÔNG!</strong> Hãy bấm nút màu xanh bên dưới để tải file về máy.");
+  } catch (err) {
+    updateExportProgress(0, "Lỗi: " + err.message);
+    alert("Không thể xuất file doc: " + err.message);
+  } finally {
+    btnExportDoc.disabled = false;
+  }
+};
+
+/* NÚT TẢI FILE VỀ THIẾT BỊ */
+btnDownloadDoc.onclick = () => {
+  if (!generatedDocBlobUrl) return;
+  const a = document.createElement("a");
+  a.href = generatedDocBlobUrl;
+  a.download = generatedDocFileName;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  notify(`Đã bắt đầu tải file <em>${generatedDocFileName}</em>!`);
+};
+
+/* NÚT 2: KÍCH HOẠT CHỌN FILE ĐỂ NẠP / CHUYỂN SINH */
+btnTriggerImportDoc.onclick = () => {
+  importDocFileInput.click();
+};
+
+importDocFileInput.onchange = async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  importStatusText.textContent = "Đang đọc nội dung file...";
+  btnTriggerImportDoc.disabled = true;
+
+  try {
+    let fileText = "";
+    const fileName = file.name.toLowerCase();
+
+    if (fileName.endsWith(".docx")) {
+      const arrayBuffer = await file.arrayBuffer();
+      const result = await window.mammoth.extractRawText({ arrayBuffer: arrayBuffer });
+      fileText = result.value;
+    } else {
+      fileText = await file.text();
+      // Bóc tách nếu là file doc dạng html
+      const tempDiv = document.createElement("div");
+      tempDiv.innerHTML = fileText;
+      fileText = tempDiv.textContent || tempDiv.innerText || fileText;
+    }
+
+    if (!fileText || fileText.trim().length < 50) {
+      throw new Error("File tải lên không có nội dung văn bản hợp lệ!");
+    }
+
+    importStatusText.textContent = "AI đang giải mã và tái cấu trúc dữ liệu...";
+
+    const analyzeSysPrompt = `
+Bạn là Trí tuệ Phân giải Ký ức. Dưới đây là tài liệu tóm tắt đoạn chat hoặc ký ức giữa Gojo Satoru và người yêu từ phiên trước.
+Nhiệm vụ của bạn là bóc tách toàn bộ dữ liệu trạng thái để chuyển sinh lại vào web, xuất ra ĐÚNG 1 JSON DUY NHẤT:
+{
+  "narrative_memory": "Một đoạn tóm tắt toàn bộ bối cảnh và diễn biến quan trọng nhất để nạp vào thẻ nhớ memory của user",
+  "user_name": "Tên người yêu được nhắc đến (nếu không rõ ghi 'Em')",
+  "personality": "Thông tin và tính cách người yêu rút ra từ file",
+  "ego_ratio": 50,
+  "location_label": "Địa điểm cuối cùng (vd: Bệnh viện, Ga ngầm, Shibuya, hoặc Ngoại ô)",
+  "cash": 15000,
+  "bank": 120000,
+  "scavenged_items": [
+    {"name": "tên vật tư", "desc": "mô tả"}
+  ],
+  "story_items": [
+    {"name": "tên vật phẩm cốt truyện", "desc": "mô tả"}
+  ]
+}
+
+LƯU Ý NGHIÊM NGẶT:
+- Đối với danh sách "scavenged_items" và "story_items": CHỈ ghi nhận những vật phẩm CÓ ĐƯỢC NHẮC ĐẾN THỰC SỰ trong văn bản tóm tắt. Nếu văn bản không nhắc đến việc họ đang cầm đồ vật gì, hãy để mảng RỖNG []! Tuyệt đối không tự ý bịa thêm vật phẩm.
+`;
+
+    const promptReq = [{
+      role: "user",
+      parts: [{
+        text: `Phân tích toàn bộ văn bản sau đây và trả về JSON trạng thái tái sinh:\n\n${fileText.slice(0, 100000)}`
+      }]
+    }];
+
+    const parsedData = await callGemini(promptReq, null, analyzeSysPrompt, true);
+
+    importStatusText.textContent = "Đang nạp dữ liệu vào Firebase & cập nhật giao diện...";
+
+    // 1. Áp dụng thông tin
+    if (parsedData.user_name) {
+      currentUserName = parsedData.user_name;
+      userNameInput.value = currentUserName;
+      localStorage.setItem("es_user_name", currentUserName);
+    }
+    if (parsedData.personality) {
+      personalityInput.value = parsedData.personality;
+    }
+    if (typeof parsedData.ego_ratio === "number") {
+      updateConsciousnessBar(parsedData.ego_ratio);
+    }
+    if (parsedData.location_label) {
+      updateRadarLocation(parsedData.location_label, false);
+    }
+    if (typeof parsedData.cash === "number") cashBalance = parsedData.cash;
+    if (typeof parsedData.bank === "number") bankBalance = parsedData.bank;
+    modifyMoney(0, 0);
+
+    // 2. Vật phẩm
+    scavengedItems = Array.isArray(parsedData.scavenged_items) ? parsedData.scavenged_items.slice(0, 3) : [];
+    storyItems = Array.isArray(parsedData.story_items) ? parsedData.story_items : [];
+    renderInventory();
+
+    // 3. Ghi vào Memory của Firebase
+    if (parsedData.narrative_memory) {
+      summaryPreview.textContent = "Ký ức nén: " + parsedData.narrative_memory;
+      if (!isGuest) {
+        await addDoc(getMemoryColRef(), {
+          summary_text: parsedData.narrative_memory,
+          imported_from_file: file.name,
+          created_at: Date.now()
+        });
+      }
+    }
+
+    saveStateToStorageAndFirestore();
+
+    // 4. Chèn tin nhắn hệ thống vào cuộc hội thoại
+    const resumeMsg = {
+      id: "sys_import_" + Date.now(),
+      sender: "sys",
+      text: `[CHUYỂN SINH THÀNH CÔNG]: Đã đồng bộ toàn bộ ký ức từ file "${file.name}". Gojo Satoru đã nhận thức lại trạng thái tại ${currentLocationLabel}. Bạn có thể tiếp tục trò chuyện ngay bây giờ.`
+    };
+    chatMessages.push(resumeMsg);
+    renderMessageUI(resumeMsg);
+    checkMsgCountAndEmpty();
+
+    importStatusText.textContent = "Chuyển sinh hoàn tất!";
+    notify("<strong>CHUYỂN SINH THÀNH CÔNG!</strong> Bộ nhớ và toàn bộ chỉ số đã được nạp lại.");
+  } catch (err) {
+    importStatusText.textContent = "Lỗi: " + err.message;
+    alert("Không thể phân tích file nạp: " + err.message);
+  } finally {
+    btnTriggerImportDoc.disabled = false;
+    importDocFileInput.value = "";
+  }
+};
+
+/* ================= 7. LƯU TRỮ VÀ ĐỒNG BỘ FIRESTORE ================= */
 function saveStateToStorageAndFirestore() {
   const stateSnapshot = {
     user_name: currentUserName,
@@ -1944,12 +2335,12 @@ function saveStateToStorageAndFirestore() {
     lastLocation: currentLocationLabel
   };
 
-  // Lưu đệm localStorage để F5 không bao giờ bị mất
   localStorage.setItem(`es_cache_${currentUserId}`, JSON.stringify(stateSnapshot));
   localStorage.setItem("es_current_user_id", currentUserId);
 
-  // Đồng bộ lên Firestore
-  updateDoc(getUserDocRef(), stateSnapshot).catch(()=>{});
+  if (!isGuest) {
+    updateDoc(getUserDocRef(), stateSnapshot).catch(()=>{});
+  }
 }
 
 function restoreFromLocalCache(uid) {
@@ -1986,7 +2377,7 @@ document.getElementById("registerBtn").onclick = () => {
 closeRegisterModalBtn.onclick = () => confirmRegisterModal.classList.remove("open");
 btnCancelRegister.onclick = () => confirmRegisterModal.classList.remove("open");
 
-/* CHỈ RESET KHI XÁC NHẬN TẠO MỚI */
+/* TẠO MỚI TÀI KHOẢN */
 btnConfirmRegister.onclick = async () => {
   confirmRegisterModal.classList.remove("open");
   const uid = authUserId.value.trim();
@@ -1997,7 +2388,7 @@ btnConfirmRegister.onclick = async () => {
     const snap = await getDoc(uRef);
     if (snap.exists()) return alert(`ID [${uid}] đã tồn tại. Hãy chọn ID khác!`);
 
-    // Reset sạch dữ liệu khi tạo tài khoản mới
+    isGuest = false;
     currentUserId = uid;
     currentUserName = "Em";
     currentUserAvatar = "https://img.sanishtech.com/u/38bb2890e4468142f61fc9dd0de72c6b.jpeg";
@@ -2067,6 +2458,7 @@ document.getElementById("loginBtn").onclick = async () => {
     if (!snap.exists()) return alert(`Không tìm thấy hồ sơ [${uid}]!`);
     if (snap.data().password !== pass) return alert("Sai mật khẩu truy cập!");
 
+    isGuest = false;
     currentUserId = uid;
     localStorage.setItem("es_current_user_id", uid);
     localStorage.setItem("es_current_user_pass", pass);
@@ -2136,7 +2528,7 @@ function renderMessageUI(msg) {
   wrap.id = `msg-${msg.id}`;
 
   const avatarSrc = msg.sender === "char" 
-    ? "https://i.postimg.cc/hjDwgbyL/IMG-4687.jpg" 
+    ? "https://img.sanishtech.com/u/27a3f06422259abb9aab56b4dbb2c578.jpeg" 
     : currentUserAvatar;
 
   const senderName = msg.sender === "char" 
@@ -2184,6 +2576,12 @@ function escapeHTML(str) {
 async function loadChatHistory() {
   chatLogs.querySelectorAll('.msg-wrap').forEach(el => el.remove());
   chatMessages = [];
+  
+  if (isGuest) {
+    checkMsgCountAndEmpty();
+    return;
+  }
+
   try {
     const q = query(getChatsColRef(), orderBy("timestamp", "asc"));
     const snap = await getDocs(q);
@@ -2203,10 +2601,26 @@ function checkMsgCountAndEmpty() {
   if (count >= 1020) performMemoryPurgeAndSummarize();
 }
 
-/* ================= 7. TỰ ĐỘNG ĐĂNG NHẬP KHI TẢI LẠI TRANG ================= */
+/* ================= 8. TỰ ĐỘNG KHỞI TẠO HOẶC NẠP LẠI ================= */
 async function autoLoginAndRestore() {
   const savedUid = localStorage.getItem("es_current_user_id");
   const savedPass = localStorage.getItem("es_current_user_pass");
+
+  if (isGuest) {
+    authBadge.textContent = "CHẾ ĐỘ KHÁCH";
+    authUserId.value = "";
+    authUserPass.value = "";
+    currentUserName = "Em";
+    userNameInput.value = "Em";
+    scavengedItems = [];
+    storyItems = [];
+    apiKeys = [];
+    renderInventory();
+    renderApiKeyRows();
+    updateConsciousnessBar(50);
+    checkMsgCountAndEmpty();
+    return;
+  }
 
   if (savedUid) {
     currentUserId = savedUid;
@@ -2215,11 +2629,9 @@ async function autoLoginAndRestore() {
     if (savedPass && authUserPass) authUserPass.value = savedPass;
   }
 
-  // Khôi phục bộ nhớ đệm ngay lập tức để không có độ trễ
   restoreFromLocalCache(currentUserId);
   renderApiKeyRows();
 
-  // Kéo dữ liệu mới nhất từ Firestore
   try {
     const userSnap = await getDoc(getUserDocRef());
     if (userSnap.exists()) {
