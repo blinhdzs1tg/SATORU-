@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Xanh+Mono:ital@0;1&family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 
-<!-- THƯ VIỆN ĐỌC FILE DOCX/DOC SIÊU TỐC TRÊN TRÌNH DUYỆT -->
+<!-- THƯ VIỆN ĐỌC FILE DOCX/DOC TRÊN TRÌNH DUYỆT -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.21/mammoth.browser.min.js"></script>
 
 <style>
@@ -906,7 +906,7 @@ select.form-control option{
   <div class="header-main">
     <div class="char-meta">
       <div class="char-avatar-box">
-        <img class="char-avatar" id="topAvatar" src="https://img.sanishtech.com/u/27a3f06422259abb9aab56b4dbb2c578.jpeg" alt="Gojo Satoru">
+        <img class="char-avatar" id="topAvatar" src="https://i.postimg.cc/hjDwgbyL/IMG-4687.jpg" alt="Gojo Satoru">
       </div>
       <div class="char-info">
         <div class="char-name">Gojo Satoru - ES003</div>
@@ -1052,7 +1052,7 @@ select.form-control option{
       </div>
     </div>
 
-    <!-- 4. CẤU HÌNH AI & API KEYS -->
+    <!-- 4. CẤU HÌNH AI & API KEYS (DANH SÁCH MODEL CHÍNH XÁC) -->
     <details class="hud-folder">
       <summary class="folder-header">
         <div class="folder-title-left">04 // KẾT NỐI GOOGLE AI STUDIO</div>
@@ -1062,11 +1062,12 @@ select.form-control option{
         <div class="form-group">
           <label>CHỌN MODEL GOOGLE AI STUDIO</label>
           <select class="form-control" id="modelSelect">
-            <option value="gemini-2.5-flash" selected>2.5 Flash (Tối ưu tốc độ & roleplay)</option>
-            <option value="gemini-2.5-pro">2.5 Pro (Siêu suy luận sâu, văn phong đỉnh)</option>
-            <option value="gemini-2.0-flash-exp">2.0 Flash (Thế hệ Flash tốc độ cao)</option>
-            <option value="gemini-1.5-pro">1.5 Pro (Context cửa sổ cực lớn)</option>
-            <option value="gemini-1.5-flash">1.5 Flash (Nhẹ & tiết kiệm token)</option>
+            <option value="gemini-3.8-flash" selected>3.8 Flash (Mặc định // Tối ưu tốc độ & roleplay)</option>
+            <option value="gemini-4-argon">4 Argon (Siêu trí tuệ, suy luận sâu)</option>
+            <option value="gemini-3.5-flash-lite">3.5 Flash Lite (Phản hồi tức thì, nhẹ)</option>
+            <option value="gemini-3.1-pro-preview">3.1 Pro Preview (Bối cảnh lớn, phân tích)</option>
+            <option value="gemini-3.1-flash-lite">3.1 Flash Lite (Tiết kiệm hạn mức)</option>
+            <option value="gemini-3-flash">3 Flash (Thế hệ Flash v3)</option>
           </select>
         </div>
 
@@ -1080,7 +1081,7 @@ select.form-control option{
       </div>
     </details>
 
-    <!-- 5. CHUYỂN SINH DỮ LIỆU & BỘ NHỚ FILE DOC (MỤC MỚI) -->
+    <!-- 5. CHUYỂN SINH DỮ LIỆU & BỘ NHỚ FILE DOC -->
     <details class="hud-folder" id="folderDocBridge" open>
       <summary class="folder-header">
         <div class="folder-title-left">05 // CHUYỂN SINH BỘ NHỚ [DOC]</div>
@@ -1236,6 +1237,9 @@ if (window.visualViewport) {
   window.visualViewport.addEventListener('scroll', () => window.scrollTo(0, 0));
 }
 
+/* LINK AVATAR CHUẨN CỦA GOJO SATORU */
+const GOJO_AVATAR_URL = "https://i.postimg.cc/hjDwgbyL/IMG-4687.jpg";
+
 /* KHO VẬT PHẨM THEO TỪNG ĐỊA ĐIỂM */
 const LOCATION_ITEM_POOLS = {
   "bệnh viện": [
@@ -1308,7 +1312,6 @@ const exhaustedKeysSet = new Set();
 const exhaustedKeysPendingHighlight = new Set();
 const innerThoughtsCache = {};
 
-/* BIẾN LƯU TÀI LIỆU DOC VỪA TẠO */
 let generatedDocBlobUrl = null;
 let generatedDocFileName = "";
 
@@ -1752,7 +1755,7 @@ async function callGemini(promptContent, consumedItem = null, customSys = null, 
     throw new Error("Chưa có API Key nào. Hãy mở mục [04 // KẾT NỐI GOOGLE AI STUDIO] và bấm '+ THÊM API KEY MỚI'.");
   }
 
-  const model = modelSelect.value || "gemini-2.5-flash";
+  const model = modelSelect.value || "gemini-3.8-flash";
   const systemInstructionText = customSys || (await getFullSystemPrompt(consumedItem));
   let attempts = 0;
 
@@ -1850,7 +1853,7 @@ async function triggerCharResponse(consumedItem = null) {
   tempWrap.className = "msg-wrap char";
   tempWrap.id = `msg-${tempId}`;
   tempWrap.innerHTML = `
-    <div class="msg-avatar"><img src="https://img.sanishtech.com/u/27a3f06422259abb9aab56b4dbb2c578.jpeg"></div>
+    <div class="msg-avatar"><img src="${GOJO_AVATAR_URL}"></div>
     <div class="msg-content-box">
       <div class="msg-sender">Gojo Satoru - ES003</div>
       <div class="typing-bubble">
@@ -2057,7 +2060,6 @@ async function performMemoryPurgeAndSummarize() {
 
 /* ================= 6. HỆ THỐNG XUẤT & NẠP FILE DOC (MỤC 05) ================= */
 
-/* HÀM HỖ TRỢ UPDATE TIẾN ĐỘ */
 function updateExportProgress(percent, text) {
   exportProgressBox.classList.add("active");
   exportProgressPercent.textContent = `${percent}%`;
@@ -2076,7 +2078,6 @@ btnExportDoc.onclick = async () => {
   updateExportProgress(10, "Đang gom toàn bộ dữ liệu lịch sử và ký ức...");
 
   try {
-    // 1. Gom ký ức tóm tắt từ Firestore
     let pastSummaries = [];
     if (!isGuest) {
       try {
@@ -2089,17 +2090,10 @@ btnExportDoc.onclick = async () => {
 
     updateExportProgress(30, "AI đang tổng hợp và phân tích toàn bộ diễn biến...");
 
-    // 2. Gom toàn bộ tin nhắn hiện tại
     const fullTranscript = chatMessages.map(m => {
       const sender = m.sender === "user" ? currentUserName : "Gojo Satoru";
       return `[${sender}]: ${m.text}`;
     }).join("\n\n");
-
-    const inventorySnapshot = {
-      scavenged: scavengedItems,
-      story: storyItems,
-      used: Array.from(usedItemNames)
-    };
 
     updateExportProgress(50, "Đang khởi tạo Siêu Biên Niên Sử (15.000 - 50.000 tokens)...");
 
@@ -2146,7 +2140,6 @@ Chỉ thị cụ thể cho AI ở phiên làm việc tiếp theo: cách xưng h�
 
     updateExportProgress(90, "Đang đóng gói file định dạng Microsoft Word (.doc)...");
 
-    // Đóng gói thành file HTML chuẩn Microsoft Word (.doc)
     const wordHtml = `
       <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
       <head>
@@ -2216,7 +2209,6 @@ importDocFileInput.onchange = async (e) => {
       fileText = result.value;
     } else {
       fileText = await file.text();
-      // Bóc tách nếu là file doc dạng html
       const tempDiv = document.createElement("div");
       tempDiv.innerHTML = fileText;
       fileText = tempDiv.textContent || tempDiv.innerText || fileText;
@@ -2262,7 +2254,6 @@ LƯU Ý NGHIÊM NGẶT:
 
     importStatusText.textContent = "Đang nạp dữ liệu vào Firebase & cập nhật giao diện...";
 
-    // 1. Áp dụng thông tin
     if (parsedData.user_name) {
       currentUserName = parsedData.user_name;
       userNameInput.value = currentUserName;
@@ -2281,12 +2272,10 @@ LƯU Ý NGHIÊM NGẶT:
     if (typeof parsedData.bank === "number") bankBalance = parsedData.bank;
     modifyMoney(0, 0);
 
-    // 2. Vật phẩm
     scavengedItems = Array.isArray(parsedData.scavenged_items) ? parsedData.scavenged_items.slice(0, 3) : [];
     storyItems = Array.isArray(parsedData.story_items) ? parsedData.story_items : [];
     renderInventory();
 
-    // 3. Ghi vào Memory của Firebase
     if (parsedData.narrative_memory) {
       summaryPreview.textContent = "Ký ức nén: " + parsedData.narrative_memory;
       if (!isGuest) {
@@ -2300,7 +2289,6 @@ LƯU Ý NGHIÊM NGẶT:
 
     saveStateToStorageAndFirestore();
 
-    // 4. Chèn tin nhắn hệ thống vào cuộc hội thoại
     const resumeMsg = {
       id: "sys_import_" + Date.now(),
       sender: "sys",
@@ -2528,7 +2516,7 @@ function renderMessageUI(msg) {
   wrap.id = `msg-${msg.id}`;
 
   const avatarSrc = msg.sender === "char" 
-    ? "https://img.sanishtech.com/u/27a3f06422259abb9aab56b4dbb2c578.jpeg" 
+    ? GOJO_AVATAR_URL 
     : currentUserAvatar;
 
   const senderName = msg.sender === "char" 
