@@ -70,7 +70,7 @@
             line-height: 1.6;
         }
 
-        section, .hero, .showroom-section, .roster-section, .forum-section {
+        section, .hero, .showroom-section, .roster-section, .forum-section, .editorial-guide-strip {
             scroll-margin-top: 75px;
             width: 100%;
         }
@@ -339,7 +339,7 @@
         .showroom-btn { font-size: 0.85rem; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 6px; letter-spacing: 1px; }
 
         /* ========================================================
-           THẺ BÊN NGOÀI: SÁNG MÀU EDITORIAL (ĐÃ CÂN LẠI LỀ & BỎ 2 PHÚT)
+           THẺ BÊN NGOÀI: SÁNG MÀU EDITORIAL
         ======================================================== */
         .editorial-guide-strip {
             padding: 10px 6% 35px;
@@ -354,7 +354,6 @@
             border: 1px solid rgba(255, 255, 255, 0.85);
             border-radius: 14px;
             padding: 26px 36px;
-            cursor: pointer;
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0,0,0,0.03);
@@ -363,12 +362,11 @@
             align-items: center;
             gap: 32px;
             color: #0c0d12;
+            cursor: default;
         }
 
         .editorial-guide-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 22px 50px rgba(0, 0, 0, 0.4), 0 0 25px rgba(255, 255, 255, 0.2);
-            border-color: #ffffff;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
         }
 
         .guide-tag-pill {
@@ -442,12 +440,15 @@
             text-transform: uppercase;
             transition: var(--transition);
             white-space: nowrap;
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-sans);
         }
 
-        .editorial-guide-card:hover .editorial-btn-open {
+        .editorial-btn-open:hover {
             background: var(--crimson);
-            transform: translateX(3px);
-            box-shadow: 0 4px 15px var(--crimson-glow);
+            transform: translateX(4px);
+            box-shadow: 0 4px 18px var(--crimson-glow);
         }
 
         @media(max-width: 900px) {
@@ -472,7 +473,7 @@
         }
 
         /* ========================================================
-           TRANG PHỤ SLIDE-OVER: CHẶN CUỘN NỀN & THANH TIÊU ĐỀ ĐỐI XỨNG
+           TRANG PHỤ SLIDE-OVER: SỔ TAY HƯỚNG DẪN
         ======================================================== */
         #guideSubpage {
             position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh;
@@ -528,7 +529,6 @@
             padding: 35px 6% 90px; display: flex; flex-direction: column; gap: 24px;
         }
 
-        /* HERO BANNER SÁNG MÀU */
         .guide-hero-banner {
             background: #ffffff;
             border: 1px solid rgba(0, 0, 0, 0.07);
@@ -553,7 +553,6 @@
             font-size: 0.92rem; color: #5a5e6d; line-height: 1.65;
         }
 
-        /* BẢNG ĐIỀU KHIỂN ADMIN */
         .guide-admin-toolbar {
             display: none; gap: 8px; flex-wrap: wrap; margin-bottom: 5px;
             background: #ffffff; border: 1px dashed var(--crimson);
@@ -563,7 +562,6 @@
 
         .guide-content-blocks { display: flex; flex-direction: column; gap: 20px; width: 100%; }
 
-        /* THẺ NỘI DUNG SÁNG MÀU - ĐÃ BỎ HUY HIỆU ĐẾM BƯỚC */
         .guide-block {
             background: #ffffff;
             border: 1px solid rgba(0, 0, 0, 0.07);
@@ -587,7 +585,6 @@
             white-space: pre-line;
         }
 
-        /* KHUNG ẢNH / VIDEO MINH HỌA CĂN GIỮA */
         .guide-centered-image-wrap {
             margin: 20px auto; width: 100%; max-width: 820px;
             background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.08);
@@ -729,19 +726,50 @@
         }
         .like-btn.liked { color: var(--crimson); transform: scale(1.08); }
 
-        /* DẢI HÒA MÀU VÀ DIỄN ĐÀN */
+        /* ========================================================
+           DIỄN ĐÀN (FORUM CONSOLE) - ĐÃ MỞ KHUNG TO & TỰ CĂN CHỈNH
+        ======================================================== */
         .divider-to-dark {
             height: 180px; width: 100%;
             background: linear-gradient(180deg, var(--cream-bg) 0%, #ddd8cc 15%, #8a867c 40%, #1c1e28 75%, #08090d 100%);
             margin: 0; border: none; display: block;
         }
         .forum-section { background-color: #08090d; color: #fff; padding: 10px 6% 90px; margin: 0; width: 100%; }
+        
+        /* KHUNG TO TỰ CO GIÃN THÔNG MINH */
         .forum-console {
             background: #0f1118; border: 1px solid rgba(255,255,255,0.14); border-radius: 16px;
             box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 20px rgba(255,255,255,0.03);
-            width: 100%;
+            width: 100%; max-width: 100%; margin: 0 auto;
+            display: flex; flex-direction: column;
+            height: clamp(620px, 82vh, 880px); /* Tự động cao thoáng trên Laptop */
+            overflow: hidden; position: relative;
         }
-        .console-feed { padding: 24px; display: flex; flex-direction: column; gap: 16px; width: 100%; }
+
+        .forum-header-bar {
+            padding: 16px 24px; background: #141722;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            display: flex; justify-content: space-between; align-items: center;
+            flex-shrink: 0; z-index: 2;
+        }
+
+        .console-feed {
+            padding: 24px 28px; display: flex; flex-direction: column; gap: 16px;
+            width: 100%; flex: 1; min-height: 0; /* Rất quan trọng để khung không bị bung */
+            overflow-y: auto; overflow-x: hidden;
+            overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+        }
+        .console-feed::-webkit-scrollbar { width: 6px; }
+        .console-feed::-webkit-scrollbar-track { background: rgba(255,255,255,0.02); }
+        .console-feed::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+        .console-feed::-webkit-scrollbar-thumb:hover { background: var(--crimson); }
+
+        .forum-form-bar {
+            padding: 16px 24px; background: #141722;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            display: flex; flex-direction: column; gap: 10px;
+            flex-shrink: 0; z-index: 2;
+        }
 
         /* CÂY BÌNH LUẬN */
         .comment-node { position: relative; padding: 6px 0; width: 100%; }
@@ -804,9 +832,7 @@
             margin: 0; width: 100%;
         }
 
-        /* ========================================================
-           MODALS: ĐẨY Z-INDEX LÊN CAO NHẤT (8500) TRÊN HẾT MỌI TRANG
-        ======================================================== */
+        /* MODALS (Z-INDEX 8500) */
         .modal-wrap {
             position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(15px);
             z-index: 8500; display: none; justify-content: center; align-items: center; padding: 15px;
@@ -883,7 +909,18 @@
             .replies-branch-container.level-1 { margin-left: 16px; }
             .replies-branch-container.level-clamped { margin-left: 12px; }
             .credit-ticker-bar { font-size: 0.82rem; padding: 20px 5%; }
-            .console-feed { padding: 16px; }
+            
+            /* TỰ ĐỘNG CĂN CHỈNH VỪA TRỌN MÀN HÌNH ĐIỆN THOẠI KHÔNG BỊ TRÔI */
+            .forum-console {
+                height: 80vh;
+                height: 80dvh;
+                max-height: 85dvh;
+                border-radius: 14px;
+            }
+            .forum-header-bar { padding: 12px 16px; }
+            .console-feed { padding: 14px 16px; gap: 12px; }
+            .forum-form-bar { padding: 12px 14px; gap: 8px; }
+
             .guide-hero-banner { padding: 24px 20px; }
             .guide-block { padding: 20px; }
             .guide-header-title { font-size: 0.78rem; }
@@ -905,11 +942,11 @@
         </defs>
     </svg>
 
-    <!-- TRÌNH PHÁT NHẠC NỀN & KHUNG YOUTUBE AUDIO CẤU HÌNH GỠ BỎ QUẢNG CÁO TỐI ĐA -->
+    <!-- TRÌNH PHÁT NHẠC NỀN & KHUNG YOUTUBE AUDIO -->
     <audio id="mainAudioPlayer" loop playsinline preload="auto"></audio>
     <div id="ytAudioPlayerBox" style="position:fixed; bottom:0; right:0; width:1px; height:1px; opacity:0.001; pointer-events:none; z-index:-10;"></div>
 
-    <!-- 1. MÀN CHỜ VŨ TRỤ ĐỘNG VỚI NÚT ENTER -->
+    <!-- 1. MÀN CHỜ VŨ TRỤ -->
     <div id="intro-loader">
         <canvas id="introCanvas"></canvas>
         <div class="intro-aurora"></div>
@@ -926,7 +963,7 @@
                 <div class="intro-counter" id="introPercent">00%</div>
             </div>
 
-            <!-- NÚT ENTER KHỞI ĐỘNG CÙNG LÚC CẢ VIDEO & NHẠC -->
+            <!-- NÚT ENTER -->
             <div class="intro-enter-btn-wrap">
                 <button class="intro-enter-btn" id="introEnterBtn" onclick="handleEnterAtelier(event)">
                     ENTER
@@ -935,7 +972,7 @@
         </div>
     </div>
 
-    <!-- 2. HEADER ĐỐI XỨNG -->
+    <!-- 2. HEADER -->
     <header>
         <button class="menu-btn" onclick="toggleSidebar()" aria-label="Menu">
             <div class="menu-bars"><span></span><span></span></div>
@@ -991,7 +1028,7 @@
             <ul class="sidebar-links">
                 <li><a href="#hero" onclick="handleMenuClick(event, '#hero')"><span data-cms="nav_hero">Khởi Đầu (Hero)</span></a></li>
                 <li><a href="#showroom" onclick="handleMenuClick(event, '#showroom')"><span data-cms="nav_showroom">Showroom (Matrix)</span></a></li>
-                <li><a href="javascript:void(0)" onclick="openGuideSubpage()"><span data-cms="nav_guide">Sổ Tay Hướng Dẫn (Guide)</span></a></li>
+                <li><a href="#guide" onclick="handleMenuClick(event, '#guide')"><span data-cms="nav_guide">Sổ Tay Hướng Dẫn (Guide)</span></a></li>
                 <li><a href="#roster" onclick="handleMenuClick(event, '#roster')"><span data-cms="nav_roster">Kho Nhân Vật (Roster)</span></a></li>
                 <li><a href="#forum" onclick="handleMenuClick(event, '#forum')"><span data-cms="nav_forum">Diễn Đàn (Lounge)</span></a></li>
             </ul>
@@ -1069,10 +1106,10 @@
     </section>
 
     <!-- ========================================================
-         THẺ DẪN VÀO HƯỚNG DẪN: SÁNG MÀU, CÂN ĐỐI LỀ
+         THẺ DẪN VÀO HƯỚNG DẪN: PHẢI NHẤN NÚT "XEM HƯỚNG DẪN" MỚI MỞ
     ======================================================== -->
-    <div class="editorial-guide-strip reveal">
-        <div class="editorial-guide-card" onclick="openGuideSubpage()">
+    <div class="editorial-guide-strip reveal" id="guide">
+        <div class="editorial-guide-card">
             <div>
                 <div class="guide-tag-pill" data-cms="guide_strip_tag">
                     <span>✦</span> ETHERA GUIDEBOOK // SETUP
@@ -1085,7 +1122,6 @@
                 </p>
             </div>
 
-            <!-- CHỈ CÒN 2 MỤC THÔNG SỐ: ĐÃ BỎ THỜI GIAN 2 PHÚT, CĂN LỀ RỘNG RÃI -->
             <div class="editorial-stats-row">
                 <div class="stat-item">
                     <span class="stat-label" data-cms="guide_stat_label1">NỀN TẢNG</span>
@@ -1098,10 +1134,10 @@
             </div>
 
             <div>
-                <div class="editorial-btn-open">
+                <button type="button" class="editorial-btn-open" onclick="openGuideSubpage()">
                     <span>XEM HƯỚNG DẪN</span>
                     <span>→</span>
-                </div>
+                </button>
             </div>
         </div>
     </div>
@@ -1138,15 +1174,19 @@
 
     <div class="divider-to-dark"></div>
 
-    <!-- 6. PHẦN TỐI: DIỄN ĐÀN -->
+    <!-- ========================================================
+         6. PHẦN TỐI: DIỄN ĐÀN (CĂN TRÁI NHƯ CŨ, KHUNG TO TỰ CO GIÃN)
+    ======================================================== -->
     <section class="forum-section" id="forum">
+        <!-- ĐÃ TRẢ VỀ CĂN TRÁI NGUYÊN BẢN -->
         <div class="reveal" style="margin-bottom:20px;">
             <div style="color:var(--crimson); font-size:0.75rem; font-weight:700; letter-spacing:2px;" data-cms="forum_tag">ATELIER LOUNGE</div>
             <h2 style="font-family:var(--font-serif); font-size:clamp(1.6rem, 5vw, 2.2rem); font-weight:700;" data-cms="forum_heading">Diễn Đàn & Đối Thoại</h2>
         </div>
 
         <div class="forum-console reveal">
-            <div style="padding:14px 20px; background:#141722; border-bottom:1px solid rgba(255,255,255,0.08); display:flex; justify-content:space-between; align-items:center;">
+            <!-- Header cố định -->
+            <div class="forum-header-bar">
                 <span style="font-size:0.75rem; letter-spacing:1px; color:#cbd5e1; font-weight:600;" data-cms="console_log_text">CONSOLE LOG // MATRIX</span>
                 
                 <div class="comment-sort-bar" style="width:auto;">
@@ -1158,9 +1198,11 @@
                 </div>
             </div>
 
+            <!-- Vùng hiển thị tin nhắn rộng rãi tự cuộn bên trong -->
             <div class="console-feed" id="forumFeed"></div>
 
-            <form onsubmit="postGlobalForum(event)" style="padding:18px 20px; background:#141722; border-top:1px solid rgba(255,255,255,0.08); display:flex; flex-direction:column; gap:8px;">
+            <!-- Khung nhập tin nhắn cố định chân console -->
+            <form class="forum-form-bar" onsubmit="postGlobalForum(event)">
                 <div style="display:flex; gap:8px; flex-wrap:wrap;">
                     <input type="text" id="forumAuthor" placeholder="Tên của bạn..." style="flex:1; min-width:140px;" required>
                     <button type="submit" class="btn-brand" style="width: auto;">GỬI TIN</button>
@@ -1179,24 +1221,19 @@
         <svg class="luxury-sparkle-svg" viewBox="0 0 24 24"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
     </div>
 
-    <!-- ========================================================
-         TRANG PHỤ SLIDE-OVER: SỔ TAY HƯỚNG DẪN (ĐÃ BỎ ĐẾM BƯỚC)
-    ======================================================== -->
+    <!-- TRANG PHỤ SLIDE-OVER: SỔ TAY HƯỚNG DẪN -->
     <div id="guideSubpage">
         <div class="guide-header-bar">
-            <!-- NÚT MŨI TÊN VECTOR QUAY LẠI TỐI GIẢN -->
             <button class="guide-back-btn" onclick="closeGuideSubpage()" aria-label="Quay lại trang chủ">
                 <svg class="guide-back-svg" viewBox="0 0 24 24" fill="none">
                     <path d="M19 12H5M12 19L5 12L12 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </button>
 
-            <!-- TIÊU ĐỀ Ở GIỮA ĐƯỢC CĂN CHỈNH ĐỐI XỨNG TUYỆT ĐỐI -->
             <div class="guide-header-title" data-cms="guide_subpage_header_title">
                 SỔ TAY HƯỚNG DẪN // ETHERA ATELIER
             </div>
 
-            <!-- CỘT PHẢI CÂN BẰNG BỐ CỤC -->
             <div class="guide-header-right">
                 <div id="guideAdminQuickBtns" style="display:none; gap:6px;">
                     <button class="btn-brand" style="background:#10b981; color:#fff; font-size:0.75rem; padding:6px 12px;" onclick="saveGuideBlocksToCloud()">💾 LƯU</button>
@@ -1222,12 +1259,11 @@
                 <button class="btn-brand" style="background:#10b981; color:#fff;" onclick="saveGuideBlocksToCloud()">💾 Lưu Thay Đổi Lên Database</button>
             </div>
 
-            <!-- CÁC THẺ HƯỚNG DẪN HOÀN TOÀN TỰ DO, KHÔNG CÒN GẮN CHỮ BƯỚC NỮA -->
             <div class="guide-content-blocks" id="guideBlocksContainer"></div>
         </div>
     </div>
 
-    <!-- MODAL CHÈN ẢNH / VIDEO (Z-INDEX 8500 LUÔN NỔI LÊN TRÊN HẾT) -->
+    <!-- MODAL CHÈN ẢNH / VIDEO -->
     <div id="guideMediaModal" class="modal-wrap">
         <div class="modal-content" style="max-width:500px; color:#fff;">
             <button class="modal-close" onclick="closeModal('guideMediaModal')">✕</button>
@@ -1438,7 +1474,7 @@
         </div>
     </div>
 
-    <!-- MODAL 7: CÀI ĐẶT NHẠC NỀN & BÓC TÁCH AUDIO TỪ VIDEO TRỰC TIẾP -->
+    <!-- MODAL 7: CÀI ĐẶT NHẠC NỀN -->
     <div id="adminAudioModal" class="modal-wrap">
         <div class="modal-content" style="max-width:520px;">
             <button class="modal-close" onclick="closeModal('adminAudioModal')">✕</button>
@@ -1452,7 +1488,7 @@
 
                 <div style="background:rgba(255,255,255,0.04); padding:10px; border-radius:8px; border:1px dashed rgba(255,255,255,0.2);">
                     <label style="font-size:0.75rem; color:#cbd5e1; display:block; margin-bottom:3px;">2. Tải file âm thanh MP3/M4A/WAV:</label>
-                    <input type="file" id="inputAudioFile" accept="audio/*" style="border:none; padding:2px 0; font-size:0.8rem;">
+                    <input type="file" id="inputAudioFile" accept=".mp3,.wav,.m4a,.aac,.ogg,audio/*,audio/mpeg,audio/mp3,audio/wav" style="border:none; padding:2px 0; font-size:0.8rem;">
                 </div>
 
                 <div style="background:rgba(236,72,153,0.08); padding:10px; border-radius:8px; border:1px dashed rgba(236,72,153,0.4);">
@@ -1500,7 +1536,6 @@
         let introDismissed = false;
         let introAnimId = null;
 
-        // DANH SÁCH MỤC HƯỚNG DẪN MẶC ĐỊNH (TỰ DO, KHÔNG CỨNG NHẮC CHỮ BƯỚC)
         const DEFAULT_GUIDE_BLOCKS = [
             {
                 id: 'g_1',
@@ -1531,12 +1566,11 @@
                 id: 'g_5',
                 type: 'text',
                 title: 'Ghi Chú Cá Nhân & Lưu Ý Quan Trọng',
-                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.'
+                text: 'Mọi thắc mắc trong quá trình kết nối API Key bạn có thể gửi phản hồi trực tiếp tại Diễn đàn bên dưới để Ethera và mọi người hỗ trợ nhé!'
             }
         ];
         let guideBlocks = DEFAULT_GUIDE_BLOCKS;
 
-        // BẬT / TẮT NHẠC
         function toggleAudio(manualClick = false) {
             if (manualClick) {
                 userHasPausedManually = isAudioPlaying;
@@ -1788,7 +1822,7 @@
                 texts[el.getAttribute('data-cms')] = el.innerHTML;
             });
             if (db) db.ref('cms_texts').set(texts);
-            alert("✓ Đã lưu toàn bộ nội dung văn bản (kể cả thông số & tiêu đề) lên Firebase!");
+            alert("✓ Đã lưu toàn bộ nội dung văn bản lên Firebase!");
         }
 
         function setCmsEditable(enable) {
@@ -1841,6 +1875,12 @@
                 return;
             }
             toggleSidebar();
+            if (targetId) {
+                const el = document.querySelector(targetId);
+                if (el) {
+                    el.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
         }
 
         function openContactLinksModal() {
@@ -2164,6 +2204,8 @@
 
         function openAudioManagerModal() {
             document.getElementById('inputAudioUrl').value = currentAudioSrc || '';
+            document.getElementById('inputAudioFile').value = '';
+            document.getElementById('inputExtractVideoFile').value = '';
             document.getElementById('adminAudioModal').classList.add('open');
         }
 
@@ -2172,9 +2214,24 @@
             const audioFileInput = document.getElementById('inputAudioFile');
             const extractVidFileInput = document.getElementById('inputExtractVideoFile');
 
+            if (audioFileInput.files && audioFileInput.files[0]) {
+                const file = audioFileInput.files[0];
+                try {
+                    const base64Audio = await readFileAsBase64(file);
+                    setAudioSource({ url: base64Audio });
+                    if (db) db.ref('custom_audio').set({ url: base64Audio });
+                    closeModal('adminAudioModal');
+                    alert("✓ Đã lưu và áp dụng file nhạc từ máy lên Cloud Database thành công!");
+                    return;
+                } catch(err) {
+                    alert("Lỗi khi đọc file âm thanh: " + err);
+                    return;
+                }
+            }
+
             if (extractVidFileInput.files && extractVidFileInput.files[0]) {
                 const vidFile = extractVidFileInput.files[0];
-                alert("Đang giải nén và trích xuất dải âm thanh từ Video, vui lòng đợi vài giây...");
+                alert("Đang giải nén và nạp âm thanh từ Video, vui lòng đợi vài giây...");
                 try {
                     const audioBase64 = await readFileAsBase64(vidFile);
                     setAudioSource({ url: audioBase64 });
@@ -2188,22 +2245,15 @@
                 }
             }
 
-            if (audioFileInput.files && audioFileInput.files[0]) {
-                const file = audioFileInput.files[0];
-                const base64Audio = await readFileAsBase64(file);
-                setAudioSource({ url: base64Audio });
-                if (db) db.ref('custom_audio').set({ url: base64Audio });
-                closeModal('adminAudioModal');
-                alert("✓ Đã lưu file nhạc từ máy lên Cloud Database thành công!");
-            } 
-            else if (urlInput) {
+            if (urlInput) {
                 setAudioSource({ url: urlInput });
                 if (db) db.ref('custom_audio').set({ url: urlInput });
                 closeModal('adminAudioModal');
                 alert("✓ Đã lưu nhạc nền lên Cloud Database!");
-            } else {
-                alert("Vui lòng dán link nhạc hoặc chọn file âm thanh / video cần bóc tách.");
+                return;
             }
+
+            alert("Vui lòng chọn file nhạc (MP3/WAV/M4A), dán link hoặc chọn file video cần trích xuất.");
         }
 
         function renderTagTray() {
@@ -2348,9 +2398,7 @@
 
         function openRulesModal() { document.getElementById('rulesModal').classList.add('open'); }
 
-        // ========================================================
-        // QUẢN LÝ TRANG PHỤ HƯỚNG DẪN (ĐÃ LOẠI BỎ HUY HIỆU ĐẾM BƯỚC)
-        // ========================================================
+        // SỔ TAY HƯỚNG DẪN
         function openGuideSubpage() {
             document.getElementById('guideSubpage').classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -2400,7 +2448,6 @@
                         </div>
                     `;
                 } else {
-                    // ĐÃ XÓA HUY HIỆU TỰ ĐỘNG GHI BƯỚC (CHỈ HIỆN TIÊU ĐỀ DO BẠN TỰ ĐẶT)
                     container.innerHTML += `
                         <div class="guide-block" id="block_${block.id}">
                             <div class="guide-block-title" ${isCmsActive ? 'contenteditable="true"' : ''} onblur="updateGuideTitle('${block.id}', this.innerText)">
@@ -2447,7 +2494,6 @@
             renderGuideBlocks();
         }
 
-        // MỞ MODAL CHÈN ẢNH HOẶC VIDEO
         function openGuideMediaModal(targetBlockId = '') {
             document.getElementById('guideMediaTargetBlockId').value = targetBlockId;
             document.getElementById('guideMediaUrlInput').value = '';
@@ -2513,7 +2559,7 @@
             }
         }
 
-        // RENDER BOT
+        // RENDER ROSTER BOTS
         function renderBots() {
             const container = document.getElementById('charContainer');
             const searchVal = botSearchInput.value.toLowerCase().trim();
@@ -2834,9 +2880,10 @@
         }
 
         function readFileAsBase64(file) {
-            return new Promise((resolve) => {
+            return new Promise((resolve, reject) => {
                 const reader = new FileReader();
                 reader.onload = (e) => resolve(e.target.result);
+                reader.onerror = (e) => reject(e);
                 reader.readAsDataURL(file);
             });
         }
