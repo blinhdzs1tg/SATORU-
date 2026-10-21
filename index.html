@@ -787,7 +787,6 @@
     </style>
 </head>
 <body>
-
     <svg width="0" height="0" style="position:absolute">
         <defs>
             <linearGradient id="heartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -860,6 +859,7 @@
             <button class="btn-brand" style="background:#ec4899; color:#fff;" onclick="openAudioManagerModal()">🎵 Cài Đặt Nhạc Nền</button>
             <button class="btn-brand" style="background:#f59e0b; color:#000;" onclick="openContactLinksModal()">🔗 Sửa Link Menu</button>
             <button class="btn-brand" style="background:#282b37; color:#cbd5e1;" onclick="logoutAdmin()">Thoát Admin</button>
+            <button class="btn-brand" style="background:#10b981; color:#fff; font-weight:700;" onclick="forcePushGuideToFirebase()">⚡ ÉP NẠP HƯỚNG DẪN MỚI LÊN CLOUD</button>
         </div>
 
         <div class="admin-pane" id="paneCms" style="display:none;">
@@ -1006,7 +1006,7 @@
             <div class="featured-strip-header">
                 <!-- THẺ CỨNG VÁT NGHIÊNG TITANIUM SUPERCAR & VỆT SÁNG PHẢN CHIẾU -->
                 <div class="featured-badge-pill" data-cms="featured_strip_badge">
-                    <span class="unskew-text">ADMIN'S RECOMMENDATION // FLAGSHIP SPECIMEN</span>
+                    <span class="unskew-text">ADMIN'S RECOMMENDATION</span>
                 </div>
                 <div class="featured-counter-tag" id="featuredCounterLabel"></div>
             </div>
@@ -3264,6 +3264,23 @@
             }, { threshold: 0.1 });
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         }
+        // HÀM CƯỠNG CHẾ ÉP CODE MỚI LÊN FIREBASE & BÁO LỖI NẾU BỊ CHẶN
+function forcePushGuideToFirebase() {
+    if (!db) {
+        alert("❌ Lỗi: Chưa kết nối được tới máy chủ Firebase!");
+        return;
+    }
+    
+    // Ghi đè toàn bộ dữ liệu mẫu trong code lên Firebase
+    db.ref('guide_blocks').set(DEFAULT_GUIDE_BLOCKS)
+        .then(() => {
+            alert("✅ THÀNH CÔNG!\nToàn bộ hướng dẫn mới trong file code đã được ép nạp đè lên Cloud Firebase.");
+            location.reload(); // Tự tải lại trang
+        })
+        .catch((error) => {
+            alert("❌ FIREBASE TỪ CHỐI GHI DỮ LIỆU!\nMã lỗi: " + error.message + "\n\n👉 NGUYÊN NHÂN: Firebase của bạn đang bị khóa Rules. Hãy vào Firebase Console -> Realtime Database -> Rules -> sửa thành '.read': true, '.write': true");
+        });
+}
     </script>
 </body>
 </html>
