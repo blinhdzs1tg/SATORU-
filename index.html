@@ -784,6 +784,29 @@
 
         .reveal { opacity: 0; transform: translateY(25px); transition: all 0.6s ease; }
         .reveal.active { opacity: 1; transform: translateY(0); }
+        .tag-picker-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 6px;
+            max-height: 120px;
+            overflow-y: auto;
+        }
+        .tag-pick-pill {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: #cbd5e1;
+            font-size: 0.72rem;
+            padding: 3px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .tag-pick-pill:hover {
+            background: var(--crimson);
+            border-color: var(--crimson);
+            color: #fff;
+        }
     </style>
 </head>
 <body>
@@ -859,7 +882,6 @@
             <button class="btn-brand" style="background:#ec4899; color:#fff;" onclick="openAudioManagerModal()">🎵 Cài Đặt Nhạc Nền</button>
             <button class="btn-brand" style="background:#f59e0b; color:#000;" onclick="openContactLinksModal()">🔗 Sửa Link Menu</button>
             <button class="btn-brand" style="background:#282b37; color:#cbd5e1;" onclick="logoutAdmin()">Thoát Admin</button>
-            <button class="btn-brand" style="background:#10b981; color:#fff; font-weight:700;" onclick="forcePushGuideToFirebase()">⚡ ÉP NẠP HƯỚNG DẪN MỚI LÊN CLOUD</button>
         </div>
 
         <div class="admin-pane" id="paneCms" style="display:none;">
@@ -2073,11 +2095,13 @@
             }
         }
 
-        function promptAddTagShortcut() {
+function promptAddTagShortcut() {
             const newT = prompt("Nhập tên Tag mới muốn ghim vào thanh tìm kiếm (không cần gõ #):");
             if (newT && !presetTags.includes(newT.trim())) {
                 presetTags.push(newT.trim());
                 if (db) db.ref('preset_tags').set(presetTags);
+                renderTagTray();
+                renderBotFormTagPicker();
             }
         }
 
@@ -2087,6 +2111,8 @@
                 presetTags = presetTags.filter(t => t !== tag);
                 selectedTags = selectedTags.filter(t => t !== tag);
                 if (db) db.ref('preset_tags').set(presetTags);
+                renderTagTray();
+                renderBotFormTagPicker();
                 renderChips();
                 onFilterOrSortChanged();
             }
@@ -2095,12 +2121,8 @@
         function renderBotFormTagPicker() {
             const container = document.getElementById('botFormTagPicker');
             if (!container) return;
-            const allTags = new Set([...presetTags]);
-            bots.forEach(b => {
-                if (b.tags && Array.isArray(b.tags)) b.tags.forEach(t => allTags.add(t));
-            });
             container.innerHTML = '';
-            allTags.forEach(tag => {
+            presetTags.forEach(tag => {
                 container.innerHTML += `<span class="tag-pick-pill" onclick="pickTagToBotForm('${tag}')">#${tag}</span>`;
             });
         }
@@ -3264,23 +3286,6 @@
             }, { threshold: 0.1 });
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         }
-        // HÀM CƯỠNG CHẾ ÉP CODE MỚI LÊN FIREBASE & BÁO LỖI NẾU BỊ CHẶN
-function forcePushGuideToFirebase() {
-    if (!db) {
-        alert("❌ Lỗi: Chưa kết nối được tới máy chủ Firebase!");
-        return;
-    }
-    
-    // Ghi đè toàn bộ dữ liệu mẫu trong code lên Firebase
-    db.ref('guide_blocks').set(DEFAULT_GUIDE_BLOCKS)
-        .then(() => {
-            alert("✅ THÀNH CÔNG RỰC RỠ!\nToàn bộ hướng dẫn mới trong file code đã được ép nạp đè lên Cloud Firebase.");
-            location.reload(); // Tự tải lại trang
-        })
-        .catch((error) => {
-            alert("❌ FIREBASE TỪ CHỐI GHI DỮ LIỆU!\nMã lỗi: " + error.message + "\n\n👉 NGUYÊN NHÂN: Firebase của bạn đang bị khóa Rules. Hãy vào Firebase Console -> Realtime Database -> Rules -> sửa thành '.read': true, '.write': true");
-        });
-}
     </script>
 </body>
 </html>
