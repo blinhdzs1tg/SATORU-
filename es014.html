@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Angel Satoru x Demon User - ES014</title>
+<meta property="og:title" content="Angel Satoru x Demon User - ES014">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap');
+:root{
+  --bg:#f6f4ed;
+  --ink:#1a1c1d;
+  --muted:#5c6061;
+  --line:rgba(185,150,85,.28);
+  --accent:#b8934a;
+  --accent-rgb:184,147,74;
+  --scene:radial-gradient(ellipse at 60% 40%, #ffffff 0%, #f7f3e8 45%, #e9e2ce 100%);
+  --panel:#ffffff;
+  --panel-card:#fdfcf9;
+  --red:#a52c29;
+  --cursor-color:rgba(184,147,74,.4);
+  --ray:rgba(215,180,105,.28);
+  --spark:#fff9e6;
+  --sparkglow:rgba(215,180,105,.85);
+  --radius:16px;
+  --soft:0 8px 25px rgba(50,40,25,.07);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Be Vietnam Pro',sans-serif;
+  font-size:14px;
+  line-height:1.75;
+  transition:background .7s,color .7s;
+  overflow-x:hidden;
+  cursor:default;
+}
+button,input,a{font:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+button:active{transform:scale(.985)}
+::selection{background:var(--ink);color:var(--bg)}
+
+/* CON TRỎ CHUỘT HÀO QUANG KÉP KHÔNG BỊ MẤT TRÊN DESKTOP */
+#custom-cursor{
+  position:fixed;top:0;left:0;width:9px;height:9px;
+  background:var(--accent);
+  border-radius:50%;
+  pointer-events:none;
+  z-index:99999;
+  transform:translate(-50%,-50%);
+  opacity:0;
+  transition:width .2s,height .2s,background .3s,opacity .3s,transform .08s ease-out;
+  box-shadow:0 0 10px var(--accent);
+}
+#cursor-glow{
+  position:fixed;top:0;left:0;width:170px;height:170px;
+  background:radial-gradient(circle,var(--cursor-color) 0%,transparent 70%);
+  pointer-events:none;
+  z-index:99998;
+  transform:translate(-50%,-50%);
+  opacity:0;
+  transition:opacity .4s,background .5s;
+}
+
+/* HIỆU ỨNG XUẤT HIỆN KHI CUỘN */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
+.rv.in{opacity:1;transform:none}
+
+.top{
+  height:66px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;
+  gap:18px;position:sticky;top:0;z-index:30;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+  transition:background .7s,border-color .7s;
+}
+.logo{font-family:'Cormorant Garamond',serif;font-size:25px;letter-spacing:3px;white-space:nowrap;font-weight:600;transition:opacity .35s,letter-spacing .6s}
+.nav{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.nav button{border:1px solid transparent;background:none;padding:9px 16px;font-size:11px;letter-spacing:.08em;white-space:nowrap;border-radius:999px;font-weight:600;color:var(--muted);transition:all .3s}
+.nav button.active{background:var(--panel);color:var(--ink);border-color:var(--line);box-shadow:var(--soft)}
+
+.page{display:none;animation:enter .55s ease both}
+.page.active{display:block}
+@keyframes enter{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}
+
+/* ========================================================
+   HERO & HÀNH TINH KHÔNG GIAN
+   ======================================================== */
+.hero{
+  min-height:640px;
+  height:calc(100svh - 66px);
+  max-height:920px;
+  position:relative;
+  overflow:hidden;
+  background:var(--scene);
+  isolation:isolate;
+  transition:background .8s;
+}
+.art{
+  position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;
+  --cx:57%;--cy:40%;
+  --sw:clamp(200px,34vw,470px);
+  --ok:2.4;
+  --orot:-20deg;
+  --oy:1;
+}
+.art.r-demon{--cx:65%;--sw:29vw;--orot:35deg;--oy:.7}
+.art.r-border{--cx:68%;--sw:18vw;--orot:70deg;--oy:.5}
+.art.r-human{--cx:70%;--sw:23vw;--orot:5deg;--oy:.9}
+
+.rays{
+  position:absolute;left:var(--cx);top:var(--cy);width:170vmax;height:170vmax;
+  transform:translate(-50%,-50%);
+  background:repeating-conic-gradient(var(--ray) 0 3deg,transparent 3deg 12deg);
+  -webkit-mask-image:radial-gradient(circle at center,#000 0,transparent 55%);
+  mask-image:radial-gradient(circle at center,#000 0,transparent 55%);
+  animation:spin 160s linear infinite;
+  opacity:.85;
+  transition:left 1s cubic-bezier(.4,0,.2,1),top 1s cubic-bezier(.4,0,.2,1);
+  will-change:transform;
+}
+.sun{
+  position:absolute;left:var(--cx);top:var(--cy);
+  width:var(--sw);aspect-ratio:1;border-radius:50%;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(circle at 35% 28%,#ffffff 0%,#fff7dd 22%,#f2deaf 50%,#cba867 85%,rgba(203,168,103,.2) 100%);
+  box-shadow:0 0 140px rgba(230,195,120,.85), 0 0 60px rgba(255,255,240,.95), inset 0 0 50px #ffffff;
+  transition:left 1s cubic-bezier(.4,0,.2,1),top 1s cubic-bezier(.4,0,.2,1),width 1s cubic-bezier(.4,0,.2,1);
+  animation:breathe 7s ease-in-out infinite;
+}
+.orbit{
+  position:absolute;left:var(--cx);top:var(--cy);
+  width:calc(var(--sw) * var(--ok));aspect-ratio:1;
+  border:1px solid rgba(184,147,74,.45);border-radius:50%;
+  transform:translate(-50%,-50%) rotate(var(--orot)) scaleY(var(--oy));
+  transform-origin:center;
+  box-shadow:0 0 35px rgba(184,147,74,.2);
+  transition:left 1s cubic-bezier(.4,0,.2,1),top 1s cubic-bezier(.4,0,.2,1),width 1s cubic-bezier(.4,0,.2,1),transform 1s cubic-bezier(.4,0,.2,1);
+}
+.orbit:before,.orbit:after{content:"";position:absolute;border:1px solid rgba(255,255,255,.75);border-radius:50%;inset:12%}
+.orbit:after{inset:25%;border-style:dashed;border-color:rgba(184,147,74,.6);animation:spinO 110s linear infinite}
+.land{position:absolute;bottom:-2%;left:-5%;width:110%;height:28%;background:linear-gradient(165deg,#d2cbb8,#a7a08b);clip-path:polygon(0 70%,12% 45%,24% 76%,39% 22%,52% 69%,65% 34%,79% 72%,91% 41%,100% 65%,100% 100%,0 100%);opacity:.55;transition:all 1s}
+.land.back{height:20%;bottom:9%;opacity:.3;transform:scaleX(-1)}
+.noise{position:absolute;inset:0;opacity:.08;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.4'/%3E%3C/svg%3E")}
+
+.spark{position:absolute;width:3px;height:3px;background:var(--spark);border-radius:50%;box-shadow:0 0 12px var(--sparkglow);animation:drift 9s ease-in-out infinite}
+body.theme-demon .spark{animation-name:rise;width:4px;height:4px;filter:blur(.4px)}
+
+@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+@keyframes breathe{0%,100%{filter:brightness(1)}50%{filter:brightness(1.14)}}
+@keyframes drift{0%,100%{transform:translateY(0);opacity:.25}50%{transform:translateY(-40px);opacity:.95}}
+@keyframes rise{0%{transform:translateY(40px) scale(1);opacity:0}30%{opacity:.95}100%{transform:translateY(-240px) scale(.2);opacity:0}}
+@keyframes spinO{to{transform:rotate(360deg)}}
+
+/* CĂN CHỈNH HERO COPY & NÚT KHÁM PHÁ THẾ GIỚI TRÊN MÁY TÍNH */
+.hero-copy{
+  position:absolute;
+  left:7%;
+  top:50%;
+  transform:translateY(-54%);
+  max-width:490px;
+  z-index:15;
+}
+.kicker{font-size:11px;letter-spacing:.14em;text-transform:uppercase;display:flex;align-items:center;gap:10px;font-weight:600;color:var(--accent)}
+.kicker:before{content:"";height:1px;width:18px;background:currentColor;opacity:.8}
+.hero h1{font:500 clamp(68px,9vw,135px)/.85 'Cormorant Garamond',serif;letter-spacing:-2px;margin:24px 0}
+.hero h1 em{display:block;padding-left:18%;font-weight:400;color:var(--accent)}
+.hero-desc{max-width:340px;line-height:1.95;font-size:14px;font-weight:400}
+
+/* NÚT KHÁM PHÁ THẾ GIỚI ĐƯỢC CẢI TIẾN TOÀN DIỆN */
+.btn-hero-explore{
+  margin-top:24px;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:14px 28px;
+  background:var(--panel);
+  color:var(--ink);
+  font-size:11.5px;
+  letter-spacing:.1em;
+  transition:all .35s cubic-bezier(.2,1,.3,1);
+  font-weight:600;
+  box-shadow:0 4px 16px rgba(0,0,0,.06);
+  position:relative;
+  z-index:25;
+  white-space:nowrap;
+  user-select:none;
+}
+.btn-hero-explore .btn-arrow{
+  display:inline-block;
+  font-size:13px;
+  transition:transform .3s ease;
+}
+.btn-hero-explore:hover{
+  background:var(--ink);
+  color:var(--bg);
+  border-color:var(--ink);
+  transform:translateY(-2px);
+  box-shadow:0 8px 24px rgba(0,0,0,.15);
+}
+.btn-hero-explore:hover .btn-arrow{
+  transform:translate(3px,-3px);
+}
+
+.pill{border:1px solid var(--line);border-radius:999px;padding:13px 22px;background:var(--panel);color:var(--ink);font-size:11px;letter-spacing:.08em;transition:all .35s;font-weight:600;box-shadow:0 3px 10px rgba(0,0,0,.04)}
+.pill:hover{background:var(--ink);color:var(--bg);border-color:var(--ink);transform:translateY(-1px)}
+
+/* THANH ĐIỀU HƯỚNG CHỌN CÕI BÊN DƯỚI */
+.hero-bottom{
+  position:absolute;
+  left:7%;
+  right:7%;
+  bottom:26px;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:15px;
+  z-index:10;
+  pointer-events:none;
+}
+.hero-bottom>*{pointer-events:auto}
+.realm-picks{display:flex;gap:7px;flex-wrap:wrap}
+.realm-picks button{padding:11px 17px;background:rgba(255,255,255,.65);border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:11px;letter-spacing:.06em;backdrop-filter:blur(6px);transition:.3s;font-weight:600}
+.realm-picks button.active{background:var(--ink);color:var(--bg);border-color:var(--ink);box-shadow:var(--soft)}
+.time{text-align:right;font-size:9px;letter-spacing:1px;line-height:2}
+.time strong{display:block;font:500 24px 'Cormorant Garamond',serif;color:var(--accent)}
+
+.section{padding:75px 7% 85px}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:32px}
+.section-head h2{font:400 clamp(38px,6vw,66px)/1 'Cormorant Garamond',serif;margin:14px 0 0;color:var(--ink)}
+.section-head p{max-width:260px;line-height:2;color:var(--muted);font-size:13px}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--accent)}
+.small{font-size:12.5px;line-height:1.9;color:var(--muted)}
+.subsection{margin-top:90px}
+.subsection>.eyebrow{font-size:11px;letter-spacing:.14em;display:block}
+.subsection>h3{font:400 clamp(32px,5vw,50px)/1.1 'Cormorant Garamond',serif;margin:14px 0 30px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+
+.realm-card{
+  min-height:250px;position:relative;overflow:hidden;padding:32px;display:flex;flex-direction:column;justify-content:space-between;
+  background:var(--panel);color:var(--ink);border-radius:var(--radius);border:1px solid var(--line);
+  box-shadow:var(--soft);transition:all .5s;
+}
+.realm-card:before{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);transition:left .9s;opacity:.6}
+.realm-card:hover:before{left:130%}
+.realm-card:hover{transform:translateY(-4px);box-shadow:0 16px 36px rgba(0,0,0,.12);border-color:var(--accent);z-index:2}
+.realm-card.demon{background:#231312;color:#f2dfd7;border-top:4px solid var(--red);border-color:rgba(214,71,56,.35)}
+.realm-card.border{background:#d5d2c8;color:#292a28;border-top:4px solid #6c6d66;border-color:rgba(108,109,102,.35)}
+.realm-card.human{background:#ede4d6;color:#333;border-top:4px solid #ab9376;border-color:rgba(171,147,118,.35)}
+.realm-card.heaven{background:#faf7f0;color:#292a28;border-top:4px solid var(--accent);border-color:rgba(184,147,74,.4)}
+.realm-card h3{font:400 38px 'Cormorant Garamond',serif;margin:8px 0}
+.realm-card p{max-width:360px;line-height:1.95;font-size:13px}
+.realm-card button{align-self:flex-start;border:0;border-bottom:1px solid currentColor;background:none;padding:10px 0;font-size:11px;letter-spacing:.08em;font-weight:600;color:inherit}
+.realm-number{font:400 70px 'Cormorant Garamond',serif;opacity:.12;position:absolute;right:20px;top:5px}
+
+.realm-detail{
+  margin-top:20px;padding:36px;background:var(--panel);
+  border-radius:var(--radius);border:1px solid var(--line);
+  box-shadow:var(--soft);
+}
+.realm-detail h3{font:400 42px 'Cormorant Garamond',serif;margin:12px 0}
+
+.places{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:28px}
+.place{
+  border:1px solid var(--line);
+  background:var(--panel-card);
+  text-align:left;
+  padding:22px;
+  border-radius:12px;
+  transition:all .35s cubic-bezier(.2,1,.3,1);
+  color:var(--ink);
+  box-shadow:0 4px 14px rgba(0,0,0,.03);
+  position:relative;
+  overflow:hidden;
+}
+.place:before{
+  content:'';position:absolute;top:0;left:0;bottom:0;width:4px;
+  background:var(--accent);opacity:.7;transition:.3s;
+}
+.place:hover{
+  background:#ffffff;
+  border-color:var(--accent);
+  transform:translateY(-3px);
+  box-shadow:0 10px 24px rgba(0,0,0,.08);
+}
+.place:hover:before{width:6px;opacity:1}
+.place.open{
+  background:#ffffff;
+  border-color:var(--accent);
+  box-shadow:0 8px 24px rgba(0,0,0,.09);
+}
+.place strong{
+  font:600 22px 'Cormorant Garamond',serif;
+  display:block;
+  margin-bottom:8px;
+  color:var(--ink);
+}
+.place span{
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.8px;
+  line-height:1.6;
+  color:var(--accent);
+  display:inline-block;
+  padding:4px 9px;
+  background:rgba(var(--accent-rgb),0.12);
+  border:1px solid rgba(var(--accent-rgb),0.3);
+  border-radius:4px;
+  transition:.3s;
+}
+.place:hover span,.place.open span{
+  background:var(--ink);
+  color:var(--bg);
+  border-color:var(--ink);
+}
+.place-info{
+  display:none;
+  margin-top:14px;
+  font-size:13px;
+  line-height:1.95;
+  color:var(--muted);
+  border-top:1px dashed var(--line);
+  padding-top:14px;
+}
+.place.open .place-info{display:block;animation:enter .4s ease}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:35px;align-items:start}
+.lore-box{
+  border-radius:var(--radius);padding:26px;margin-bottom:16px;
+  background:var(--panel);border:1px solid var(--line);
+  box-shadow:var(--soft);transition:all .35s;color:var(--ink);
+}
+.lore-box:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(0,0,0,.08);border-color:var(--accent)}
+.lore-box h3{font:400 29px 'Cormorant Garamond',serif;margin:0 0 12px}
+.lore-box p{line-height:2;font-size:13px;color:var(--muted)}
+.event{padding:18px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:95px 1fr;gap:15px;transition:.3s}
+.event:hover{padding-left:6px;background:rgba(184,147,74,.05)}
+.event-date{font:500 18px 'Cormorant Garamond',serif;color:var(--accent)}
+.event h4{font-weight:600;margin:0 0 8px;font-size:15px}
+.event p{line-height:2;color:var(--muted);margin:0 0 10px;font-size:13px}
+.event button{border:0;border-bottom:1px solid var(--accent);background:none;padding:5px 0;font-size:11px;letter-spacing:.06em;font-weight:600;color:var(--accent)}
+
+.cgrid{display:grid;grid-template-columns:1.15fr .85fr;gap:45px;align-items:center}
+.cgrid.rev .collage{order:2}
+.collage{position:relative;width:100%;aspect-ratio:1/0.95;transition:filter .5s}
+.collage.u{aspect-ratio:1/0.95}
+.shot{position:absolute;margin:0;transform:rotate(var(--r));transition:transform .45s cubic-bezier(.175,.885,.32,1.275),box-shadow .4s;border-radius:14px;box-shadow:0 10px 26px rgba(0,0,0,.15);border:1px solid rgba(255,255,255,.5)}
+.shot:hover{transform:rotate(0) scale(1.03);z-index:20!important;box-shadow:0 18px 38px rgba(0,0,0,.22)}
+.ph{position:absolute;inset:0;overflow:hidden;border-radius:14px;background:linear-gradient(135deg,rgba(180,180,180,.25),rgba(140,140,140,.1));display:grid;place-items:center;font-size:9px;letter-spacing:2px;color:var(--muted)}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+.c1{left:2%;top:2%;width:38%;aspect-ratio:3/4;--r:-2deg;z-index:1}
+.c2{left:36%;top:5%;width:38%;aspect-ratio:4/5;--r:1.5deg;z-index:3}
+.c3{left:68%;top:12%;width:30%;aspect-ratio:1;--r:3deg;z-index:2}
+.c4{left:6%;top:52%;width:36%;aspect-ratio:3/4;--r:-1.5deg;z-index:4}
+.c5{left:50%;top:48%;width:44%;aspect-ratio:4/5;--r:1deg;z-index:2}
+
+.u1{left:3%;top:2%;width:42%;aspect-ratio:3/4;--r:-2deg;z-index:1}
+.u2{left:52%;top:6%;width:44%;aspect-ratio:4/5;--r:2deg;z-index:3}
+.u3{left:6%;top:52%;width:38%;aspect-ratio:1;--r:2.5deg;z-index:4}
+.u4{left:48%;top:48%;width:46%;aspect-ratio:4/5;--r:-1deg;z-index:2}
+
+.character-info h2{font:400 clamp(45px,6vw,77px)/.9 'Cormorant Garamond',serif;margin:20px 0}
+.character-info p{line-height:2;color:var(--muted);font-size:13px}
+.statline{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:12px}
+.statline strong{font-weight:600;text-align:right}
+
+.ability-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.ability{
+  padding:24px;border:1px solid var(--line);border-radius:var(--radius);min-height:165px;
+  background:var(--panel);box-shadow:var(--soft);text-align:left;transition:all .4s;position:relative;overflow:hidden;color:var(--ink);
+}
+.ability .symbol{font:400 34px 'Cormorant Garamond',serif;display:block;margin-bottom:12px;transition:.4s;color:var(--accent)}
+.ability strong{display:block;font-weight:600;margin-bottom:9px;font-size:14px;position:relative}
+.ability p{font-size:12px;line-height:1.9;color:var(--muted);position:relative}
+.ability:hover{background:#ffffff;border-color:var(--accent);color:var(--ink);transform:translateY(-4px);box-shadow:0 14px 30px rgba(0,0,0,.1)}
+.ability:hover .symbol{transform:scale(1.12)}
+
+.sliderbox{padding:28px;border-radius:var(--radius);background:var(--panel);border:1px solid var(--line);box-shadow:var(--soft)}
+.slider-title{display:flex;justify-content:space-between;gap:12px;font-size:11px;letter-spacing:.08em;font-weight:600}
+input[type=range]{width:100%;accent-color:var(--accent);margin:22px 0}
+.readout{font:italic 20px/1.6 'Cormorant Garamond',serif;color:var(--accent)}
+.sixwing{display:flex;justify-content:center;gap:8px;margin:24px 0}
+.feather{font-size:26px;transition:opacity .3s,transform .4s;opacity:.25;display:inline-block}
+.feather.on{opacity:1;transform:translateY(-8px) scale(1.2);color:var(--accent);text-shadow:0 0 10px rgba(255,255,255,.8)}
+
+.relationship{padding:75px 7%;border-top:1px solid var(--line)}
+.stage-list{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+  gap:10px;
+  width:100%;
+}
+.stagebtn{
+  border:1px solid var(--line);
+  border-radius:14px;
+  background:var(--panel);
+  color:var(--muted);
+  text-align:left;
+  padding:16px 12px;
+  min-height:130px;
+  transition:all .3s;
+}
+.stagebtn:hover{background:var(--bg);color:var(--ink);border-color:var(--accent);transform:translateY(-2px)}
+.stagebtn.active{background:var(--ink);color:var(--bg);border-color:var(--ink);box-shadow:var(--soft)}
+.stagebtn span{font:400 32px 'Cormorant Garamond',serif;display:block;margin-bottom:14px;color:inherit}
+.stagebtn strong{font-size:11px;font-weight:600;line-height:1.6;color:inherit;display:block}
+
+.stage-content{
+  margin-top:20px;padding:32px;border-radius:var(--radius);display:grid;
+  grid-template-columns:1fr 1fr;gap:30px;background:var(--panel);border:1px solid var(--line);box-shadow:var(--soft);
+}
+.stage-content h3{font:400 35px 'Cormorant Garamond',serif;margin:10px 0}
+.stage-content p{font-size:13px;line-height:2;color:var(--muted)}
+.stage-content blockquote{margin:0;padding:16px 0 16px 22px;border-left:3px solid var(--accent);border-radius:0 12px 12px 0;font:italic 18px/1.7 'Cormorant Garamond',serif;background:rgba(var(--accent-rgb),0.06)}
+
+.dialogue-box{margin-top:20px;padding:28px;background:var(--panel);border-radius:var(--radius);border:1px solid var(--line);box-shadow:var(--soft);transition:.3s}
+.dialogue-box h4{font:400 25px 'Cormorant Garamond',serif;margin:0 0 15px}
+.choice-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.dialogue-box button{background:var(--bg);border:1px solid var(--line);border-radius:999px;color:var(--ink);padding:12px 18px;font-size:12px;transition:.3s;font-weight:600}
+.dialogue-box button:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.progressline{height:4px;background:var(--line);margin-top:18px;border-radius:3px;overflow:hidden}
+.progressline span{height:100%;display:block;background:var(--accent);width:0;transition:width .8s cubic-bezier(.4,0,.2,1)}
+.blinking-danger span{animation:pulseDanger .5s infinite alternate;background:var(--red)!important}
+@keyframes pulseDanger{from{opacity:.6}to{opacity:1}}
+
+footer{padding:30px 7%;display:flex;justify-content:flex-end;border-top:1px solid var(--line)}
+
+/* THANH CTA HOANG TUYẾN: NÚT VUÔNG SẮC BẢN VÀ MA MỊ */
+.borderland-cta-wrap{
+  padding:55px 7% 75px;
+  background:var(--panel);
+  border-top:1px solid var(--line);
+  text-align:center;
+}
+.btn-borderland{
+  display:inline-block;
+  border-radius:0 !important;
+  padding:18px 45px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;
+  letter-spacing:2px;
+  color:var(--bg);
+  background:var(--ink);
+  border:1px solid var(--ink);
+  transition:all .4s cubic-bezier(.2,1,.3,1);
+  position:relative;
+  overflow:hidden;
+  outline:none;
+}
+.btn-borderland::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:60%;
+  height:100%;
+  background:linear-gradient(120deg,transparent,rgba(255,255,255,.3),transparent);
+  transform:skewX(-25deg);
+  transition:left .75s cubic-bezier(.2,1,.3,1);
+}
+.btn-borderland:hover{
+  background:var(--red);
+  border-color:#ff8080;
+  color:#ffffff;
+  letter-spacing:3px;
+  transform:translateY(-3px);
+  box-shadow:0 12px 30px rgba(165,44,41,.45), 0 0 15px rgba(255,90,90,.25);
+  outline:1px solid rgba(255,128,128,.4);
+  outline-offset:5px;
+}
+.btn-borderland:hover::before{left:150%}
+.btn-borderland:active{transform:translateY(-1px) scale(.99)}
+
+/* MODAL CHUNG */
+.modal{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(10px)}
+.modal.show{display:flex}
+.modal-box{max-width:550px;width:100%;background:var(--bg);padding:40px;max-height:85svh;overflow:auto;animation:modalPop .5s cubic-bezier(.175,.885,.32,1.275);color:var(--ink);border-radius:20px;border:1px solid var(--line);box-shadow:0 24px 60px rgba(0,0,0,.35)}
+@keyframes modalPop{from{opacity:0;transform:scale(.85) translateY(20px)}to{opacity:1;transform:none}}
+.modal-box h3{font:400 40px 'Cormorant Garamond',serif;margin:15px 0 8px;line-height:1.1}
+.modal-box p{font-size:13.5px;line-height:1.9;color:var(--muted)}
+.modal-top{display:flex;justify-content:space-between;align-items:center}
+.close{border:1px solid var(--line);border-radius:50%;background:none;width:34px;height:34px;transition:.3s;font-size:18px;color:inherit;display:grid;place-items:center}
+.close:hover{background:var(--ink);color:var(--bg);transform:rotate(90deg)}
+.skill-tags{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.skill-tag{padding:5px 12px;border:1px solid var(--line);border-radius:999px;font-size:10px;letter-spacing:1px;font-weight:600}
+.skill-stats{margin:22px 0;padding:16px;border-radius:14px;background:var(--panel);border:1px solid var(--line)}
+.stat-row{display:flex;justify-content:space-between;margin-bottom:6px;font-size:10px;font-weight:600}
+.stat-bar-bg{height:4px;background:var(--line);width:100%;margin-bottom:12px;border-radius:4px}
+.stat-bar-fill{height:100%;background:var(--accent);border-radius:4px}
+
+/* POPUP HOANG TUYẾN ÁC QUỶ */
+#demonModal .modal-box{
+  background:radial-gradient(circle at 50% 10%,#2d1110 0%,#130707 90%);
+  border:1px solid rgba(220,74,60,.55);
+  outline:1px solid rgba(220,74,60,.25);
+  outline-offset:-7px;
+  color:#f4ded7;
+  text-align:center;
+  padding:45px 36px;
+  border-radius:4px;
+  box-shadow:0 0 60px rgba(165,44,41,.45),0 25px 50px rgba(0,0,0,.8);
+  position:relative;
+  overflow:hidden;
+}
+#demonModal .modal-box::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 50% 0%,rgba(255,80,80,.15),transparent 75%);
+  pointer-events:none;
+}
+#demonModal h3{
+  color:#ff9e9e;
+  font-size:32px;
+  margin-bottom:20px;
+  text-shadow:0 0 20px rgba(255,100,100,.35);
+}
+.btn-claim{
+  display:inline-block;
+  margin-top:24px;
+  padding:15px 38px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:21px;
+  font-weight:600;
+  letter-spacing:1.5px;
+  color:#fff;
+  background:var(--red);
+  border:1px solid #ff7a7a;
+  border-radius:0 !important;
+  text-decoration:none;
+  transition:all .35s ease;
+  box-shadow:0 0 25px rgba(220,60,60,.4);
+}
+.btn-claim:hover{
+  background:#c72c30;
+  transform:translateY(-2px);
+  box-shadow:0 0 35px rgba(255,80,80,.7);
+}
+
+#toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:14px 25px;z-index:1500;opacity:0;pointer-events:none;transition:all .4s cubic-bezier(.175,.885,.32,1.275);font-size:11px;text-align:center;max-width:90%;font-weight:500;box-shadow:0 8px 24px rgba(0,0,0,.18);border-radius:30px}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* HIỆU ỨNG THUẬT KỸ */
+body.fx-blue{animation:suckIn .8s ease-in-out}
+body.fx-red{animation:pushOut .8s ease-in-out}
+body.fx-purple{animation:wipeOut 1.5s cubic-bezier(.77,0,.175,1)}
+body.fx-infinity::after{content:'';position:fixed;inset:0;background:rgba(255,255,255,0);backdrop-filter:blur(0);z-index:9999;animation:glassPulse 2s ease-in-out forwards;pointer-events:none}
+@keyframes suckIn{0%{transform:scale(1)}50%{transform:scale(.95);filter:contrast(1.5) hue-rotate(20deg)}100%{transform:scale(1)}}
+@keyframes pushOut{0%{transform:scale(1)}20%{transform:scale(1.05);filter:contrast(1.5) sepia(.5) hue-rotate(-20deg)}100%{transform:scale(1)}}
+@keyframes wipeOut{0%{filter:invert(0)}50%{filter:invert(1) hue-rotate(180deg) brightness(2);transform:scale(1.02)}100%{filter:invert(0)}}
+@keyframes glassPulse{0%{backdrop-filter:blur(0)}20%,80%{backdrop-filter:blur(10px);background:rgba(255,255,255,.1)}100%{backdrop-filter:blur(0);background:rgba(255,255,255,0)}}
+
+/* CÁC THEME VÙNG MIỀN */
+body.theme-demon{
+  --bg:#110908;
+  --ink:#f5e8e2;
+  --muted:#b89e94;
+  --line:rgba(214,71,56,.32);
+  --accent:#d64738;
+  --accent-rgb:214,71,56;
+  --scene:radial-gradient(ellipse at 60% 40%, #2b100f 0%, #170908 60%, #0b0404 100%);
+  --panel:#1c0f0e;
+  --panel-card:#241312;
+  --cursor-color:rgba(214,71,56,.55);
+  --ray:rgba(255,60,30,.2);
+  --spark:#ff6242;
+  --sparkglow:rgba(255,50,30,.85);
+}
+body.theme-demon .sun{
+  background:radial-gradient(circle at 40% 40%,#ffd0b3 0%,#cf3729 45%,#591313 74%,transparent 76%);
+  box-shadow:0 0 130px rgba(200,40,30,.75), 0 0 60px rgba(130,20,20,.6);
+}
+body.theme-demon .orbit{border-color:rgba(214,109,92,.45);box-shadow:0 0 30px rgba(214,71,56,.2)}
+body.theme-demon .land{background:linear-gradient(165deg,#54211e,#120909);opacity:.5}
+
+body.theme-border{
+  --bg:#d3d0c8;
+  --ink:#30302d;
+  --muted:#68675f;
+  --line:rgba(80,80,75,.35);
+  --accent:#777970;
+  --accent-rgb:119,121,112;
+  --scene:radial-gradient(ellipse at 60% 40%, #e2ded5 0%, #cac6bd 60%, #aba79d 100%);
+  --panel:#dedbd2;
+  --panel-card:#e7e4dc;
+  --cursor-color:rgba(119,121,112,.5);
+  --ray:rgba(255,255,255,.25);
+}
+body.theme-border .sun{background:radial-gradient(circle,#e4e1d9,#9b9b94 68%,transparent 72%);box-shadow:0 0 90px #fff4}
+body.theme-border .land{background:linear-gradient(165deg,#b9b6ad,#797a74)}
+
+body.theme-human{
+  --bg:#eee5d8;
+  --ink:#33312c;
+  --muted:#777065;
+  --line:rgba(155,135,108,.35);
+  --accent:#9b876c;
+  --accent-rgb:155,135,108;
+  --scene:radial-gradient(ellipse at 60% 40%, #f7efe4 0%, #e8ddcc 60%, #d4c6b2 100%);
+  --panel:#f4eee4;
+  --panel-card:#fbf7ef;
+  --cursor-color:rgba(155,135,108,.5);
+  --ray:rgba(255,240,200,.4);
+}
+body.theme-human .sun{background:radial-gradient(circle at 40% 35%,#fff8dc,#e4cda9 68%,transparent 72%);box-shadow:0 0 100px #fff7}
+body.theme-human .land{background:linear-gradient(165deg,#b8a58d,#817d70)}
+
+/* ========================================================
+   TỐI ƯU GIAO DIỆN & HÀNH TINH 3D TRÊN ĐIỆN THOẠI (MOBILE)
+   ======================================================== */
+@media(max-width:800px){
+  .top{padding:12px 5%;height:auto;flex-direction:column;gap:10px}
+  .logo{font-size:24px;text-align:center;width:100%}
+  .nav{width:100%;gap:10px;padding-bottom:4px}
+  
+  .hero{
+    height:auto;
+    min-height:92svh;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    align-items:center;
+    padding:28px 5% 32px;
+    position:relative;
+  }
+  .hero-copy{
+    position:relative;
+    left:auto;
+    top:auto;
+    transform:none;
+    max-width:100%;
+    text-align:center;
+    margin-top:15px;
+    margin-bottom:20px;
+    z-index:15;
+  }
+  .kicker{justify-content:center}.kicker:before{display:none}
+  .hero h1{
+    font-size:clamp(48px,11vw,76px);
+    margin:15px 0;
+    line-height:.9;
+    text-shadow:0 2px 20px rgba(var(--accent-rgb),0.2);
+  }
+  .hero h1 em{padding-left:0}
+  .hero-desc{
+    margin:0 auto;
+    font-size:13px;
+    line-height:1.8;
+    max-width:320px;
+  }
+
+  /* NÚT KHÁM PHÁ THẾ GIỚI TRÊN MOBILE */
+  .btn-hero-explore{
+    margin:20px auto 0;
+    padding:13px 26px;
+    font-size:11px;
+  }
+
+  /* HÀNH TINH NỔI BẬT DẠNG 3D VỚI VÀNH ĐAI ELIP TRÊN ĐIỆN THOẠI */
+  .art{--cx:50%;--cy:30%;--sw:min(56vw,225px);--ok:1.55;--orot:-18deg;--oy:.52}
+  .art.r-demon{--cx:50%;--sw:min(53vw,210px);--orot:25deg;--oy:.55}
+  .art.r-border{--cx:50%;--sw:min(45vw,180px);--orot:60deg;--oy:.46}
+  .art.r-human{--cx:50%;--sw:min(50vw,200px);--orot:-8deg;--oy:.65}
+  .sun{box-shadow:0 0 90px rgba(230,195,120,.8), 0 0 40px rgba(255,255,240,.9)}
+  .rays{
+    width:130vmax;height:130vmax;opacity:.55;
+    -webkit-mask-image:radial-gradient(circle at center,#000 0,transparent 45%);
+    mask-image:radial-gradient(circle at center,#000 0,transparent 45%);
+  }
+  .land{opacity:.35;height:20%}
+
+  .hero-bottom{
+    position:relative;
+    left:auto;
+    right:auto;
+    bottom:auto;
+    width:100%;
+    flex-direction:column;
+    align-items:center;
+    gap:14px;
+    margin-top:auto;
+    padding-top:15px;
+  }
+  .realm-picks{justify-content:center;width:100%}
+  .time{text-align:center}
+  
+  .section{padding:45px 5%}
+  .section-head{flex-direction:column;align-items:flex-start;gap:10px;margin-bottom:25px}
+  .section-head p{max-width:100%}
+  .grid,.places,.two-col,.ability-grid,.stage-content,.cgrid{grid-template-columns:1fr}
+  .cgrid{gap:25px}.cgrid.rev .collage{order:0}
+  .subsection{margin-top:60px}
+
+  .stage-list{
+    grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+    gap:4px !important;
+  }
+  .stagebtn{
+    min-height:75px !important;
+    padding:8px 3px !important;
+    text-align:center !important;
+  }
+  .stagebtn span{
+    font-size:18px !important;
+    margin-bottom:4px !important;
+  }
+  .stagebtn strong{
+    font-size:8px !important;
+    line-height:1.2 !important;
+    word-break:keep-all;
+  }
+
+  .choice-row{flex-direction:column}.dialogue-box button{width:100%;padding:14px;font-size:11px}
+  .modal-box{padding:25px}
+  .btn-borderland{width:100%;font-size:18px;padding:15px 20px}
+  footer{justify-content:center}
+  #custom-cursor,#cursor-glow{display:none!important}
+}
+
+@media(max-width:480px){
+  .realm-picks button{width:48%;padding:10px 4px;font-size:8.5px}
+  .realm-picks{justify-content:space-between;gap:4%}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div id="custom-cursor"></div><div id="cursor-glow"></div>
+
+<header class="top">
+  <div class="logo" id="logo">THIÊN GIỚI</div>
+  <nav class="nav" aria-label="Điều hướng">
+    <button class="active" data-page="home">TRANG CHỦ</button>
+    <button data-page="world">THẾ GIỚI</button>
+    <button data-page="character">NHÂN VẬT</button>
+    <button data-page="mechanics">CƠ CHẾ</button>
+    <button data-page="relationship">QUAN HỆ</button>
+  </nav>
+</header>
+
+<main>
+<!-- TRANG CHỦ -->
+<section class="page active" id="home">
+  <div class="hero">
+    <div class="art" id="art">
+      <div class="rays"></div><div class="sun"></div><div class="orbit"></div>
+      <div class="land back"></div><div class="land"></div><div class="noise"></div>
+    </div>
+    <div class="hero-copy">
+      <div class="kicker" id="heroKicker">VŨ TRỤ · TAM GIỚI · RANH GIỚI</div>
+      <h1 id="heroTitle">THIÊN<em>GIỚI.</em></h1>
+      <p class="hero-desc" id="heroDesc">Vũ trụ vận hành dưới sự duy trì của Thiên Cân — thuật toán trật tự tuyệt đối do Đấng Sáng Tạo để lại trước khi chìm vào giấc ngủ vĩnh hằng.</p>
+      <!-- NÚT KHÁM PHÁ THẾ GIỚI SẮC NÉT & HOẠT ĐỘNG HOÀN HẢO -->
+      <button class="btn-hero-explore" onclick="navigate('world')">
+        <span>KHÁM PHÁ THẾ GIỚI</span>
+        <span class="btn-arrow">↗</span>
+      </button>
+    </div>
+    <div class="hero-bottom">
+      <div class="realm-picks">
+        <button class="active" data-realm="heaven">01 · THIÊN GIỚI</button>
+        <button data-realm="demon">02 · QUỶ GIỚI</button>
+        <button data-realm="border">03 · HOANG TUYẾN</button>
+        <button data-realm="human">04 · NHÂN GIỚI</button>
+      </div>
+      <div class="time"><strong id="clock">00:00:00</strong><span id="worldStatus">LÕI NGUYÊN SƠ ĐANG HOẠT ĐỘNG</span></div>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-head">
+      <div><div class="eyebrow">BẢN ĐỒ THỰC TẠI</div><h2>Bốn miền.<br>Một cán cân.</h2></div>
+      <p>Thực tại bị phân định rạch ròi thành Tam Giới và một vành đai ranh giới chết chóc. Rê chuột lên thẻ để cảm nhận từ trường.</p>
+    </div>
+    <div class="grid">
+      <article class="realm-card heaven rv" onclick="navigate('world');selectRealm('heaven')"><span class="realm-number">01</span><div><div class="eyebrow">CÕI TRẬT TỰ TUYỆT ĐỐI</div><h3>Thiên Giới</h3><p>Bảy tầng trời đồng tâm. Nơi tồn tại vĩnh hằng, không có khái niệm ban đêm, lão hóa hay sự ô uế.</p></div><button>ĐI VÀO THIÊN GIỚI ↗</button></article>
+      <article class="realm-card demon rv" onclick="navigate('world');selectRealm('demon')"><span class="realm-number">02</span><div><div class="eyebrow">VỰC SÂU HỖN MANG</div><h3>Quỷ Giới</h3><p>Cõi tôn thờ bản năng, tự do tuyệt đối. Bầu trời tím thẫm đan xen đỏ lưu huỳnh.</p></div><button>ĐI VÀO QUỶ GIỚI ↗</button></article>
+      <article class="realm-card border rv" onclick="navigate('world');selectRealm('border')"><span class="realm-number">03</span><div><div class="eyebrow">VÀNH ĐAI RANH GIỚI</div><h3>Hoang Tuyến</h3><p>Dải đất xám xịt như tro tàn kéo dài vạn dặm, nơi pháp luật hai bên khó lòng quét tới.</p></div><button>ĐI VÀO HOANG TUYẾN ↗</button></article>
+      <article class="realm-card human rv" onclick="navigate('world');selectRealm('human')"><span class="realm-number">04</span><div><div class="eyebrow">CÕI PHÀM TRẦN</div><h3>Nhân Giới</h3><p>Vùng đệm trung lập. Nơi duy nhất thần và quỷ ngụy trang đi dạo cùng nhau mà không bị dòm ngó.</p></div><button>ĐI VÀO NHÂN GIỚI ↗</button></article>
+    </div>
+  </div>
+</section>
+
+<!-- THẾ GIỚI -->
+<section class="page" id="world">
+  <div class="section">
+    <div class="section-head"><div><div class="eyebrow">PHẦN I · THẾ GIỚI QUAN</div><h2>Kiến trúc<br>của định mệnh.</h2></div><p>Tam Giới vận hành theo Thiên Cân — thuật toán trật tự mà Đấng Sáng Tạo để lại. Nhấn vào các địa danh để mở khóa mật mã ẩn.</p></div>
+    <div class="realm-picks" style="margin-bottom:22px">
+      <button class="active" data-realm="heaven">THIÊN GIỚI</button><button data-realm="demon">QUỶ GIỚI</button><button data-realm="border">HOANG TUYẾN</button><button data-realm="human">NHÂN GIỚI</button>
+    </div>
+    <div class="realm-detail" id="realmInfo">
+      <div class="eyebrow" id="realmEyebrow"></div>
+      <h3 id="realmTitle"></h3>
+      <p class="small" id="realmDesc" style="font-size:13px"></p>
+      <div class="places" id="places"></div>
+    </div>
+    <div class="subsection">
+      <div class="eyebrow">LUẬT VẬN HÀNH</div><h3>Không ai đứng ngoài quy luật.</h3>
+      <div class="two-col">
+        <div class="lore-box rv"><h3>Luật Ranh Giới</h3><p>Ác quỷ bước qua cột trụ phán quyết chịu sự thiêu đốt của ánh sáng thánh và suy giảm một nửa sức mạnh. Thiên sứ tiến vào đất quỷ tiêu hao thần lực gấp đôi. Riêng Gojo Satoru không bị suy giảm sức mạnh nhờ Họ Thần Ban, nhưng giác quan dễ bị quá tải nặng nề bởi sự bừa bãi của Quỷ Giới.</p></div>
+        <div class="lore-box rv"><h3>Bản Chất Động Lực</h3><p>Kẻ Gác Đền Trật Tự đối đầu Kẻ Khiêu Khích Hỗn Mang. Sự máy móc, chuẩn xác của Thiên Giới giằng co với bản năng cảm xúc của Quỷ Giới.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NHÂN VẬT -->
+<section class="page" id="character">
+  <!-- CHAR: SATORU (nền trắng Thiên Giới) -->
+  <div class="section" id="sec-char">
+    <div class="section-head"><div><div class="eyebrow">PHẦN II · CHẤP PHÁP GIẢ</div><h2>Kẻ đứng trên<br>đỉnh cán cân.</h2></div><p>Thượng thần mang Họ duy nhất của dòng Gojo. Một tồn tại được tạo ra để bảo vệ trật tự — nhưng giữ phong thái kiêu kỳ, ngầm tự luyến và thích được dỗ dành.</p></div>
+    <div class="cgrid">
+      <div class="collage" id="collageChar">
+        <figure class="shot c1"><div class="ph">ẢNH 1<img src="https://i.postimg.cc/dhdKj7KY/IMG-5084.jpg" alt="" onerror="this.style.display='none'"></div></figure>
+        <figure class="shot c2"><div class="ph">ẢNH 2<img src="https://i.postimg.cc/Hr5C9JCD/IMG-5073.jpg" alt="" onerror="this.style.display='none'"></div></figure>
+        <figure class="shot c3"><div class="ph">ẢNH 3<img src="https://i.postimg.cc/Yvgwz4wB/IMG-5079.jpg" alt="" onerror="this.style.display='none'"></div></figure>
+        <figure class="shot c4"><div class="ph">ẢNH 4<img src="https://i.postimg.cc/bZbj9Gj8/IMG-5085.jpg" alt="" onerror="this.style.display='none'"></div></figure>
+        <figure class="shot c5"><div class="ph">ẢNH 5<img src="https://i.postimg.cc/RWfzL3zm/IMG-5083.jpg" alt="" onerror="this.style.display='none'"></div></figure>
+      </div>
+      <div class="character-info">
+        <div class="eyebrow">SERAPH TỐI CAO · SATORU</div>
+        <h2>Gojo<br>Satoru.</h2>
+        <p>Không phải cỗ máy máu lạnh vô cảm. Hắn giữ phong thái kiêu kỳ của kẻ đứng trên đỉnh cao nghìn năm. Cực kỳ trẻ con khi giận dỗi, vụng về học cách nhẹ nhàng vì sợ lực tay làm gãy xương quỷ, và nghiện đồ ngọt ngầm dù miệng luôn chê là "tạp phẩm".</p>
+        <div class="statline"><span>Chiều cao</span><strong>1m92, khung xương thanh thoát</strong></div>
+        <div class="statline"><span>Thể chất</span><strong>Da ngọc thạch, thân nhiệt đóng băng</strong></div>
+        <div class="statline"><span>Mái tóc</span><strong>Trắng bạc, tự dựng khi xuất uy áp</strong></div>
+        <div class="statline"><span>Cánh cấm kỵ</span><strong>Gốc cắm vào tủy sống (Cực nhạy cảm)</strong></div>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="eyebrow">THỬ NGHIỆM TƯƠNG TÁC</div><h3>Điều chỉnh Lục Nhãn & Lục Dực.</h3>
+      <div class="sliderbox">
+        <div class="slider-title"><span>ĐỘ MỞ LỤC NHÃN (THÁO DẢI LỤA)</span><strong id="eyeValue">Bịt kín 100%</strong></div>
+        <input id="eyeSlider" type="range" min="0" max="100" value="0">
+        <div class="sixwing" id="feathers"><span class="feather on">♧</span><span class="feather on">♧</span><span class="feather">♧</span><span class="feather">♧</span><span class="feather">♧</span><span class="feather">♧</span></div>
+        <div class="readout" id="eyeReadout">“Ta dệt dải lụa này từ tơ thánh để cản bớt 80% thông tin. Ngươi muốn não ta bị thiêu đốt sao?”</div>
+        <p class="small" style="margin-top:15px">Kéo thanh để tháo dải lụa. Sáu cánh sẽ dần bung rộng và từ trường thánh bùng nổ.</p>
+      </div>
+    </div>
+
+    <div class="subsection">
+      <div class="eyebrow">BỘ KỸ NĂNG</div><h3>Thần kỹ của Seraph.</h3>
+      <div class="ability-grid">
+        <button class="ability rv" onclick="castSkill('infinity')"><span class="symbol">∞</span><strong>Thánh Vực Vô Hạn</strong><p>Khoảng cách tuyệt đối giữa Chúa và tạo vật.</p></button>
+        <button class="ability rv" onclick="castSkill('blue')"><span class="symbol">青</span><strong>Thuận Chuyển: Lam Hút</strong><p>Điểm chân không thánh khiết hút nghiền vật chất.</p></button>
+        <button class="ability rv" onclick="castSkill('red')"><span class="symbol">赫</span><strong>Phản Chuyển: Xích Đẩy</strong><p>Làn sóng đẩy thánh hóa thiêu quân đoàn quỷ.</p></button>
+        <button class="ability rv" onclick="castSkill('purple')"><span class="symbol">虚</span><strong>Hư Thức: Huyền Tử</strong><p>Xóa sổ vật chất, linh hồn và ma thuật khỏi thời gian.</p></button>
+        <button class="ability rv" onclick="castSkill('domain')"><span class="symbol">知</span><strong>Lãnh Địa: Vô Lượng Không Xứ</strong><p>Cưỡng ép truyền toàn bộ tri thức vũ trụ.</p></button>
+        <button class="ability rv" onclick="castSkill('wings')"><span class="symbol">翼</span><strong>Lục Dực</strong><p>Sáu cánh ánh sáng: Phán Quyết, Trật Tự, Cấm Kỵ.</p></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- USER: ÁC QUỶ (nền đỏ Quỷ Giới) -->
+  <div class="section" id="sec-user">
+    <div class="section-head"><div><div class="eyebrow">KẺ KHIÊU KHÍCH</div><h2>Con quỷ<br>của hỗn mang.</h2></div><p>Cư dân Vực Sâu sống theo cảm xúc, khao khát cái đẹp và sự kích thích tuyệt đối. Thấy Seraph một lần ở Hoang Tuyến là không thể quay đầu.</p></div>
+    <div class="cgrid rev">
+      <div class="collage u">
+        <figure class="shot u1"><div class="ph">ẢNH 1<img src="https://i.postimg.cc/30Ws4NBN/IMG-5089.jpg " alt="" onerror="this.style.display='none'"></div></figure>
+        <figure class="shot u2"><div class="ph">ẢNH 2<img src=" https://i.postimg.cc/rRzB0sJc/IMG-5091.jpg" alt="" onerror="this.style.display='none'"></div></figure>
+        <figure class="shot u3"><div class="ph">ẢNH 3<img src=" https://i.postimg.cc/vxDJgTzD/IMG-5088.jpg" alt="" onerror="this.style.display='none'"></div></figure>
+        <figure class="shot u4"><div class="ph">ẢNH 4<img src="https://i.postimg.cc/bSd7DrTv/IMG-5090.jpg" alt="" onerror="this.style.display='none'"></div></figure>
+      </div>
+      <div class="character-info">
+        <div class="eyebrow">ÁC QUỶ · CƯ DÂN VỰC SÂU</div>
+        <h2>Ác<br>Quỷ.</h2>
+        <p>Bản tính phóng túng, sống theo cảm xúc. Tiếp cận Seraph có chủ đích: vừa muốn thỏa mãn ái tình, vừa ấp ủ dã tâm tha hóa thực thể hoàn hảo nhất của Chúa, biến Họ của hắn thành Tên của chính mình.</p>
+        <div class="statline"><span>Chủng tộc</span><strong>Ác Quỷ (Cư dân Vực Sâu)</strong></div>
+        <div class="statline"><span>Ngoại hình · Tính cách</span><strong>User tự set</strong></div>
+        <div class="statline"><span>Mục tiêu</span><strong>Ái tình & tha hóa một Seraph</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CƠ CHẾ -->
+<section class="page" id="mechanics">
+  <div class="section">
+    <div class="section-head"><div><div class="eyebrow">PHẦN III · CƠ CHẾ SIÊU HÌNH</div><h2>Cái giá của<br>một cái tên.</h2></div><p>Ở Thiên Cân, danh xưng không chỉ là ngôn từ. Nó là cấu trúc, quyền năng và lời thề ràng buộc bản thể.</p></div>
+    <div class="two-col">
+      <div>
+        <div class="lore-box rv"><div class="eyebrow">01 / LÕI LINH HỒN</div><h3>Tên</h3><p>Lõi độc lập định hình bản ngã linh hồn. Ác quỷ giết được thiên thần hữu danh có thể đoạt tên khảm vào cơ thể để thăng cấp thành Quỷ Quý Tộc.</p></div>
+        <div class="lore-box rv"><div class="eyebrow">02 / QUYỀN NĂNG</div><h3>Họ Thần Ban</h3><p>Quyền can thiệp trực tiếp vào quy luật vũ trụ, được Đấng Sáng Tạo ấn ký. Dòng họ "Gojo" là biểu tượng độc nhất gánh vác Cán Cân Bất Diệt.</p></div>
+        <div class="lore-box rv" style="border-left:3px solid var(--red)">
+          <div class="eyebrow" style="color:var(--red)">03 / CẤM THUẬT TỐI CAO</div>
+          <h3>Bí Thuật Nghịch Họ</h3>
+          <p>Họ Thần Ban không thể bị tước đoạt bằng vũ lực. Thiên sứ chỉ mất họ khi <b>tự nguyện chối bỏ Chúa</b> để đổi Họ thành Tên của một ác quỷ.</p>
+          <button class="pill" style="color:var(--red);border-color:var(--red);margin-top:10px" onclick="openForbiddenModal()">XEM CHI TIẾT CẤM THUẬT ↗</button>
+        </div>
+      </div>
+      <div>
+        <div class="eyebrow">CÁC BIẾN CỐ ĐẠI CHU KỲ</div>
+        <div class="event"><div class="event-date">100 NĂM</div><div><h4>Mùa Thanh Lọc Lớn</h4><p>Thiên Đình phóng chùm sáng phán quyết quét sạch vành đai Quỷ Giới.</p><button onclick="triggerEvent(0)">KÍCH HOẠT HIỆU ỨNG ↗</button></div></div>
+        <div class="event"><div class="event-date">BẤT ĐỊNH</div><div><h4>Đêm Huyết Nguyệt Phá Giới</h4><p>Ma lực dâng trào, hàng vạn quỷ cắn xé ranh giới.</p><button onclick="triggerEvent(1)">KÍCH HOẠT HIỆU ỨNG ↗</button></div></div>
+        <div class="event"><div class="event-date">ĐỘT XUẤT</div><div><h4>Đợt Kiểm Toán</h4><p>Thiên Sứ Giám Sát giáng lâm, buộc kẻ vi phạm phải giấu giếm.</p><button onclick="triggerEvent(2)">KÍCH HOẠT HIỆU ỨNG ↗</button></div></div>
+        <div class="lore-box" id="eventOutput" style="margin-top:20px"><h3>Thế giới đang yên lặng.</h3><p>Chọn một biến cố phía trên để thay đổi màu thế giới.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUAN HỆ -->
+<section class="page" id="relationship">
+  <div class="relationship">
+    <div class="section-head"><div><div class="eyebrow">PHẦN IV · TIẾN TRÌNH SA NGÃ</div><h2>Sự sụp đổ<br>của cỗ máy.</h2></div><p>Kẻ Gác Đền đối đầu với Ác Quỷ. Từ lớp khiên Vô Hạn chặn đứng mọi thứ, đến khi tự tay bẻ gãy Họ Thần Ban.</p></div>
+    <div class="stage-list" id="stageList">
+      <button class="stagebtn active" data-stage="0"><span>01</span><strong>Băng tuyết</strong></button>
+      <button class="stagebtn" data-stage="1"><span>02</span><strong>Nhận thức</strong></button>
+      <button class="stagebtn" data-stage="2"><span>03</span><strong>Vết nứt</strong></button>
+      <button class="stagebtn" data-stage="3"><span>04</span><strong>Ghen tuông</strong></button>
+      <button class="stagebtn" data-stage="4"><span>05</span><strong>Sa ngã</strong></button>
+    </div>
+    <div class="stage-content">
+      <div>
+        <div class="eyebrow" id="stageEyebrow"></div>
+        <h3 id="stageTitle"></h3>
+        <p id="stageDesc"></p>
+        <div class="slider-title"><span>TỈ LỆ VÔ HẠN (CHẶN)</span><strong id="limitValue">100%</strong></div>
+        <div class="progressline"><span id="limitBar"></span></div>
+      </div>
+      <blockquote id="stageQuote"></blockquote>
+    </div>
+    <div class="dialogue-box">
+      <div class="eyebrow" style="color:var(--accent)">TƯƠNG TÁC THỜI GIAN THỰC</div>
+      <h4 id="dialogueTitle">Lựa chọn hành động của em đối với Satoru:</h4>
+      <div id="dialogueText" style="font-size:13px;line-height:1.9;min-height:50px">Satoru đang khoanh tay quan sát em qua lớp bịt mắt. Áp lực vô hình khiến không khí xung quanh lạnh ngắt. Em sẽ làm gì?</div>
+      <div class="choice-row">
+        <button onclick="triggerDialogue('tease')">Trêu chọc rồi lờ hắn đi</button>
+        <button onclick="triggerDialogue('sweet')">Đưa kẹo ngọt cho hắn</button>
+        <button onclick="triggerDialogue('jealous')" style="color:var(--red);border-color:var(--red)">Để hắn ngửi thấy mùi quỷ khác</button>
+      </div>
+      <p class="small" id="affinityText" style="margin-top:25px;display:flex;justify-content:space-between"><span>TIẾN TRÌNH SA NGÃ:</span><span>0 / 100</span></p>
+      <div class="progressline" id="affinityLine"><span id="affinityBar"></span></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><button class="pill" onclick="navigate('home')">VỀ ĐẦU TRANG ↑</button></footer>
+
+<!-- THANH BƯỚC VÀO HOANG TUYẾN: VUÔNG VỨC & MA MỊ -->
+<div class="borderland-cta-wrap">
+  <button class="btn-borderland" onclick="openDemonModal()">
+    Bước vào Hoang Tuyến để tìm Satoru.
+  </button>
+</div>
+
+<!-- MODAL KỸ NĂNG -->
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <div class="modal-top"><span class="eyebrow" id="modalEyebrow"></span><button class="close" onclick="closeModal()">×</button></div>
+    <h3 id="modalTitle"></h3>
+    <div id="modalTags" class="skill-tags"></div>
+    <p id="modalText"></p>
+    <div id="modalStats" class="skill-stats" style="display:none"></div>
+    <button class="pill" id="modalBtn" style="margin-top:15px;width:100%" onclick="closeModal()">XÁC NHẬN ĐÓNG TRUY CẬP</button>
+  </div>
+</div>
+
+<!-- MODAL BÍ THUẬT NGHỊCH HỌ -->
+<div class="modal" id="forbiddenModal" onclick="if(event.target===this)closeForbiddenModal()">
+  <div class="modal-box" style="max-width:600px;">
+    <div class="modal-top">
+      <span class="eyebrow" style="color:var(--red);">CẤM THUẬT TỐI CAO · BÍ THUẬT NGHỊCH HỌ</span>
+      <button class="close" onclick="closeForbiddenModal()">×</button>
+    </div>
+    <h3 style="color:var(--red); font-size: 34px;">Nghi Thức Nghịch Đạo & Khế Ước Phân Nhánh</h3>
+    <p style="font-size:12px; line-height:1.9; color:var(--muted);">Để tước đoạt Họ Thần, Satoru phải tự nguyện báng bổ Đấng Sáng Tạo, chịu thần lôi xé nát tủy sống và rụng một đôi cánh ánh sáng. Sau đó, khế ước tiến vào 1 trong 2 nhánh vĩnh hằng:</p>
+    
+    <div style="margin-top:16px; padding:16px; border:1px solid var(--line); background:var(--panel);">
+      <div class="eyebrow" style="color:var(--accent);">NHÁNH A · TUYỆT ĐỐI PHỤC TÙNG</div>
+      <h4 style="font:500 20px 'Cormorant Garamond',serif; margin:4px 0;">Satoru đổi Họ Thần theo Tên của Ác Quỷ</h4>
+      <p style="font-size:11.5px; line-height:1.8; color:var(--muted); margin:0;">Satoru tự nguyện xé toạc họ "Gojo" khỏi linh hồn để ác quỷ khắc tên của mình vào gốc tủy sống. Hắn coi ác quỷ là tín ngưỡng duy nhất, sẵn sàng nhượng quyền kiểm soát, trở thành "chú mèo tuyết to xác" thuần phục dưới trướng em.</p>
+    </div>
+
+    <div style="margin-top:12px; padding:16px; border:1px solid rgba(158,42,43,0.3); background:var(--panel);">
+      <div class="eyebrow" style="color:var(--red);">NHÁNH B · BAN HỌ THẦN BẢO HỘ</div>
+      <h4 style="font:500 20px 'Cormorant Garamond',serif; margin:4px 0;">Satoru ban họ "Gojo" độc quyền cho Ác Quỷ</h4>
+      <p style="font-size:11.5px; line-height:1.8; color:var(--muted); margin:0;">Satoru không vứt bỏ Họ Thần mà cưỡng đoạt thẩm quyền của Chúa để khắc họ "Gojo" lên linh hồn ác quỷ. Hắn trở thành đấng bảo hộ độc đoán (Soft-Dom), ôm trọn em trong 6 cánh và biến em thành dị số duy nhất mang họ Thần.</p>
+    </div>
+
+    <button class="pill" style="margin-top:20px; width:100%; border-color:var(--red); color:var(--red);" onclick="closeForbiddenModal()">ĐÃ HIỂU LUẬT KHẾ ƯỚC</button>
+  </div>
+</div>
+
+<!-- POPUP HOANG TUYẾN ÁC QUỶ -->
+<div class="modal" id="demonModal" onclick="if(event.target===this)closeDemonModal()">
+  <div class="modal-box">
+    <div class="modal-top">
+      <span class="eyebrow" style="color:#ff8080;">RANH GIỚI VỰC SÂU MỞ LỐI</span>
+      <button class="close" style="color:#ff8080; border-color:#ff8080;" onclick="closeDemonModal()">×</button>
+    </div>
+    <h3>“Quỷ nhỏ, em thực sự muốn chinh phục một cỗ máy vô cảm à?”</h3>
+    <p style="color:#e0cbc5; font-size:12.5px; line-height:1.9;">
+      Bên kia Hoang Tuyến là 12 Cột Trụ Phán Quyết ngập tràn Ánh Sáng. Dù đứng ở Hoang Tuyến để theo dõi hắn vẫn bị ánh sáng mạnh ảnh hưởng đấy, em chắc chưa?
+    </p>
+    <!-- Dán link Google AI Studio vào thuộc tính href bên dưới -->
+    <a href="https://aistudio.google.com/app/prompts?state=%7B%22ids%22:%5B%221C9PgEgtYrU8gsthXpYiy1jhNJJ5G8O0s%22%5D,%22action%22:%22open%22,%22userId%22:%22113433847921680137618%22,%22resourceKeys%22:%7B%7D%7D&usp=sharing" target="_blank" rel="noopener" class="btn-claim">
+      Ngài ấy phải là của tôi.
+    </a>
+  </div>
+</div>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
+
+// CON TRỎ CHUỘT
+if(window.innerWidth > 800){
+  const cursorDot = $("#custom-cursor");
+  const cursorGlow = $("#cursor-glow");
+  let mouseActive = false;
+
+  document.addEventListener("mousemove", e => {
+    if(!mouseActive){
+      cursorDot.style.opacity = "1";
+      cursorGlow.style.opacity = "0.55";
+      mouseActive = true;
+    }
+    cursorDot.style.left = e.clientX + "px";
+    cursorDot.style.top = e.clientY + "px";
+    cursorGlow.style.left = e.clientX + "px";
+    cursorGlow.style.top = e.clientY + "px";
+  });
+
+  document.addEventListener("mouseleave", () => {
+    cursorDot.style.opacity = "0";
+    cursorGlow.style.opacity = "0";
+    mouseActive = false;
+  });
+
+  $$("button, a, input, .realm-card, .place, .stagebtn").forEach(el => {
+    el.addEventListener("mouseenter", () => {
+      cursorDot.style.transform = "translate(-50%,-50%) scale(2)";
+      cursorDot.style.background = "var(--accent)";
+      cursorGlow.style.opacity = "0.75";
+    });
+    el.addEventListener("mouseleave", () => {
+      cursorDot.style.transform = "translate(-50%,-50%) scale(1)";
+      cursorDot.style.background = "var(--accent)";
+      cursorGlow.style.opacity = "0.55";
+    });
+  });
+}
+
+const realms={
+heaven:{title:"Thiên Giới",eyebrow:"01 / CÕI TRẬT TỰ TUYỆT ĐỐI",h1:"THIÊN<em>GIỚI.</em>",desc:"Nơi tồn tại vĩnh hằng, không có khái niệm ban đêm, lão hóa hay ô uế. Mọi thứ đều vận hành theo trật tự được lập trình từ buổi đầu.",status:"LÕI NGUYÊN SƠ ĐANG HOẠT ĐỘNG",places:[
+["Bảy Tầng Trời Đồng Tâm","Bảy vòng kiến trúc bằng đá cẩm thạch trắng khổng lồ trôi lơ lửng giữa biển sương mù quang năng, liên kết với nhau bằng những bánh răng ánh sáng. (Truy cập bị cấm với ác quỷ)"],
+["Lõi Nguyên Sơ","Nguồn sáng độc nhất tại tầng trời thứ bảy, thay thế cho mặt trời và duy trì dòng chảy thần lực."],
+["Tòa Án Trật Tự","Cơ quan tối cao chuyên giám sát tính chuẩn xác của các thiên sứ, phát hiện và tiêu hủy không thương tiếc bất kỳ cá thể nào nảy sinh bản ngã."],
+["Kho Lưu Trữ Toàn Tri","Thư viện chứa bản thiết kế và dòng thời gian của vạn vật. Kẻ đọc được nó sẽ biết trước định mệnh."]]},
+demon:{title:"Quỷ Giới",eyebrow:"02 / VỰC SÂU HỖN MANG",h1:"QUỶ<em>GIỚI.</em>",desc:"Cõi tôn thờ bản năng sinh học, tự do tuyệt đối và coi sự hoàn hảo của Thiên Giới là nấm mồ giam cầm linh hồn.",status:"MA LỰC ĐANG DÂNG TRÀO",places:[
+["Chợ Đen Vô Tận","Tụ điểm giao thương sầm uất bậc nhất, nơi mua bán các mặt hàng cấm như ký ức phàm trần, cảm xúc đóng chai."],
+["Khu Hoan Lạc","Quần thể kiến trúc biến đổi hình dạng theo dục vọng tập thể của loài quỷ. Nhớt nháp và nguy hiểm."],
+["Sòng Bạc Linh Hồn","Nơi các quý tộc quỷ đem linh hồn nô lệ, tuổi thọ và vận mệnh ra làm tiền cược."],
+["Đấu Trường Xương Máu","Nơi giải quyết tranh chấp lãnh địa. Kẻ thua cuộc làm thức ăn cho kẻ thắng."]]},
+border:{title:"Hoang Tuyến",eyebrow:"03 / VÀNH ĐAI RANH GIỚI",h1:"HOANG<em>TUYẾN.</em>",desc:"Dải đất xám xịt như tro tàn trải dài vạn dặm ngăn cách giữa hai giới, nơi pháp luật hai bên khó lòng quét tới.",status:"RANH GIỚI BẤT ỔN",places:[
+["12 Cột Trụ Phán Quyết","Các cột đá thánh màu trắng nguyên khối cắm sâu vào lòng đất, phát ra hào quang khắc kỷ chia đôi bờ cõi."],
+["Phế Tích Thần Điện Vô Chủ","Một ngôi đền cổ sụp đổ nằm ngay điểm mù của ranh giới, trở thành chốn dừng chân bí mật của những cuộc tình dị giáo."],
+["Bãi Bỏ Hoang Ký Ức","Nơi trôi dạt những mảng ký ức bị thiên thần từ bỏ để giữ lấy sự tinh khiết."]]},
+human:{title:"Nhân Giới",eyebrow:"04 / CÕI PHÀM TRẦN",h1:"NHÂN<em>GIAN.</em>",desc:"Vùng đệm trung lập. Nơi hiếm hoi cả hai có thể cùng nếm thử thức ăn, dạo bước qua các con phố.",status:"TRẠNG THÁI NGỤY TRANG",places:[
+["Quy Tắc Ngụy Trang","Muốn đặt chân tới đây, cả hai bắt buộc phải phong ấn phần lớn quyền năng, mặc âu phục và giấu đi Lục Nhãn cùng đôi cánh."],
+["Phố Đèn Vàng","Một con phố sầm uất. Nơi duy nhất họ đóng vai những kẻ yêu nhau mà không bị bất kỳ thế lực nào săn đuổi."]]}
+};
+
+const stages=[
+{title:"Băng tuyết tuyệt đối",limit:100,desc:"Vô Hạn chặn 100%, coi đối phương là thiêu thân, sẵn sàng phạt giam không thương xót.",quote:"“Đứng yên ở đó. Quỷ Giới không có chỗ cho thứ nhơ nhuốc bước qua ranh giới.”",mood:"BĂNG GIÁ"},
+{title:"Mâu thuẫn nhận thức",limit:85,desc:"Vô Hạn mở 15% cho âm thanh và mùi hương. Hắn đứng lại tranh luận, mỉa mai.",quote:"“Ta không mở Vô Hạn vì ngươi. Ta chỉ muốn nghe xem lưỡi ngươi sắc bén đến đâu.”",mood:"TÒ MÒ"},
+{title:"Vết nứt cỗ máy",limit:40,desc:"Vô Hạn mở 60%. Càu nhàu chê bai nhưng vẫn nhận kẹo ngọt, chữa thương cẩn trọng.",quote:"“Ta ghét tạp phẩm... nhưng đưa kẹo đây. Và ngồi yên để ta chữa vết thương đó.”",mood:"DAO ĐỘNG"},
+{title:"Ghen tuông bọc kén",limit:5,desc:"Vô Hạn mở 95%. Đón nhận hơi ấm. Kéo đối phương vào kén cánh để chà xát xóa mùi quỷ khác.",quote:"“Mùi của kẻ nào trên áo em? Lại đây để sáu cánh của ta bọc kín em lại.”",mood:"CHIẾM HỮU"},
+{title:"Sa ngã hoàn toàn",limit:0,desc:"Vô Hạn mở 100% làm khiên bảo vệ cả hai. Chấp nhận bẻ gãy Họ Thần Ban để thành ác thần độc quyền.",quote:"“Ta chấp nhận thần lôi xé nát tủy sống. Từ nay Vô Hạn này là lớp khiên vĩnh hằng cho riêng em.”",mood:"SA NGÃ"}
+];
+
+let currentRealm="heaven",affinity=0,typingTimer,toastTimer,typedOnce=false;
+
+function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove("show"),3000)}
+function navigate(id){
+  $$(".page").forEach(p=>p.classList.toggle("active",p.id===id));
+  $$(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));
+  window.scrollTo({top:0,behavior:"smooth"});
+  setTimeout(observeReveal,60);
+}
+$$(".nav button").forEach(b=>b.addEventListener("click",()=>navigate(b.dataset.page)));
+
+function setTheme(id){
+  currentRealm=id;
+  document.body.classList.remove("theme-demon","theme-border","theme-human");
+  if(id!=="heaven")document.body.classList.add("theme-"+id);
+  $$("[data-realm]").forEach(b=>b.classList.toggle("active",b.dataset.realm===id));
+  const lg=$("#logo"),name=realms[id].title.toUpperCase();
+  if(lg.textContent!==name){lg.style.opacity=0;setTimeout(()=>{lg.textContent=name;lg.style.opacity=1},300)}
+}
+
+function selectRealm(id){
+  const d=realms[id];setTheme(id);
+  $("#heroKicker").textContent=d.eyebrow;$("#heroTitle").innerHTML=d.h1;$("#heroDesc").textContent=d.desc;$("#worldStatus").textContent=d.status;
+  $("#realmEyebrow").textContent=d.eyebrow;$("#realmTitle").textContent=d.title;$("#realmDesc").textContent=d.desc;
+  $("#realmInfo").classList.add("rv","in");
+  
+  $("#places").innerHTML=d.places.map((p,i)=>`
+    <button class="place" onclick="togglePlace(this)">
+      <strong>${p[0]}</strong>
+      <span>VỊ TRÍ ${String(i+1).padStart(2,"0")} · BẤM ĐỂ TRUY CẬP DỮ LIỆU</span>
+      <div class="place-info">${p[1]}</div>
+    </button>
+  `).join("");
+
+  $("#art").className="art r-"+id;
+  toast("Đã chuyển từ trường sang: "+d.title);
+}
+$$("[data-realm]").forEach(b=>b.addEventListener("click",()=>selectRealm(b.dataset.realm)));
+function togglePlace(el){el.classList.toggle("open")}
+
+const themeIO=new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting||!$("#character").classList.contains("active"))return;
+  const id=e.target.id==="sec-user"?"demon":"heaven";
+  if(currentRealm!==id)setTheme(id);
+}),{rootMargin:"-50% 0px -50% 0px"});
+themeIO.observe($("#sec-char"));themeIO.observe($("#sec-user"));
+
+function show(id){$("#"+id).classList.add("show")}
+function closeModal(){$$(".modal").forEach(m=>m.classList.remove("show"))}
+function openForbiddenModal(){show("forbiddenModal")}
+function closeForbiddenModal(){$("#forbiddenModal").classList.remove("show")}
+function openDemonModal(){show("demonModal")}
+function closeDemonModal(){$("#demonModal").classList.remove("show")}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
+
+const skillDB={
+infinity:{t:"Thánh Vực Vô Hạn",tags:["PHÒNG NGỰ TUYỆT ĐỐI","NGHỊCH LÝ KHÔNG GIAN"],desc:"Khoảng cách tuyệt đối giữa Chúa và tạo vật. Nghịch lý Zeno trở thành thực tại vật lý: vật thể ô uế mang tính ma quỷ tiến lại gần sẽ bị chia nhỏ tốc độ đến vô hạn, vĩnh viễn đứng yên ngoài bề mặt cơ thể hắn.",s:[100,20,100]},
+blue:{t:"Thuận Chuyển: Lam Hút",tags:["HÚT VẬT CHẤT","SÁT THƯƠNG DIỆN RỘNG"],desc:"Tạo điểm chân không thánh khiết, không gian tự sụp đổ vào đó tạo lực hút nghiền nát vật chất của quỷ giới.",s:[85,90,60]},
+red:{t:"Phản Chuyển: Xích Đẩy",tags:["SÓNG XUNG KÍCH","THÁNH HÓA"],desc:"Làn sóng đẩy mang năng lượng thánh hóa cực mạnh, thiêu đốt quân đoàn quỷ thành tro tàn.",s:[95,70,50]},
+purple:{t:"Hư Thức: Huyền Tử",tags:["HỦY DIỆT KHÁI NIỆM","CẤM THUẬT"],desc:"Dị điểm tím lam sinh ra từ va chạm giữa Hút và Đẩy, xóa sổ hoàn toàn khái niệm vật chất, linh hồn và ma thuật khỏi dòng thời gian.",s:[100,100,10]},
+domain:{t:"Lãnh Địa: Vô Lượng Không Xứ",tags:["LÃNH ĐỊA","KIỂM SOÁT LINH HỒN"],desc:"Kéo đối phương vào lõi Lục Nhãn, một không gian trắng xóa vô tận với các con mắt khổng lồ. Cưỡng ép tiếp nhận toàn bộ tri thức vũ trụ từ thuở khai sinh, làm quá tải và tê liệt vĩnh viễn linh hồn đối phương.",s:[100,100,5]},
+wings:{t:"Lục Dực",tags:["SÁU CÁNH ÁNH SÁNG","ĐIỂM YẾU"],desc:"Cánh Phán Quyết trên cùng sải hơn 4m, lông vũ sắc như kiếm thánh. Cánh Trật Tự ở giữa điều khiển trọng lực và không gian. Cánh Cấm Kỵ dưới cùng ôm sát hông, gốc nối thẳng vào tủy sống thần thánh — nơi nhạy cảm nhất, chạm vào sẽ khiến hắn run rẩy và mất khống chế thần lực.",s:[50,40,80]}};
+
+function castSkill(id){
+  document.body.classList.remove("fx-blue","fx-red","fx-purple","fx-infinity");void document.body.offsetWidth;
+  const fx={blue:["fx-blue","Lực hút không gian đang gia tăng!",1000],red:["fx-red","Cảnh báo sóng xung kích!",1000],purple:["fx-purple","Nguy hiểm: Khái niệm đang bị xóa bỏ!",1500],infinity:["fx-infinity","Vô Hạn đã được kích hoạt.",2000]}[id];
+  if(fx){document.body.classList.add(fx[0]);toast(fx[1]);setTimeout(()=>document.body.classList.remove(fx[0]),fx[2])}
+  else if(id==="domain"){document.body.style.filter="invert(1)";setTimeout(()=>document.body.style.filter="",600);toast("Tri thức vũ trụ đang tràn vào não em.")}
+  setTimeout(()=>openSkill(id),600);
+}
+function openSkill(id){
+  const d=skillDB[id];if(!d)return;
+  $("#modalEyebrow").textContent="DỮ LIỆU ĐƯỢC GIẢI MÃ";$("#modalTitle").textContent=d.t;
+  $("#modalTags").innerHTML=d.tags.map(t=>`<span class="skill-tag">${t}</span>`).join("");
+  $("#modalText").textContent=d.desc;
+  const L=["MỨC ĐỘ SÁT THƯƠNG","PHẠM VI ẢNH HƯỞNG","TẦN SUẤT SỬ DỤNG"];
+  $("#modalStats").style.display="block";
+  $("#modalStats").innerHTML=d.s.map((v,i)=>`<div class="stat-row"><span>${L[i]}</span><span>${v}%</span></div><div class="stat-bar-bg"><div class="stat-bar-fill" style="width:${v}%;${v>90?"background:var(--red)":""}"></div></div>`).join("");
+  show("modal");
+}
+
+function triggerEvent(n){
+  const o=[
+  ["MÙA THANH LỌC LỚN","Chu kỳ trăm năm một lần, Thiên Đình phóng chùm sáng phán quyết quét sạch vành đai Quỷ Giới. Hoang Tuyến biến thành biển lửa thánh.","border"],
+  ["ĐÊM HUYẾT NGUYỆT PHÁ GIỚI","Hiện tượng ma lực Quỷ Giới dâng trào làm nứt ranh giới, hàng vạn quỷ cấp thấp lao lên cắn xé hoang tuyến. Bầu trời hóa đỏ máu.","demon"],
+  ["ĐỢT KIỂM TOÁN ĐỘT XUẤT","Đoàn Thiên Sứ Giám Sát giáng lâm kiểm tra năng lượng tuần tra, buộc Satoru phải dùng cánh che giấu em khỏi tầm mắt của chúng.","heaven"]];
+  document.body.style.animation="pushOut .5s infinite alternate";setTimeout(()=>document.body.style.animation="",1500);
+  $("#eventOutput").innerHTML=`<div class="eyebrow">BIẾN CỐ ĐANG DIỄN RA</div><h3 style="color:var(--accent)">${o[n][0]}</h3><p>${o[n][1]}</p>`;
+  toast(`BIẾN CỐ LỚN: ${o[n][0]} đã bắt đầu!`);
+  setTimeout(()=>selectRealm(o[n][2]),800);
+}
+
+$("#eyeSlider").addEventListener("input",e=>{
+  const v=Number(e.target.value);
+  $("#eyeValue").textContent=v===0?"Bịt kín 100%":`Mở ${v}%`;
+  const count=Math.ceil(v/100*6);
+  $$(".feather").forEach((f,i)=>f.classList.toggle("on",i<count));
+  $("#eyeReadout").textContent=v<20?"“Ta dệt dải lụa này từ tơ thánh để cản bớt 80% thông tin. Đừng nghịch.”":v<55?"“Em tháo nó ra làm gì? Bọn quỷ ngoài kia rất ồn ào và bừa bãi...”":v<85?"“...Được rồi. Tháo thêm nữa não ta có thể sẽ bị thiêu đốt mất.”":"“Nhìn thẳng vào mắt ta đi. Em thấy gì? Cả vũ trụ đang ở trong này.”";
+  $("#collageChar").style.filter=`brightness(${1+v/300}) drop-shadow(0 0 ${v/6}px rgba(255,255,255,.7))`;
+});
+
+function renderStage(n){
+  const s=stages[n];
+  $$(".stagebtn").forEach((b,i)=>b.classList.toggle("active",i===n));
+  $("#stageEyebrow").textContent=`GIAI ĐOẠN 0${n+1} / ${s.mood}`;
+  $("#stageTitle").textContent=s.title;$("#stageDesc").textContent=s.desc;$("#stageQuote").textContent=s.quote;
+  $("#limitValue").textContent=s.limit+"% Vô Hạn";$("#limitBar").style.width=s.limit+"%";
+}
+$$(".stagebtn").forEach(b=>b.addEventListener("click",()=>renderStage(Number(b.dataset.stage))));
+
+function typeWriter(el,text,speed=25){
+  el.innerHTML="";let i=0;clearInterval(typingTimer);
+  typingTimer=setInterval(()=>{
+    if(i<text.length){el.innerHTML+=text[i]==="|"?"<br><br>":text[i];i++}else clearInterval(typingTimer);
+  },speed);
+}
+function triggerDialogue(type){
+  let r="",delta=0;
+  if(type==="tease"){r="Hắn chọn cách 'dỗi thụ động'. |Bay lơ lửng cao hơn đầu em đúng một tầm với, khoanh tay quay mặt đi nhưng mắt vẫn liếc xéo qua lớp khăn chờ em lên tiếng xin lỗi.";delta=12}
+  if(type==="sweet"){r="“Tạp phẩm.” - Hắn càu nhàu cay cú. |Nhưng lớp khiên Vô Hạn của hắn lập tức nứt ra một khe hở 5%, đủ để hắn đưa bàn tay lạnh toát ra nhận lấy chiếc kẹo ngọt từ tay em.";delta=18}
+  if(type==="jealous"){
+    r="Sắc mặt Satoru tối sầm lại, từ trường thánh bùng nổ! |Hắn ép Vô Hạn chặn sát vào da em, càu nhàu cay cú. Đột nhiên, hắn kéo giật em vào lòng, sáu chiếc Lục Dực to lớn bung ra bọc kín em lại, chà xát cật lực cho đến khi trên người em chỉ còn lại độc nhất mùi hương thanh khiết của hắn.";delta=35;
+    document.body.classList.remove("fx-infinity");void document.body.offsetWidth;document.body.classList.add("fx-infinity");
+    setTimeout(()=>document.body.classList.remove("fx-infinity"),2000);
+  }
+  affinity=Math.min(100,affinity+delta);
+  const el=$("#dialogueText");
+  if(!typedOnce){typedOnce=true;typeWriter(el,r)}
+  else{clearInterval(typingTimer);el.innerHTML=r.replace(/\|/g,"<br><br>")}
+  $("#dialogueTitle").textContent="Phản ứng của Gojo Satoru:";
+  $("#affinityText").innerHTML=`<span>TIẾN TRÌNH SA NGÃ:</span><span>${affinity} / 100</span>`;
+  $("#affinityBar").style.width=affinity+"%";
+  if(affinity>=80){$("#affinityLine").classList.add("blinking-danger");toast("CẢNH BÁO TỐI ĐA: Cỗ máy trật tự đang sụp đổ!")}
+  else $("#affinityLine").classList.remove("blinking-danger");
+  if(affinity>=100)renderStage(4);else if(affinity>=75)renderStage(3);else if(affinity>=40)renderStage(2);else if(affinity>=15)renderStage(1);
+}
+
+const revIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");revIO.unobserve(e.target)}}),{threshold:.12});
+function observeReveal(){$$(".rv:not(.in)").forEach(el=>revIO.observe(el))}
+
+function tick(){$("#clock").textContent=new Date().toLocaleTimeString("vi-VN",{hour12:false})}
+setInterval(tick,1000);tick();
+for(let i=0;i<35;i++){
+  const s=document.createElement("i");s.className="spark";
+  s.style.left=Math.random()*100+"%";s.style.top=Math.random()*100+"%";
+  s.style.animationDelay=(-Math.random()*10)+"s";s.style.animationDuration=(6+Math.random()*10)+"s";
+  $("#art").appendChild(s);
+}
+
+selectRealm("heaven");renderStage(0);observeReveal();
+
+const claimLink = document.querySelector(".btn-claim");
+if (claimLink) {
+  claimLink.addEventListener("click", () => {
+    document.title = "Can đảm lắm, chúc em thành công.";
+  });
+}
+</script>
+</body>
+</html>
