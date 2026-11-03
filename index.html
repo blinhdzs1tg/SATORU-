@@ -245,7 +245,7 @@
         }
         .hero-desc { max-width: 620px; font-size: 0.95rem; color: #94a3b8; font-weight: 300; }
 
-        /* 4. SHOWROOM (KHÔI PHỤC NGUYÊN VẸN HIỆU ỨNG VỆT SÁNG PHẢN CHIẾU KÍNH) */
+        /* 4. SHOWROOM */
         .showroom-section { background-color: #08090d; padding: 45px 6% 25px; width: 100%; }
         .showroom-scroll {
             display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory;
@@ -272,9 +272,7 @@
         .showroom-card h3 { font-family: var(--font-serif); font-size: 1.45rem; font-weight: 700; margin: 6px 0; }
         .showroom-btn { font-size: 0.85rem; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 6px; }
 
-        /* ========================================================
-           THẺ HƯỚNG DẪN (GIỮ NGUYÊN BỐ CỤC CHUẨN BAN ĐẦU)
-        ======================================================== */
+        /* THẺ HƯỚNG DẪN */
         .editorial-guide-strip {
             padding: 10px 6% 35px; width: 100%; background: #08090d; position: relative; z-index: 5;
         }
@@ -298,7 +296,6 @@
         }
         .editorial-card-desc { font-size: 0.86rem; color: #555968; line-height: 1.5; font-weight: 400; }
 
-        /* GIỮ NGUYÊN 1 DÒNG CHỮ XÁM BÊN TRÊN, 1 DÒNG GIÁ TRỊ BÊN DƯỚI */
         .editorial-stats-row {
             display: flex; align-items: center; gap: 28px; padding: 8px 30px;
             border-left: 1px solid rgba(0,0,0,0.08); border-right: 1px solid rgba(0,0,0,0.08);
@@ -325,9 +322,7 @@
             .editorial-btn-open { width: 100%; justify-content: center; }
         }
 
-        /* ========================================================
-           SỔ TAY HƯỚNG DẪN (ĐÃ CẬP NHẬT ĐẦY ĐỦ CSS QUẢN TRỊ MEDIA TỪ CODE 2)
-        ======================================================== */
+        /* SỔ TAY HƯỚNG DẪN */
         #guideSubpage {
             position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh;
             background: var(--guide-light-bg); z-index: 7000; overflow-y: auto; overflow-x: hidden;
@@ -377,7 +372,6 @@
         }
         .guide-hero-sub { font-size: 0.92rem; color: #5a5e6d; line-height: 1.65; }
 
-        /* BẢNG QUẢN TRỊ NỘI DUNG HƯỚNG DẪN CỦA ADMIN */
         .guide-admin-toolbar {
             display: none; gap: 8px; flex-wrap: wrap; margin-bottom: 5px;
             background: #ffffff; border: 1px dashed var(--crimson);
@@ -395,7 +389,6 @@
         .guide-block-title { font-family: var(--font-serif); font-size: clamp(1.15rem, 2.8vw, 1.4rem); font-weight: 700; color: #0c0d12; margin-bottom: 12px; line-height: 1.35; }
         .guide-block-text { color: #424653; font-size: 0.92rem; line-height: 1.8; font-weight: 400; white-space: pre-line; }
 
-        /* KHỐI CHỨA ẢNH & VIDEO TRONG HƯỚNG DẪN */
         .guide-centered-image-wrap {
             margin: 20px auto; width: 100%; max-width: 820px;
             background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.08);
@@ -425,9 +418,7 @@
         }
         .cream-title { font-family: var(--font-serif); font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 700; color: #0c0d12; margin-bottom: 4px; }
 
-        /* ========================================================
-           5.1. KHUNG NHÂN VẬT TIÊU BIỂU (THẺ VÁT NGHIÊNG TITANIUM & HÒA NỀN)
-        ======================================================== */
+        /* 5.1. KHUNG NHÂN VẬT TIÊU BIỂU */
         .featured-showcase-wrap { margin: 20px 0 35px; width: 100%; }
         
         .featured-strip-header {
@@ -435,7 +426,6 @@
             gap: 10px; margin-bottom: 22px; text-align: center; width: 100%; position: relative;
         }
 
-        /* HUY HIỆU VÁT NGHIÊNG SUPERCAR CAO CẤP MẠ VÀNG & CRIMSON */
         .featured-badge-pill {
             display: inline-flex; align-items: center; justify-content: center;
             font-family: var(--font-sans); font-size: 0.8rem; letter-spacing: 3.5px;
@@ -594,9 +584,7 @@
         .tag-btn.active { background: var(--crimson); border-color: var(--crimson); color: #fff; }
         .tag-del-btn { color: #888; font-size: 0.85rem; cursor: pointer; margin-left: 4px; }
 
-        /* ========================================================
-           5.2. GRID NHÂN VẬT (2 CỘT MOBILE, HIỂN THỊ ĐỦ CHỮ)
-        ======================================================== */
+        /* 5.2. GRID NHÂN VẬT */
         .char-grid {
             display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; width: 100%;
             align-items: stretch;
@@ -657,7 +645,6 @@
         .pg-btn:disabled { opacity: 0.35; cursor: not-allowed; }
         .pg-ellipsis { color: #888; font-weight: 700; padding: 0 4px; }
 
-        /* RESPONSIVE CHO MOBILE: 2 CỘT VÀ HIỂN THỊ ĐẦY ĐỦ CHỮ */
         @media(max-width: 768px) {
             .char-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px !important; }
             .char-header-banner { height: 135px; }
@@ -730,7 +717,7 @@
             align-items: center; border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.95rem; text-align: center;
         }
 
-        /* MODALS & CHẶN CUỘN TRÔI NỀN */
+        /* MODALS */
         .modal-wrap {
             position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(15px);
             z-index: 8500; display: none; justify-content: center; align-items: center; padding: 15px;
@@ -979,7 +966,7 @@
         </div>
     </section>
 
-    <!-- THẺ DẪN VÀO HƯỚNG DẪN (CHUẨN BỐ CỤC BAN ĐẦU 100%) -->
+    <!-- THẺ DẪN VÀO HƯỚNG DẪN -->
     <div class="editorial-guide-strip reveal" id="guide">
         <div class="editorial-guide-card">
             <div>
@@ -1021,12 +1008,9 @@
             <h2 class="cream-title" data-cms="roster_heading">Kho Hàng Nóng</h2>
         </div>
 
-        <!-- ========================================================
-             5.1. KHUNG NHÂN VẬT TIÊU BIỂU (ADMIN'S RECOMMENDATION)
-        ======================================================== -->
+        <!-- 5.1. KHUNG NHÂN VẬT TIÊU BIỂU -->
         <div class="featured-showcase-wrap reveal" id="featuredShowcaseWrap">
             <div class="featured-strip-header">
-                <!-- THẺ CỨNG VÁT NGHIÊNG TITANIUM SUPERCAR & VỆT SÁNG PHẢN CHIẾU -->
                 <div class="featured-badge-pill" data-cms="featured_strip_badge">
                     <span class="unskew-text">ADMIN'S RECOMMENDATION</span>
                 </div>
@@ -1055,10 +1039,10 @@
             </div>
         </div>
 
-        <!-- LƯỚI DANH SÁCH NHÂN VẬT (TỐI ĐA 12 CHAR / TRANG, MOBILE 2 CỘT HIỂN THỊ ĐỦ CHỮ) -->
+        <!-- LƯỚI DANH SÁCH NHÂN VẬT -->
         <div class="char-grid" id="charContainer"></div>
 
-        <!-- CỤM PHÂN TRANG PHONG CÁCH GOOGLE (1 2 3...) -->
+        <!-- PHÂN TRANG GOOGLE -->
         <div class="google-pagination-wrap" id="paginationContainer"></div>
     </section>
 
@@ -1105,9 +1089,7 @@
         <svg class="luxury-sparkle-svg" viewBox="0 0 24 24"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
     </div>
 
-    <!-- ========================================================
-         TRANG PHỤ SLIDE-OVER: SỔ TAY HƯỚNG DẪN
-    ======================================================== -->
+    <!-- SỔ TAY HƯỚNG DẪN -->
     <div id="guideSubpage">
         <div class="guide-header-bar">
             <button class="guide-back-btn" onclick="closeGuideSubpage()" aria-label="Quay lại trang chủ">
@@ -1138,7 +1120,6 @@
                 </p>
             </div>
 
-            <!-- BẢNG ĐIỀU KHIỂN NỘI DUNG DÀNH CHO ADMIN (ĐÃ SỬA LỖI HIỂN THỊ) -->
             <div class="guide-admin-toolbar" id="guideAdminToolbar">
                 <span style="font-weight:700; color:var(--crimson); font-size:0.78rem; display:flex; align-items:center;">⚡ Bảng Quản Trị Nội Dung:</span>
                 <button class="btn-brand" onclick="addNewGuideTextBlock()">+ Thêm Đoạn Văn Mới</button>
@@ -1203,12 +1184,11 @@
             </div>
 
             <div style="position:relative; z-index:1; display:flex; gap:20px; flex-wrap:wrap; margin-bottom:16px;">
-                <div style="position:relative; width:100%; max-width:210px; height:230px; border-radius:12px; overflow:hidden; margin:0 auto; border:2px solid rgba(255,255,255,0.95); box-shadow:0 0 20px rgba(229,9,20,0.5);">
+                <div style="position:width:100%; max-width:210px; height:230px; border-radius:12px; overflow:hidden; margin:0 auto; border:2px solid rgba(255,255,255,0.95); box-shadow:0 0 20px rgba(229,9,20,0.5);">
                     <img id="detailImg" src="" style="width:100%; height:100%; object-fit:cover;">
                 </div>
                 <div style="flex:1; min-width:230px; display:flex; flex-direction:column; justify-content:center;">
                     <div>
-                        <!-- SERIES // ĐỒNG BỘ MÀU VÀNG KIM -->
                         <div id="detailCat" style="color:var(--gold); font-size:0.75rem; font-weight:700; letter-spacing:1px;">SERIES</div>
                         <h2 id="detailTitle" style="font-family:var(--font-serif); font-size:1.5rem; margin:4px 0; text-shadow:0 2px 5px rgba(0,0,0,0.95);">Tên Bot</h2>
                         <div id="detailTags" class="detail-tags-wrap"></div>
@@ -1217,13 +1197,8 @@
                 </div>
             </div>
 
-            <!-- 1. THẺ NỘI DUNG VẠCH CẠNH, CHỮ NGHIÊNG -->
             <div class="char-prologue-box" id="detailPrologue"></div>
-
-            <!-- 2. THẺ NỘI DUNG VĂN BẢN THƯỜNG CHO LỜI MỞ ĐẦU DÀI -->
             <div class="char-opening-box" id="detailOpening"></div>
-
-            <!-- 3. CÁC NÚT BẤM / LINK BOT ĐẶT DƯỚI CÙNG TRÊN PHẦN BÌNH LUẬN -->
             <div class="modal-chat-links-wrap" id="detailChatLinksContainer"></div>
 
             <!-- PHẦN BÌNH LUẬN -->
@@ -1424,7 +1399,6 @@
         let currentPage = 1;
         const BOTS_PER_PAGE = 12;
 
-        // AUTO-SLIDE QUẢN TRỊ ADMIN RECOMMENDATION (10 GIÂY - CHỈ CHẠY KHI LƯỚT TỚI NƠI)
         let featuredAutoTimer = null;
         let isFeaturedInView = false;
         let isFeaturedHovered = false;
@@ -2095,7 +2069,7 @@
             }
         }
 
-function promptAddTagShortcut() {
+        function promptAddTagShortcut() {
             const newT = prompt("Nhập tên Tag mới muốn ghim vào thanh tìm kiếm (không cần gõ #):");
             if (newT && !presetTags.includes(newT.trim())) {
                 presetTags.push(newT.trim());
@@ -2213,9 +2187,7 @@ function promptAddTagShortcut() {
 
         function openRulesModal() { openModalById('rulesModal'); }
 
-        // ========================================================
-        // SỔ TAY HƯỚNG DẪN: ĐÃ SỬA TOÀN DIỆN NÚT THÊM ĐOẠN, THÊM ẢNH/VIDEO
-        // ========================================================
+        /* SỔ TAY HƯỚNG DẪN */
         function openGuideSubpage() {
             const sub = document.getElementById('guideSubpage');
             if (!sub) return;
@@ -2378,9 +2350,7 @@ function promptAddTagShortcut() {
             }
         }
 
-        /* ========================================================
-           RENDER ROSTER BOTS, SHOWCASE TIÊU BIỂU & PHÂN TRANG
-        ======================================================== */
+        /* 5. ROSTER BOTS & SHOWCASE */
         function renderFeaturedShowcase(featuredBots) {
             const container = document.getElementById('featuredMatrixContainer');
             const wrap = document.getElementById('featuredShowcaseWrap');
@@ -2395,7 +2365,6 @@ function promptAddTagShortcut() {
 
             wrap.style.display = 'block';
 
-            // CHỈ HIỆN SỐ LƯỢNG KHI CÓ TỪ 2 CHAR TRỞ LÊN
             if (featuredBots.length >= 2) {
                 counterLabel.style.display = 'block';
                 counterLabel.innerText = `Số lượng: ${featuredBots.length}`;
@@ -2410,26 +2379,21 @@ function promptAddTagShortcut() {
                 const hasLiked = localStorage.getItem('liked_bot_' + bot.id) === 'true';
                 const tagsList = bot.tags && bot.tags.length > 0 ? bot.tags.slice(0, 4).map(t => `<span class="spec-capsule">#${t}</span>`).join('') : '';
 
-                // TOÀN THẺ CÓ CON TRỎ TAY VÀ NHẬN CLICK MỞ MODAL TRỰC TIẾP
                 container.innerHTML += `
                     <div class="featured-super-card" data-findex="${index}" onclick="handleCardClick('${bot.id}')">
-                        <!-- NỀN ART TRẢI RỘNG TOÀN THẺ HÒA MÀU TỰ NHIÊN NHƯ MODAL -->
                         <div class="featured-card-bg-wrap">
                             <img src="${bot.bgImage || bot.image || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80'}" class="featured-bg-art" alt="${bot.name}">
                             <div class="featured-visual-overlay"></div>
                         </div>
 
-                        <!-- CỘT AVATAR CHÂN DUNG CÓ GLOW -->
                         <div class="featured-card-left">
                             <div class="featured-avatar-halo">
                                 <img src="${bot.image || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80'}" alt="${bot.name}">
                             </div>
                         </div>
 
-                        <!-- CỘT NỘI DUNG THÔNG TIN HÒA MÀU NỀN -->
                         <div class="featured-card-content">
                             <div>
-                                <!-- SERIES // ĐỒNG BỘ MÀU VÀNG KIM -->
                                 <div class="featured-spec-code">
                                     <span>SERIES // ${bCats.join(' · ')}</span>
                                 </div>
@@ -2456,7 +2420,6 @@ function promptAddTagShortcut() {
                 `;
             });
 
-            // TỰ ĐỘNG CẬP NHẬT CHỈ SỐ KHI NGƯỜI DÙNG CUỘN TAY
             let userScrollTimer = null;
             container.onscroll = () => {
                 clearTimeout(userScrollTimer);
@@ -2478,7 +2441,6 @@ function promptAddTagShortcut() {
                 }, 150);
             };
 
-            // TẠM DỪNG KHI CHẠM/HOVER VÀ CHỜ ĐỦ 10 GIÂY SAU KHI BUÔNG TAY
             container.onmouseenter = () => { isFeaturedHovered = true; stopFeaturedAutoScroll(); };
             container.onmouseleave = () => { isFeaturedHovered = false; if (isFeaturedInView) startFeaturedAutoScroll(); };
             container.ontouchstart = () => { isFeaturedHovered = true; stopFeaturedAutoScroll(); };
@@ -2494,7 +2456,6 @@ function promptAddTagShortcut() {
             }
         }
 
-        /* AUTO-SLIDE QUẢN TRỊ ADMIN RECOMMENDATION (10 GIÂY - CHỈ CHẠY KHI LƯỚT TỚI NƠI) */
         function initFeaturedAutoScrollObserver() {
             const wrap = document.getElementById('featuredShowcaseWrap');
             if (!wrap) return;
@@ -2518,7 +2479,6 @@ function promptAddTagShortcut() {
             const cards = matrix.querySelectorAll('.featured-super-card');
             if (cards.length <= 1) return;
 
-            // ĐÚNG 10 GIÂY MỚI TRƯỢT SANG CARD KẾ TIẾP
             featuredAutoTimer = setInterval(() => {
                 if (!isFeaturedInView || isFeaturedHovered) return;
                 const freshCards = matrix.querySelectorAll('.featured-super-card');
@@ -2526,7 +2486,7 @@ function promptAddTagShortcut() {
 
                 currentFeaturedIndex++;
                 if (currentFeaturedIndex >= freshCards.length) {
-                    currentFeaturedIndex = 0; // LOOP LẠI TỪ ĐẦU
+                    currentFeaturedIndex = 0;
                 }
 
                 const targetCard = freshCards[currentFeaturedIndex];
@@ -2550,7 +2510,6 @@ function promptAddTagShortcut() {
             const searchVal = botSearchInput.value.toLowerCase().trim();
             const sortVal = document.getElementById('sortSelector').value;
 
-            // 1. LỌC NHÂN VẬT
             let filtered = bots.filter(b => {
                 const bCats = b.categories || (b.category ? [b.category] : []);
                 if (isNSFWBlocked && (bCats.includes('NSFW') || (b.tags && b.tags.includes('18+')))) return false;
@@ -2559,7 +2518,6 @@ function promptAddTagShortcut() {
                 return matchText && matchTags;
             });
 
-            // 2. KHUNG TIÊU BIỂU (ADMIN'S RECOMMENDATION)
             const featuredList = bots.filter(b => {
                 const bCats = b.categories || (b.category ? [b.category] : []);
                 if (isNSFWBlocked && (bCats.includes('NSFW') || (b.tags && b.tags.includes('18+')))) return false;
@@ -2567,7 +2525,6 @@ function promptAddTagShortcut() {
             });
             renderFeaturedShowcase(featuredList);
 
-            // 3. SẮP XẾP DANH SÁCH (ƯU TIÊN GHIM)
             filtered.sort((a, b) => {
                 if (a.pinned && !b.pinned) return -1;
                 if (!a.pinned && b.pinned) return 1;
@@ -2590,7 +2547,6 @@ function promptAddTagShortcut() {
                 return;
             }
 
-            // 4. TÍNH TOÁN PHÂN TRANG (TỐI ĐA 12 CHAR / TRANG)
             const totalItems = filtered.length;
             const totalPages = Math.ceil(totalItems / BOTS_PER_PAGE) || 1;
             if (currentPage > totalPages) currentPage = totalPages;
@@ -2599,7 +2555,6 @@ function promptAddTagShortcut() {
             const startIndex = (currentPage - 1) * BOTS_PER_PAGE;
             const paginatedBots = filtered.slice(startIndex, startIndex + BOTS_PER_PAGE);
 
-            // 5. HIỂN THỊ DANH SÁCH CHAR
             paginatedBots.forEach(bot => {
                 const tagsList = bot.tags && bot.tags.length > 0 ? `#${bot.tags.join(' #')}` : '';
                 const bCats = bot.categories || (bot.category ? [bot.category] : ['SFW']);
@@ -2647,7 +2602,6 @@ function promptAddTagShortcut() {
                 `;
             });
 
-            // 6. PHÂN TRANG GOOGLE STYLE
             renderGooglePagination(totalPages);
         }
 
@@ -3030,7 +2984,7 @@ function promptAddTagShortcut() {
 
             const newC = {
                 id: 'c_' + Date.now(), author, text, time: getRealTime(), timestamp: Date.now(),
-                likes: 0, liked: false, adminLiked: false, pinned: false, isAdmin, userToken, replies: []
+                likes: 0, adminLiked: false, pinned: false, isAdmin, userToken, replies: []
             };
 
             if (db) db.ref(`char_comments/${currentCharId}/${newC.id}`).set(newC);
@@ -3062,7 +3016,7 @@ function promptAddTagShortcut() {
 
             const newPost = {
                 id: 'f_' + Date.now(), author, text, time: getRealTime(), timestamp: Date.now(),
-                likes: 0, liked: false, adminLiked: false, pinned: false, isAdmin, userToken, replies: []
+                likes: 0, adminLiked: false, pinned: false, isAdmin, userToken, replies: []
             };
 
             if (db) db.ref('forum/' + newPost.id).set(newPost);
@@ -3084,6 +3038,8 @@ function promptAddTagShortcut() {
 
             return list.map(item => {
                 const canDelete = isAdmin || (item.userToken === userToken);
+                // Kiểm tra lượt like riêng theo từng máy dựa trên localStorage
+                const hasLiked = localStorage.getItem('liked_comment_' + item.id) === 'true';
                 let childrenHTML = '';
                 if (item.replies) {
                     const repArray = Array.isArray(item.replies) ? item.replies : Object.values(item.replies);
@@ -3107,7 +3063,7 @@ function promptAddTagShortcut() {
                         </div>
                         <div class="comment-msg">${autoLinkUrls(item.text)}</div>
                         <div class="comment-actions">
-                            <button class="action-btn ${item.liked ? 'liked' : ''}" onclick="toggleLike('${contextKey}', '${item.id}')">♥ <span>${item.likes || 0}</span></button>
+                            <button class="action-btn ${hasLiked ? 'liked' : ''}" onclick="toggleLike('${contextKey}', '${item.id}')">♥ <span>${item.likes || 0}</span></button>
                             ${isAdmin ? `<button class="action-btn" style="color:#60a5fa;" onclick="toggleAdminHeart('${contextKey}', '${item.id}')">${item.adminLiked ? '💙 Bỏ Tim' : '💙 Tim Admin'}</button>` : ''}
                             <button class="action-btn" onclick="toggleReplyBox('${item.id}')">↳ Trả lời</button>
                             ${isAdmin ? `<button class="action-btn" style="color:#f59e0b;" onclick="togglePinComment('${contextKey}', '${item.id}')">${item.pinned ? 'Bỏ ghim' : '📌 Ghim'}</button>` : ''}
@@ -3163,7 +3119,7 @@ function promptAddTagShortcut() {
 
             const newRep = {
                 id: 'rep_' + Date.now(), author, text, time: getRealTime(), timestamp: Date.now(),
-                likes: 0, liked: false, adminLiked: false, pinned: false, isAdmin, userToken, replies: []
+                likes: 0, adminLiked: false, pinned: false, isAdmin, userToken, replies: []
             };
             const dbPath = contextKey === 'forum' ? 'forum' : `char_comments/${contextKey.replace('char_', '')}`;
 
@@ -3198,14 +3154,25 @@ function promptAddTagShortcut() {
             return false;
         }
 
+        /* XỬ LÝ LIKE BÌNH LUẬN CỘNG DỒN VÀ ĐỘC LẬP TỪNG THIẾT BỊ */
         function toggleLike(contextKey, id) {
+            const key = 'liked_comment_' + id;
+            const hasLiked = localStorage.getItem(key) === 'true';
+            const isAddingLike = !hasLiked;
+
+            if (isAddingLike) {
+                localStorage.setItem(key, 'true');
+            } else {
+                localStorage.removeItem(key);
+            }
+
             const dbPath = contextKey === 'forum' ? 'forum' : `char_comments/${contextKey.replace('char_', '')}`;
             if (db) {
                 db.ref(dbPath).once('value', (snap) => {
                     const data = snap.val();
                     if (data) {
                         const list = Object.values(data);
-                        toggleLikeRecursively(list, String(id));
+                        toggleLikeRecursively(list, String(id), isAddingLike);
                         const obj = {}; list.forEach(item => obj[item.id] = item);
                         db.ref(dbPath).set(obj);
                     }
@@ -3213,15 +3180,19 @@ function promptAddTagShortcut() {
             }
         }
 
-        function toggleLikeRecursively(items, targetId) {
+        function toggleLikeRecursively(items, targetId, isAddingLike) {
             for (let item of items) {
                 if (String(item.id) === targetId) {
-                    item.liked = !item.liked; item.likes = (item.likes || 0) + (item.liked ? 1 : -1);
+                    if (isAddingLike) {
+                        item.likes = (item.likes || 0) + 1;
+                    } else {
+                        item.likes = Math.max(0, (item.likes || 1) - 1);
+                    }
                     return true;
                 }
                 if (item.replies) {
                     const repArray = Array.isArray(item.replies) ? item.replies : Object.values(item.replies);
-                    if (toggleLikeRecursively(repArray, targetId)) return true;
+                    if (toggleLikeRecursively(repArray, targetId, isAddingLike)) return true;
                 }
             }
             return false;
